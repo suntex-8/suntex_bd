@@ -50,7 +50,7 @@ const partnerNote = "Collaborative partners who support and grow with us — ext
 
 export function Services() {
   return (
-    <section id="services" className="relative overflow-hidden bg-[#fafaff] py-20 lg:py-28">
+    <section id="services" className="relative overflow-hidden bg-[#edf2fb] py-20 lg:py-28">
       {/* Background SVG decorations */}
       <SewingSVG />
       <SpoolSVG />
@@ -80,60 +80,60 @@ export function Services() {
           One Partner, Two Ways We Deliver
         </motion.h2>
 
-        {/* Two blocks */}
-        <div className="grid gap-8 md:grid-cols-2">
-          {/* Block A — In-House Manufacturing */}
+        {/* Narrative dialogue split */}
+        <div className="grid gap-10 md:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
-            className="rounded-2xl border border-foreground/10 bg-white p-8"
+            className="relative border-t border-foreground/15 pt-6"
           >
-            <span className="mb-4 inline-block rounded-full bg-accent/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-accent">
-              Block A
-            </span>
-            <h3 className="mb-5 text-xl font-semibold text-foreground">
-              In-House Manufacturing
-            </h3>
-            <ul className="mb-5 space-y-3">
+            <div className="mb-6 text-[10px] font-bold uppercase tracking-[0.28em] text-foreground/60">
+              We make
+            </div>
+
+            <div className="space-y-2">
               {inHouseItems.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-sm text-foreground/70">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/10">
-                    <Check className="h-3 w-3 text-accent" />
-                  </span>
+                <p
+                  key={item}
+                  className="text-[clamp(1.1rem,2vw,2rem)] leading-[1.1] tracking-[-0.05em] text-foreground/85"
+                >
                   {item}
-                </li>
+                </p>
               ))}
-            </ul>
-            <p className="text-sm leading-relaxed text-foreground/50">{inHouseNote}</p>
+            </div>
+
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-foreground/60">
+              {inHouseNote}
+            </p>
           </motion.div>
 
-          {/* Block B — Partner-Sourced Products */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="rounded-2xl border border-foreground/10 bg-white p-8"
+            className="relative border-t border-foreground/15 pt-6 md:border-l md:border-foreground/15 md:pl-8"
           >
-            <span className="mb-4 inline-block rounded-full bg-accent/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-accent">
-              Block B
-            </span>
-            <h3 className="mb-5 text-xl font-semibold text-foreground">
-              Partner-Sourced Products
-            </h3>
-            <ul className="mb-5 space-y-3">
+            <div className="mb-6 text-[10px] font-bold uppercase tracking-[0.28em] text-foreground/60">
+              We source
+            </div>
+
+            <div className="space-y-2">
               {partnerItems.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-sm text-foreground/70">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/10">
-                    <Check className="h-3 w-3 text-accent" />
-                  </span>
+                <p
+                  key={item}
+                  className="text-[clamp(1.1rem,2vw,2rem)] leading-[1.1] tracking-[-0.05em] text-foreground/85"
+                >
                   {item}
-                </li>
+                </p>
               ))}
-            </ul>
-            <p className="text-sm leading-relaxed text-foreground/50">{partnerNote}</p>
+            </div>
+
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-foreground/60">
+              {partnerNote}
+            </p>
           </motion.div>
         </div>
       </div>

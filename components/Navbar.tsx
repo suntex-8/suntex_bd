@@ -19,7 +19,7 @@ export function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50 transition-all duration-500">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div
-          className={`mt-3 flex h-14 items-center justify-between rounded-full border px-6 transition-all duration-500 ${
+          className={`mt-3 flex h-14 items-center justify-between rounded-full border px-4 transition-all duration-500 sm:px-6 ${
             scrolled
               ? "border-white/10 navbar-glass-scrolled"
               : "border-white/10 navbar-glass"
@@ -118,14 +118,14 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
-              className="fixed inset-0 z-40 bg-black/50"
+              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-[2px]"
             />
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 260 }}
-              className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col bg-white shadow-2xl sm:w-80"
+              className="fixed inset-y-0 right-0 z-50 flex w-[min(22rem,calc(100vw-1rem))] max-w-full flex-col bg-gradient-to-b from-[#0b2239] via-[#14354f] to-[#020810] text-white shadow-2xl"
             >
               <div className="mb-4 flex items-center justify-between px-5 pt-5">
                 <Image
@@ -138,7 +138,7 @@ export function Navbar() {
                 <button
                   aria-label="Close menu"
                   onClick={() => setMobileOpen(false)}
-                  className="p-1 text-foreground hover:text-accent"
+                  className="p-1 text-white/80 hover:text-white"
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -146,28 +146,30 @@ export function Navbar() {
               {/* All nav items — scrollable list */}
               <nav className="flex-1 overflow-y-auto px-5 pb-4">
                 {navbarData.menu.map((item, i) => (
-                  <div key={item.label} className="border-b border-black/5">
-                    <button
-                      onClick={() => {
-                        if (item.children?.length) {
-                          setOpenMenu(openMenu === i ? null : i);
-                        } else {
-                          setMobileOpen(false);
-                        }
-                      }}
-                      className="flex w-full items-center justify-between py-3.5 text-left text-[15px] font-bold text-foreground hover:text-accent"
-                    >
-                      <Link href={item.href} onClick={() => !item.children?.length && setMobileOpen(false)}>
+                  <div key={item.label} className="border-b border-white/10">
+                    <div className="flex w-full items-center justify-between py-3.5 text-left text-[15px] font-bold text-white/90">
+                      <Link
+                        href={item.href}
+                        onClick={() => !item.children?.length && setMobileOpen(false)}
+                        className="flex-1 hover:text-accent"
+                      >
                         {item.label}
                       </Link>
                       {item.children?.length ? (
-                        <ChevronDown
-                          className={`h-4 w-4 transition-transform ${
-                            openMenu === i ? "rotate-180" : ""
-                          }`}
-                        />
+                        <button
+                          type="button"
+                          aria-expanded={openMenu === i}
+                          onClick={() => setOpenMenu(openMenu === i ? null : i)}
+                          className="ml-2 rounded-full p-1 text-white/80 hover:text-accent"
+                        >
+                          <ChevronDown
+                            className={`h-4 w-4 transition-transform ${
+                              openMenu === i ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
                       ) : null}
-                    </button>
+                    </div>
                     <AnimatePresence>
                       {openMenu === i && item.children?.length ? (
                         <motion.ul
@@ -181,7 +183,7 @@ export function Navbar() {
                               <Link
                                 href={c.href}
                                 onClick={() => setMobileOpen(false)}
-                                className="block px-3 py-2 text-sm text-foreground/70 hover:text-accent"
+                                className="block px-3 py-2 text-sm text-white/70 hover:text-accent"
                               >
                                 {c.label}
                               </Link>
@@ -193,7 +195,7 @@ export function Navbar() {
                   </div>
                 ))}
               </nav>
-              <div className="border-t border-black/5 px-5 py-4">
+              <div className="border-t border-white/10 px-5 py-4">
                 <Link
                   href={navbarData.cta.href}
                   onClick={() => setMobileOpen(false)}
