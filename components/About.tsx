@@ -9,11 +9,11 @@ import { SectionHeader } from "./SectionHeader";
 
 export function About() {
   return (
-    <section id="about" className="bg-[#edf2fb] py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-12">
+    <section id="about" className="overflow-hidden bg-[#edf2fb] py-20 lg:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
+        <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-12">
           {/* Left content */}
-          <div className="lg:col-span-7">
+          <div className="min-w-0 lg:col-span-7">
             <SectionHeader data={aboutData} />
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -85,16 +85,16 @@ export function About() {
           </div>
 
           {/* Right images — two overlapping images */}
-          <div className="relative lg:col-span-5">
+          <div className="relative min-w-0 lg:col-span-5">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6 }}
-              className="relative flex items-end justify-end"
+              className="relative mx-auto flex max-w-[420px] items-end justify-center gap-2 sm:gap-4 lg:max-w-none lg:justify-end"
             >
               {/* Smaller left image */}
-              <div className="relative z-10 -mr-10 h-[300px] w-[240px] overflow-hidden rounded-xl shadow-xl sm:h-[340px] sm:w-[270px]">
+              <div className="relative z-10 h-[220px] w-[170px] shrink-0 overflow-hidden rounded-xl shadow-xl sm:h-[280px] sm:w-[220px] lg:-mr-10 lg:h-[340px] lg:w-[270px]">
                 <Image
                   src={aboutData.images.main}
                   alt="About Suntex - craftsmanship"
@@ -104,7 +104,7 @@ export function About() {
               </div>
 
               {/* Taller right image */}
-              <div className="relative h-[380px] w-[280px] overflow-hidden rounded-xl shadow-2xl sm:h-[460px] sm:w-[310px]">
+              <div className="relative h-[280px] w-[200px] shrink-0 overflow-hidden rounded-xl shadow-2xl sm:h-[360px] sm:w-[260px] lg:h-[460px] lg:w-[310px]">
                 <Image
                   src={aboutData.images.overlay}
                   alt="About Suntex - team"
@@ -115,7 +115,7 @@ export function About() {
                 {/* 4.9 rating badge — bottom-left of larger image */}
                 <div className="absolute bottom-5 left-5 z-10">
                   <div className="flex items-center gap-2">
-                    <span className="font-display text-4xl font-bold text-white">
+                    <span className="font-display text-3xl font-bold text-white sm:text-4xl">
                       {aboutData.rating.score}
                     </span>
                     <div>
@@ -133,14 +133,14 @@ export function About() {
                       </div>
                     </div>
                   </div>
-                  <p className="mt-1 max-w-[200px] whitespace-pre-line text-[11px] leading-snug font-medium text-white/90">
+                  <p className="mt-1 max-w-[150px] whitespace-pre-line text-[10px] leading-snug font-medium text-white/90 sm:max-w-[200px] sm:text-[11px]">
                     {aboutData.rating.caption}
                   </p>
                 </div>
               </div>
 
               {/* Vertical text — right edge */}
-              <span className="absolute -right-10 top-1/2 -translate-y-1/2 rotate-90 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.3em] text-foreground/30">
+              <span className="absolute -right-2 top-1/2 hidden -translate-y-1/2 rotate-90 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.3em] text-foreground/30 lg:inline-flex">
                 {aboutData.tagText}
               </span>
             </motion.div>

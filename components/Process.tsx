@@ -1,74 +1,100 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowRight, Factory, Globe, Handshake, RefreshCcw, Truck, HeadphonesIcon } from "lucide-react";
-import { processData, type ProcessStep } from "@/data/SiteSectionData";
-import { SectionHeader } from "./SectionHeader";
-import { cardVariants } from "./anim";
-
-const stepIcons = [Factory, Globe, RefreshCcw, Handshake, Truck, HeadphonesIcon];
+import { ArrowRight } from "lucide-react";
+import { processData } from "@/data/SiteSectionData";
 
 export function Process() {
   return (
-    <section id="process" className="bg-[#f6f6f3] py-20 lg:py-28">
+    <section id="process" className="bg-[#edf2fb] py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <SectionHeader data={processData} />
-        <div className="relative grid gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 lg:gap-x-8">
-          {processData.steps.map((step, i) => (
-            <ProcessCard key={step.order} step={step} index={i} />
-          ))}
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          {/* Left — cloth illustration */}
+          <div className="relative hidden h-[400px] lg:block lg:h-[600px]">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="flex h-full items-center justify-center"
+            >
+              {/* //increse the  height and width */}
+              <img
+                src="/cltsvg3.png"
+                // height={600}
+                // width={900}
+                alt="Fabric illustration"
+                className=" "
+              />
+            </motion.div>
+          </div>
+
+          {/* Right — process steps */}
+          <div>
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="mb-5 inline-block rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground"
+            >
+              The process
+            </motion.span>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mb-12 text-[36px] leading-tight font-normal text-foreground sm:text-5xl lg:text-[56px]"
+            >
+              How it works
+            </motion.h2>
+
+            <div className="relative">
+              {/* Vertical connecting line */}
+              <div className="absolute left-[7px] top-3 bottom-3 w-px bg-foreground/10" />
+
+              <div className="space-y-8">
+                {processData.steps.map((step, i) => (
+                  <motion.div
+                    key={step.order}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.08 }}
+                    className="relative flex gap-5"
+                  >
+                    {/* Dot */}
+                    <div className="relative z-10 mt-1.5 flex h-[15px] w-[15px] shrink-0 items-center justify-center">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#047bae] opacity-30" />
+                      <span className="relative inline-flex h-[9px] w-[9px] rounded-full bg-[#097daf]" />
+                    </div>
+
+                    <div>
+                      <span className="mb-1 block text-lg font-semibold text-foreground/40 sm:text-xl">
+                        {step.order}
+                      </span>
+                      <div className="text-lg font-light text-foreground sm:text-xl ">
+                        {step.title}
+                      </div>
+                      {i === 0 && (
+                        <a
+                          href="#"
+                          className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-foreground underline underline-offset-4 hover:text-accent"
+                        >
+                          Start now
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </a>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function ProcessCard({ step, index }: { step: ProcessStep; index: number }) {
-  const isLast = index === processData.steps.length - 1;
-  const Icon = stepIcons[index];
-  return (
-    <motion.div
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      custom={index}
-      className="group relative text-center"
-    >
-      {/* Dashed arrow connector pointing to next step */}
-      {!isLast && (
-        <div className="pointer-events-none absolute -right-4 top-14 hidden items-center lg:flex">
-          <span className="flex items-center gap-0.5 text-accent" aria-hidden>
-            {Array.from({ length: 4 }).map((_, i) => (
-              <span
-                key={i}
-                className="h-0.5 w-4 border-t-2 border-dashed border-accent"
-              />
-            ))}
-            <ArrowRight className="h-4 w-4" />
-          </span>
-        </div>
-      )}
-
-      {/* Number circle with overlapping icon */}
-      <div className="relative mx-auto h-[120px] w-[120px]">
-        {/* Icon overlapping top-right of circle */}
-        <span className="absolute -top-3 right-[-6px] z-10 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-foreground shadow-lg transition-colors duration-400 group-hover:bg-yellow">
-          <Icon className="h-5 w-5" />
-        </span>
-        {/* Number circle */}
-        <div className="flex h-full w-full items-center justify-center rounded-full bg-white text-[34px] font-medium text-foreground shadow-sm ring-1 ring-black/5 transition-all duration-400 group-hover:bg-foreground group-hover:text-white group-hover:shadow-xl">
-          {step.order}
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="mt-8">
-        <h3 className="mb-3 text-2xl">{step.title}</h3>
-        <p className="mx-auto max-w-xs text-sm leading-relaxed text-foreground/70">
-          {step.description}
-        </p>
-      </div>
-    </motion.div>
   );
 }

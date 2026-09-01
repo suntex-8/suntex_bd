@@ -12,7 +12,7 @@ export function Projects() {
   }));
 
   return (
-    <section id="projects" className="bg-[#f6f6f3] py-20 lg:py-28">
+    <section id="projects" className="bg-[#edf2fb] py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHeader data={projectsData} />
         <div className="mt-10">
