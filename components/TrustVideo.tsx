@@ -19,7 +19,7 @@ export function TrustVideo() {
   const contentY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-foreground py-28 lg:py-40">
+    <section ref={ref} className="relative overflow-hidden py-28 lg:py-40">
       {/* Full-width parallax background */}
       <motion.div style={{ y: bgY }} className="absolute inset-x-0 -top-[15%] h-[130%]">
         <Image

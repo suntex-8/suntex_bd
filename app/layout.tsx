@@ -5,9 +5,9 @@ import { Loader } from "@/components/Loader";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Suntex BD | Textile & Garment Manufacturing",
+  title: "SUNTEX Apparel Group | Garment Manufacturing & Sourcing, Bangladesh",
   description:
-    "Suntex BD is a leading textile & garment manufacturing company producing high quality fabrics and apparel for global brands.",
+    "Bangladesh-based garment manufacturer and sourcing partner. In-house knit & woven production, 200+ partner factories, in-house design, QC, and logistics.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

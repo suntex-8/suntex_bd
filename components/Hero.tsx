@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { heroSectionData } from "@/data/HeroSectionData";
+import { SocialIcon } from "@/components/SocialIcon";
 
 const contentVariants: Variants = {
   enter: () => ({ opacity: 0, x: -60 }),
@@ -119,8 +120,8 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Left vertical social rail */}
-      <div className="absolute left-8 top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center gap-4 xl:flex">
+      {/* Right vertical social rail */}
+      <div className="absolute right-8 top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center gap-4 xl:flex">
         <span className="h-20 w-px bg-white/30" />
         <div className="flex flex-col gap-3">
           {heroSectionData.social.map((s) => (
@@ -128,9 +129,9 @@ export function Hero() {
               key={s.label}
               href={s.href}
               aria-label={s.label}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-[10px] font-bold text-white/80 transition-colors hover:border-accent hover:text-accent"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-accent hover:text-accent"
             >
-              {s.label}
+              <SocialIcon name={s.icon} className="h-3.5 w-3.5" />
             </a>
           ))}
         </div>

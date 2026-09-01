@@ -1,38 +1,26 @@
 // =====================================================================
 // HERO SECTION DATA
-// ---------------------------------------------------------------------
-// Change these values to update the hero slider. Each slide is a full
-// screen background with headline/content. Update the `image` links to
-// your own images located in /public or any external URL.
 // =====================================================================
 
 export interface HeroSocial {
   label: string;
   href: string;
+  icon: "facebook" | "twitter" | "instagram" | "linkedin";
 }
 
 export interface HeroSlide {
-  /** Background image. Keep the image in /public and reference like "/images/hero-1.jpg" */
   image: string;
-  /** Yellow sub-title above the big headline */
   subTitle: string;
-  /** Big display headline. Use "\n" (double quotes) to split onto two lines */
   headline: string;
-  /** Supporting paragraph */
   paragraph: string;
-  /** Button label */
   cta: string;
-  /** Button target */
   ctaHref: string;
 }
 
 export interface HeroData {
   slides: HeroSlide[];
-  /** Social rail shown vertically on the left of the hero */
   social: HeroSocial[];
-  /** Label shown under the social icons */
   followLabel: string;
-  /** Slider rotation speed in ms */
   autoPlayInterval: number;
 }
 
@@ -40,41 +28,38 @@ export const heroSectionData: HeroData = {
   autoPlayInterval: 6000,
   followLabel: "Follow",
   social: [
-    { label: "Fb", href: "#" },
-    { label: "Tw", href: "#" },
-    { label: "Ig", href: "#" },
-    { label: "Li", href: "#" },
+    { label: "Facebook", href: "#", icon: "facebook" },
+    { label: "Twitter", href: "#", icon: "twitter" },
+    { label: "Instagram", href: "#", icon: "instagram" },
+    { label: "LinkedIn", href: "#", icon: "linkedin" },
   ],
   slides: [
     {
-      image:
-        "https://images.pexels.com/photos/984619/pexels-photo-984619.jpeg?auto=compress&cs=tinysrgb&w=1920",
-      subTitle: "The Future of Fabric Begins Here",
-      headline: "Weaving Quality\nInto Every Thread",
+      image: "https://images.pexels.com/photos/984619/pexels-photo-984619.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      subTitle: "Connecting Ideas to Reality",
+      headline: "SUNTEX\nApparel Group",
       paragraph:
-        "In 1999, Suntex entered the garments sector with its manufacturing textile facilities of cotton yarn. Combining modern technology with skilled manpower.",
-      cta: "Explore More",
-      ctaHref: "#about",
+        "Full-Service Garment Manufacturing & Sourcing, Built in Bangladesh.",
+      cta: "Get a Quote",
+      ctaHref: "#contact",
     },
     {
-      image:
-        "https://images.pexels.com/photos/9776239/pexels-photo-9776239.jpeg?auto=compress&cs=tinysrgb&w=1920",
-      subTitle: "Premium Textile Manufacturing",
-      headline: "Crafted For\nGlobal Brands",
+      image: "https://images.pexels.com/photos/9776239/pexels-photo-9776239.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      subTitle: "200+ Partner Factories Across Bangladesh",
+      headline: "Manufacturing\nYou Can Trust",
       paragraph:
-        "We are a leading textile & garment manufacturing company dedicated to producing high quality fabrics trusted by fashion brands worldwide.",
-      cta: "Explore More",
-      ctaHref: "#about",
+        "In-house knit & woven production with a trusted partner network for every category a modern buyer needs.",
+      cta: "Our Services",
+      ctaHref: "#services",
     },
     {
-      image:
-        "https://images.pexels.com/photos/326240/pexels-photo-326240.jpeg?auto=compress&cs=tinysrgb&w=1920",
-      subTitle: "Sustainable & Innovative Solutions",
-      headline: "Innovation In\nEvery Stitch",
+      image: "https://images.pexels.com/photos/326240/pexels-photo-326240.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      subTitle: "Flexible MOQ from 500 Pieces",
+      headline: "Quality Without\nCompromise",
       paragraph:
-        "Combining modern technology with skilled manpower, we deliver sustainable textile solutions under an inspiring atmosphere.",
-      cta: "Explore More",
-      ctaHref: "#about",
+        "From emerging labels to global brands — we deliver the right product, at the right quality, on time.",
+      cta: "Contact Us",
+      ctaHref: "#contact",
     },
   ],
 };

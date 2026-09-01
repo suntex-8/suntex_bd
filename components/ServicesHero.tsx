@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 
 export function ServicesHero() {
   return (
-    <section className="relative h-[340px] w-full overflow-hidden bg-foreground lg:h-[400px]">
+    <section className="relative h-[340px] w-full overflow-hidden dark-gradient-bg lg:h-[400px]">
       {/* Background image */}
       <Image
         src="https://images.pexels.com/photos/6044196/pexels-photo-6044196.jpeg?auto=compress&cs=tinysrgb&w=1600"

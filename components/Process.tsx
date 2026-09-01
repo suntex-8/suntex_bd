@@ -1,19 +1,19 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowRight, Factory, Globe, Handshake, RefreshCcw } from "lucide-react";
+import { ArrowRight, Factory, Globe, Handshake, RefreshCcw, Truck, HeadphonesIcon } from "lucide-react";
 import { processData, type ProcessStep } from "@/data/SiteSectionData";
 import { SectionHeader } from "./SectionHeader";
 import { cardVariants } from "./anim";
 
-const stepIcons = [Factory, Globe, RefreshCcw, Handshake];
+const stepIcons = [Factory, Globe, RefreshCcw, Handshake, Truck, HeadphonesIcon];
 
 export function Process() {
   return (
     <section id="process" className="bg-[#f6f6f3] py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHeader data={processData} />
-        <div className="relative grid gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
+        <div className="relative grid gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 lg:gap-x-8">
           {processData.steps.map((step, i) => (
             <ProcessCard key={step.order} step={step} index={i} />
           ))}

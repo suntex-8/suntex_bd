@@ -9,7 +9,7 @@ import { SectionHeader } from "./SectionHeader";
 
 export function Blog() {
   return (
-    <section id="blog" className="bg-white py-20 lg:py-28">
+    <section id="blog" className="bg-[#fafaff] py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHeader data={blogData} />
         <div className="grid gap-8 md:grid-cols-3">

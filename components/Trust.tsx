@@ -20,19 +20,19 @@ export function Trust() {
   const smallImageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <section ref={ref} id="trust" className="relative overflow-hidden bg-white py-20 lg:py-28">
+    <section ref={ref} id="trust" className="relative overflow-hidden bg-[#edf2fb] py-20 lg:py-28">
       {/* Parallax demo background image */}
       <motion.div
         style={{ y: demoY }}
-        className="pointer-events-none absolute -top-1/3 right-0 h-[120%] w-full opacity-10"
+        className="pointer-events-none absolute -top-1/3 right-0 h-[120%] w-full "
         aria-hidden
       >
-        <Image
+        {/* <Image
           src={trustData.demoImage}
           alt=""
           fill
           className="object-cover"
-        />
+        /> */}
       </motion.div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8">
@@ -57,8 +57,8 @@ export function Trust() {
                 </motion.div>
               </div>
               {/* Floating stat card */}
-              <div className="absolute -bottom-8 right-0 z-10 rounded-xl bg-accent p-6 shadow-2xl">
-                <p className="font-display text-5xl text-foreground">
+              <div className="absolute -bottom-8 right-0 z-10 rounded-xl  bg-[#dced73] p-6 shadow-2xl">
+                <p className="font-bold text-4xl text-foreground">
                   {trustData.stats[0].value}
                 </p>
                 <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-foreground/70">

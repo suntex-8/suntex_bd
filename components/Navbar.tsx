@@ -21,8 +21,8 @@ export function Navbar() {
         <div
           className={`mt-3 flex h-14 items-center justify-between rounded-full border px-6 transition-all duration-500 ${
             scrolled
-              ? "border-white/10 bg-black/40 backdrop-blur-2xl"
-              : "border-white/10 bg-white/5 backdrop-blur-md"
+              ? "border-white/10 navbar-glass-scrolled"
+              : "border-white/10 navbar-glass"
           }`}
         >
         {/* Logo — always use actual logo */}

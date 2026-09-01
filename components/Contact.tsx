@@ -6,13 +6,14 @@ import { ArrowRight } from "lucide-react";
 import { contactData } from "@/data/SiteSectionData";
 
 export function Contact() {
+  const fields = contactData.form.fields;
+
   return (
-    <section id="contact" className="bg-white py-20 lg:py-28">
+    <section id="contact" className="bg-[#fafaff] py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2">
           {/* Left: content + form */}
           <div>
-            {/* Pill label + headline */}
             <motion.span
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -44,13 +45,11 @@ export function Contact() {
               onSubmit={(e) => e.preventDefault()}
               className="space-y-5"
             >
+              {/* Row 1: Name + Company */}
               <div className="grid gap-5 sm:grid-cols-2">
-                {contactData.form.fields.slice(0, 2).map((field) => (
+                {fields.slice(0, 2).map((field) => (
                   <div key={field.name}>
-                    <label
-                      htmlFor={field.name}
-                      className="mb-2 block text-xs font-bold text-foreground/50"
-                    >
+                    <label htmlFor={field.name} className="mb-2 block text-xs font-bold text-foreground/50">
                       {field.label}*
                     </label>
                     <input
@@ -63,31 +62,13 @@ export function Contact() {
                   </div>
                 ))}
               </div>
-              {contactData.form.fields.slice(2).map((field) => (
-                <div key={field.name}>
-                  <label
-                    htmlFor={field.name}
-                    className="mb-2 block text-xs font-bold text-foreground/50"
-                  >
-                    {field.label}*
-                  </label>
-                  {field.textarea ? (
-                    <div className="relative">
-                      <textarea
-                        id={field.name}
-                        name={field.name}
-                        placeholder={field.placeholder}
-                        rows={4}
-                        className="w-full resize-none border-b border-foreground/15 bg-transparent py-3 text-sm outline-none transition-colors focus:border-accent"
-                      />
-                      <span className="absolute right-0 top-3 text-foreground/20">
-                        {/* decorative icon */}
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-                        </svg>
-                      </span>
-                    </div>
-                  ) : (
+              {/* Row 2: Email + Phone */}
+              <div className="grid gap-5 sm:grid-cols-2">
+                {fields.slice(2, 4).map((field) => (
+                  <div key={field.name}>
+                    <label htmlFor={field.name} className="mb-2 block text-xs font-bold text-foreground/50">
+                      {field.label}*
+                    </label>
                     <input
                       id={field.name}
                       type={field.type}
@@ -95,12 +76,46 @@ export function Contact() {
                       placeholder={field.placeholder}
                       className="w-full border-b border-foreground/15 bg-transparent py-3 text-sm outline-none transition-colors focus:border-accent"
                     />
-                  )}
+                  </div>
+                ))}
+              </div>
+              {/* Product Category (select) */}
+              {fields.slice(4, 5).map((field) => (
+                <div key={field.name}>
+                  <label htmlFor={field.name} className="mb-2 block text-xs font-bold text-foreground/50">
+                    {field.label}*
+                  </label>
+                  <select
+                    id={field.name}
+                    name={field.name}
+                    className="w-full border-b border-foreground/15 bg-transparent py-3 text-sm text-foreground outline-none transition-colors focus:border-accent"
+                    defaultValue=""
+                  >
+                    <option value="" disabled>{field.placeholder}</option>
+                    {field.options?.map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+              ))}
+              {/* Message textarea */}
+              {fields.slice(5).map((field) => (
+                <div key={field.name}>
+                  <label htmlFor={field.name} className="mb-2 block text-xs font-bold text-foreground/50">
+                    {field.label}*
+                  </label>
+                  <textarea
+                    id={field.name}
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    rows={4}
+                    className="w-full resize-none border-b border-foreground/15 bg-transparent py-3 text-sm outline-none transition-colors focus:border-accent"
+                  />
                 </div>
               ))}
 
               <p className="max-w-md text-xs leading-relaxed text-foreground/40">
-                Texora & Garment Design Studio Based In Delhi That Combines Modernity With The Art Of Textiles. We Stand Out In The Marketplace. Your Partner.
+                SUNTEX Apparel Group — Garment Manufacturing & Sourcing, Bangladesh. Your trusted partner from concept to delivery.
               </p>
 
               <button
@@ -126,13 +141,12 @@ export function Contact() {
             >
               <Image
                 src={contactData.images.one}
-                alt="Contact Suntex"
+                alt="Contact SUNTEX"
                 fill
                 className="object-cover"
               />
             </motion.div>
 
-            {/* Floating card */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}

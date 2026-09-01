@@ -11,20 +11,21 @@ export function SectionHeader({ data }: { data: TitleBlock }) {
         data.centered ? "mx-auto text-center" : "text-left"
       }`}
     >
-      <motion.p
+      <motion.span
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: 0.5 }}
-        className={`mb-4 inline-block text-xs font-bold uppercase tracking-[0.3em] text-accent ${
+        className={`mb-4 inline-flex items-center gap-2 rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase  text-foreground ${
           data.centered ? "mx-auto" : ""
         }`}
       >
+        <span className="inline-block h-2 w-2 rounded-full bg-accent" />
         {data.subTitle}
-      </motion.p>
-      <h2 className="text-[32px] leading-[1.15] sm:text-4xl lg:text-[40px]">
+      </motion.span>
+      <p className="text-[32px] leading-[1.15] sm:text-4xl lg:text-[40px] font-semibold text-foreground">
         <RevealText text={data.headline} />
-      </h2>
+      </p>
     </div>
   );
 }

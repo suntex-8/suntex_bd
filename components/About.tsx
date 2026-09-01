@@ -3,13 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { ArrowRight, Check, Phone, Star } from "lucide-react";
+import { ArrowRight, Check, Factory, Phone, Star } from "lucide-react";
 import { aboutData } from "@/data/SiteSectionData";
 import { SectionHeader } from "./SectionHeader";
 
 export function About() {
   return (
-    <section id="about" className="bg-[#f6f6f3] py-20 lg:py-28">
+    <section id="about" className="bg-[#edf2fb] py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-12">
           {/* Left content */}
@@ -29,7 +29,7 @@ export function About() {
               {aboutData.checkList.map((item) => (
                 <div key={item} className="flex items-center gap-3">
                   <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/30">
-                    <Check className="h-4 w-4 text-accent" />
+                    <Check className="h-4 w-4 text-black" />
                   </span>
                   <span className="text-sm font-medium text-foreground/80">
                     {item}
@@ -45,8 +45,8 @@ export function About() {
             <div className="mb-8 flex flex-wrap gap-8">
               {aboutData.featureItems.map((f) => (
                 <div key={f.text} className="flex items-center gap-3">
-                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-foreground">
-                    <Phone className="h-6 w-6 text-white" />
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-foreground">
+                    <Factory className="h-6 w-6 text-white" />
                   </span>
                   <p className="whitespace-pre-line text-sm font-bold text-foreground">
                     {f.text}

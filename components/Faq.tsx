@@ -10,7 +10,7 @@ export function Faq() {
   const [openIndex, setOpenIndex] = useState(2);
 
   return (
-    <section className="bg-white py-20 lg:py-28">
+    <section className="bg-[#fafaff] py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2">
           {/* Left content */}
@@ -20,7 +20,7 @@ export function Faq() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5 }}
-              className="mb-4 inline-flex items-center gap-2 rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/70"
+              className="mb-4 inline-flex items-center gap-2 rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground"
             >
               <span className="inline-block h-2 w-2 rounded-full bg-accent" />
               Frequently Ask Questions

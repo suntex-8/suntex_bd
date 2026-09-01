@@ -5,10 +5,11 @@ import Link from "next/link";
 import { Mail, Phone, Send } from "lucide-react";
 import { footerData } from "@/data/SiteSectionData";
 import { navbarData } from "@/data/NavbarData";
+import { SocialIcon } from "@/components/SocialIcon";
 
 export function Footer() {
   return (
-    <footer className="bg-foreground pb-8 pt-20 text-white">
+    <footer className="dark-gradient-bg pb-8 pt-20 text-white">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-10 pb-14 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
@@ -32,9 +33,9 @@ export function Footer() {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-xs font-bold text-white/80 transition-colors hover:border-accent hover:bg-accent hover:text-foreground"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-accent hover:bg-accent hover:text-foreground"
                 >
-                  {s.label}
+                  <SocialIcon name={s.icon} className="h-4 w-4" />
                 </a>
               ))}
             </div>
@@ -66,17 +67,17 @@ export function Footer() {
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             {/* Phone + Email */}
             <div className="flex flex-wrap items-center gap-6">
-              <a href="tel:+12334566789" className="flex items-center gap-3 text-sm text-white/70 transition-colors hover:text-accent">
+              <a href={footerData.contact[2].href} className="flex items-center gap-3 text-sm text-white/70 transition-colors hover:text-accent">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-foreground">
                   <Phone className="h-4 w-4" />
                 </span>
-                +1 233 4566 789
+                {footerData.contact[2].value}
               </a>
-              <a href="mailto:info@company.com" className="flex items-center gap-3 text-sm text-white/70 transition-colors hover:text-accent">
+              <a href={footerData.contact[1].href} className="flex items-center gap-3 text-sm text-white/70 transition-colors hover:text-accent">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-foreground">
                   <Mail className="h-4 w-4" />
                 </span>
-                info@company.com
+                {footerData.contact[1].value}
               </a>
             </div>
 

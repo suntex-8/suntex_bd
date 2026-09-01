@@ -44,7 +44,7 @@ function CounterStat({
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
       className="border-b border-black/10 pb-6 pt-4"
     >
-      <p className="font-display text-5xl font-bold leading-none text-foreground lg:text-[56px]">
+      <p className="font-bold text-5xl  leading-none text-foreground lg:text-[56px]">
         <span ref={numRef}>0</span>
         {suffix}
       </p>
@@ -62,8 +62,21 @@ export function Counter() {
   return (
     <section
       id="innovation"
-      className="relative overflow-hidden py-20 lg:py-28 counter-bg"
+      className="relative overflow-hidden bg-[#edf2fb] py-20 lg:py-28"
     >
+      {/* Crosshatch pattern */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage: `
+            repeating-linear-gradient(22.5deg, transparent, transparent 2px, rgba(75, 85, 99, 0.06) 2px, rgba(75, 85, 99, 0.06) 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(67.5deg, transparent, transparent 2px, rgba(107, 114, 128, 0.05) 2px, rgba(107, 114, 128, 0.05) 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(112.5deg, transparent, transparent 2px, rgba(55, 65, 81, 0.04) 2px, rgba(55, 65, 81, 0.04) 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(157.5deg, transparent, transparent 2px, rgba(31, 41, 55, 0.03) 2px, rgba(31, 41, 55, 0.03) 3px, transparent 3px, transparent 8px)
+          `,
+        }}
+      />
+      
       <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-12">
           {/* Left image — tall */}
@@ -92,7 +105,7 @@ export function Counter() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5 }}
-              className="mb-5 inline-flex items-center gap-2 rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/70"
+              className="mb-5 inline-flex items-center gap-2 rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground"
             >
               <span className="inline-block h-2 w-2 rounded-full bg-accent" />
               {counterData.subTitle}
@@ -126,3 +139,4 @@ export function Counter() {
     </section>
   );
 }
+
