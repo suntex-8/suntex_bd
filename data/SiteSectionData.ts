@@ -406,7 +406,7 @@ export const processData: ProcessData = {
     {
       order: "06",
       title: "After-Sales Support",
-      description: "Ongoing partnership — reorders, new developments, and continuous improvement.",
+      description: "Ongoing partnership — reorders,developments, & continuous improvement.",
     },
   ],
 };
@@ -698,7 +698,7 @@ export const missionVisionData: MissionVisionData = {
   },
   vision: {
     heading: "Our Vision",
-    text: "To be Bangladesh's most trusted full-service sourcing and manufacturing partner — recognized for adaptability to global trends and uncompromising quality.",
+    text: "To be Bangladesh's most trusted full-service sourcing & manufacturing partner — recognized for adaptability to global trends & uncompromising quality.",
     tags: ["Global Recognition", "Innovation", "Quality Research", "Trusted Partner"],
   },
 };
