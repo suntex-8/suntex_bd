@@ -5,7 +5,7 @@ import { trustData } from "@/data/SiteSectionData";
 import { Reveal } from "./Reveal";
 import { SectionLabel } from "./SectionLabel";
 
-const factoryImage = "https://images.pexels.com/photos/5910517/pexels-photo-5910517.jpeg?auto=compress&cs=tinysrgb&w=1200";
+const factoryImage = "https://images.pexels.com/photos/236748/pexels-photo-236748.jpeg";
 
 export function Advantage() {
   return (

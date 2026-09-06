@@ -8,7 +8,6 @@ import { MissionVision } from "./components/MissionVision";
 import { Services } from "./components/Services";
 import { Advantage } from "./components/Advantage";
 import { AdvantageCarousel } from "./components/AdvantageCarousel";
-import { Counter } from "./components/Counter";
 import { Process } from "./components/Process";
 import { Products } from "./components/Products";
 import { QualityAssurance } from "./components/QualityAssurance";
@@ -34,7 +33,6 @@ export default function V2Page() {
       
       <Advantage />
       <AdvantageCarousel />
-      <Counter />
       <Process />
       <Products />
       <Services />
