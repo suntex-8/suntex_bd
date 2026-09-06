@@ -154,7 +154,7 @@ export function Contact() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="absolute -right-4 top-10 z-10 rounded-xl bg-white p-4 shadow-2xl lg:-right-6"
             >
-              <div className="flex items-center gap-3">
+              {/* <div className="flex items-center gap-3">
                 <div className="h-10 w-10 overflow-hidden rounded-full">
                   <Image
                     src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=200"
@@ -168,7 +168,7 @@ export function Contact() {
                   <p className="text-[11px] font-bold text-foreground/50">Got Questions?</p>
                   <p className="text-xs font-bold text-foreground">Let&apos;s Talk</p>
                 </div>
-              </div>
+              </div> */}
             </motion.div>
           </div>
         </div>

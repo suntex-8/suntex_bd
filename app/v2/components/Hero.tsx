@@ -25,7 +25,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[720px] items-end bg-[#1b2130] text-[#f2f0e7] sm:min-h-[800px] lg:min-h-[850px]"
+      className="relative flex min-h-[700px] items-end bg-[#1b2130] text-[#f2f0e7] sm:min-h-[800px] lg:min-h-[760px]"
     >
       <AnimatePresence mode="wait">
         <motion.div
@@ -56,7 +56,7 @@ export function Hero() {
             <span className="h-px w-10 bg-[#fff000]" />
             {current.subTitle}
           </motion.div>
-          <motion.h4
+          <motion.h2
             key={`title-${slide}`}
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
@@ -64,7 +64,7 @@ export function Hero() {
             className="whitespace-pre-line text-[clamp(3.8rem,9vw,8.5rem)] font-semibold leading-[.87] tracking-[-.075em] text-[#f2f0e7]"
           >
             {current.headline}
-          </motion.h4>
+          </motion.h2>
           <motion.p
             key={`body-${slide}`}
             initial={{ opacity: 0, y: 18 }}

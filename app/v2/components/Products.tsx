@@ -1,13 +1,26 @@
 "use client";
 
-import { MoveUpRight } from "lucide-react";
+import { useRef } from "react";
+import { MoveUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { productsData } from "@/data/SiteSectionData";
 import { Reveal } from "./Reveal";
 import { SectionLabel } from "./SectionLabel";
 
 export function Products() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   const goTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scroll = (direction: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const card = scrollRef.current.children[0] as HTMLElement;
+    const amount = card ? card.offsetWidth + 12 : 300;
+    scrollRef.current.scrollBy({
+      left: direction === "left" ? -amount : amount,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -26,19 +39,40 @@ export function Products() {
                 <span className="text-[#858a91]">Many possibilities.</span>
               </h2>
             </div>
-            <div className="hidden text-right text-xs uppercase leading-5 tracking-[.12em] text-[#666b76] sm:block">
-              Built in-house
-              <br />
-              or sourced with care
+            <div className="flex items-end gap-4">
+              <div className="hidden text-right text-xs uppercase leading-5 tracking-[.12em] text-[#666b76] sm:block">
+                Built in-house
+                <br />
+                or sourced with care
+              </div>
+              <div className="hidden gap-2 sm:flex">
+                <button
+                  onClick={() => scroll("left")}
+                  className="flex h-11 w-11 items-center justify-center border border-[#1b2130]/20 text-[#1b2130] transition hover:bg-[#1b2130] hover:text-[#d5d4cd]"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button
+                  onClick={() => scroll("right")}
+                  className="flex h-11 w-11 items-center justify-center border border-[#1b2130]/20 text-[#1b2130] transition hover:bg-[#1b2130] hover:text-[#d5d4cd]"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
             </div>
           </div>
         </Reveal>
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+
+        <div
+          ref={scrollRef}
+          className="mt-10 flex gap-3 overflow-x-auto pb-4 scrollbar-hide"
+          style={{ scrollbarWidth: "none" }}
+        >
           {productsData.items.map((product, index) => (
             <Reveal key={product.category} delay={index * 0.05}>
               <button
                 onClick={() => goTo("contact")}
-                className="group relative h-[310px] w-full overflow-hidden text-left sm:h-[360px] lg:h-[390px]"
+                className="group relative h-[310px] w-[220px] shrink-0 overflow-hidden text-left sm:h-[360px] sm:w-[260px] lg:h-[390px]"
               >
                 <img
                   src={product.image}
