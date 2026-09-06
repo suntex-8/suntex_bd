@@ -19,15 +19,15 @@ export function QualityAssurance() {
   return (
     <section
       id="quality"
-      className="bg-[#fff000] px-5 py-24 sm:px-8 lg:px-12 lg:py-32"
+      className="bg-[#fff000] px-5 py-24 sm:px-8 lg:px-12 lg:py-24"
     >
       <div className="mx-auto max-w-[1400px]">
         {/* Desktop: two-column bento */}
-        <div className="hidden lg:grid lg:grid-cols-2 lg:gap-4">
+        <div className="hidden lg:grid lg:h-[calc(100svh-8rem)] lg:grid-cols-2 lg:gap-4">
           {/* Left column: Headers + Stage 1 + Stage 2 */}
-          <div className="flex flex-col gap-4">
+          <div className="flex min-h-0 flex-col gap-4">
             <Reveal>
-              <div className="px-2 pb-4">
+              <div className="px-2 pb-8 ">
                 <SectionLabel>Quality, by design</SectionLabel>
                 <h2 className="mt-8 max-w-[500px] text-[clamp(2.5rem,4vw,4rem)] font-semibold leading-[.92] tracking-[-.065em] text-[#1b2130]">
                   Nothing gets through{" "}
@@ -52,8 +52,8 @@ export function QualityAssurance() {
             </Reveal>
 
             {/* Stage 1 */}
-            <Reveal delay={0.06}>
-              <div className="group relative h-[280px] overflow-hidden border border-[#1b2130]/15">
+            <Reveal delay={0.06} className="min-h-0 flex-1">
+              <div className="group relative h-full overflow-hidden border border-[#1b2130]/15">
                 <img
                   src={stageImages[0]}
                   alt={stages[0].stage}
@@ -73,8 +73,8 @@ export function QualityAssurance() {
             </Reveal>
 
             {/* Stage 2 */}
-            <Reveal delay={0.12}>
-              <div className="group relative h-[280px] overflow-hidden border border-[#1b2130]/15">
+            <Reveal delay={0.12} className="min-h-0 flex-1">
+              <div className="group relative h-full overflow-hidden border border-[#1b2130]/15">
                 <img
                   src={stageImages[1]}
                   alt={stages[1].stage}
@@ -95,9 +95,9 @@ export function QualityAssurance() {
           </div>
 
           {/* Right column: Stage 3 + Stage 4 + Stage 5 — fills left height */}
-          <div className="flex flex-col gap-4">
-            <Reveal delay={0.18} className="flex-1">
-              <div className="group relative h-full min-h-[200px] overflow-hidden border border-[#1b2130]/15">
+          <div className="flex min-h-0 flex-col gap-2">
+            <Reveal delay={0.18} className="min-h-0 flex-1">
+              <div className="group relative h-full overflow-hidden border border-[#1b2130]/15">
                 <img
                   src={stageImages[2]}
                   alt={stages[2].stage}
@@ -106,18 +106,18 @@ export function QualityAssurance() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1b2130]/85 via-[#1b2130]/20 to-transparent" />
                 <div className="absolute inset-x-6 bottom-6 top-6 flex flex-col justify-end">
                   <span className="eyebrow mb-2 text-[#fff000]">Stage 03</span>
-                  <h3 className="text-xl font-semibold tracking-[-.04em] text-[#f2f0e7]">
+                  <h3 className="text-lg font-semibold tracking-[-.04em] text-[#f2f0e7]">
                     {stages[2].stage}
                   </h3>
-                  <p className="mt-2 text-sm leading-6 text-[#d2d1c8]">
+                  <p className="mt-1.5 text-xs leading-5 text-[#d2d1c8]">
                     {stages[2].description}
                   </p>
                 </div>
               </div>
             </Reveal>
 
-            <Reveal delay={0.24} className="flex-1">
-              <div className="group relative h-full min-h-[200px] overflow-hidden border border-[#1b2130]/15">
+            <Reveal delay={0.24} className="min-h-0 flex-1">
+              <div className="group relative h-full overflow-hidden border border-[#1b2130]/15">
                 <img
                   src={stageImages[3]}
                   alt={stages[3].stage}
@@ -126,18 +126,18 @@ export function QualityAssurance() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1b2130]/85 via-[#1b2130]/20 to-transparent" />
                 <div className="absolute inset-x-6 bottom-6 top-6 flex flex-col justify-end">
                   <span className="eyebrow mb-2 text-[#fff000]">Stage 04</span>
-                  <h3 className="text-xl font-semibold tracking-[-.04em] text-[#f2f0e7]">
+                  <h3 className="text-lg font-semibold tracking-[-.04em] text-[#f2f0e7]">
                     {stages[3].stage}
                   </h3>
-                  <p className="mt-2 text-sm leading-6 text-[#d2d1c8]">
+                  <p className="mt-1.5 text-xs leading-5 text-[#d2d1c8]">
                     {stages[3].description}
                   </p>
                 </div>
               </div>
             </Reveal>
 
-            <Reveal delay={0.3} className="flex-1">
-              <div className="group relative h-full min-h-[200px] overflow-hidden border border-[#1b2130]/15">
+            <Reveal delay={0.3} className="min-h-0 flex-1">
+              <div className="group relative h-full overflow-hidden border border-[#1b2130]/15">
                 <img
                   src={stageImages[4]}
                   alt={stages[4].stage}
@@ -146,10 +146,10 @@ export function QualityAssurance() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1b2130]/85 via-[#1b2130]/20 to-transparent" />
                 <div className="absolute inset-x-6 bottom-6 top-6 flex flex-col justify-end">
                   <span className="eyebrow mb-2 text-[#fff000]">Stage 05</span>
-                  <h3 className="text-xl font-semibold tracking-[-.04em] text-[#f2f0e7]">
+                  <h3 className="text-lg font-semibold tracking-[-.04em] text-[#f2f0e7]">
                     {stages[4].stage}
                   </h3>
-                  <p className="mt-2 text-sm leading-6 text-[#d2d1c8]">
+                  <p className="mt-1.5 text-xs leading-5 text-[#d2d1c8]">
                     {stages[4].description}
                   </p>
                 </div>
@@ -211,7 +211,7 @@ export function QualityAssurance() {
         </div>
 
         <Reveal delay={0.1}>
-          <p className="mt-8 text-center text-sm text-[#555b67]">
+          <p className=" mt-12 text-center text-sm text-[#555b67]">
             {qualityData.caption}
           </p>
         </Reveal>

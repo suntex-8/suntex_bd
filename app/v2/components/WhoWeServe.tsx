@@ -27,13 +27,13 @@ export function WhoWeServe() {
         <div className="mt-14 grid gap-6 sm:grid-cols-2">
           {whoWeServeData.segments.map((segment, index) => (
             <Reveal key={segment.title} delay={index * 0.1}>
-              <div className="border border-[#1b2130]/15 bg-[#f2f0e7] p-8 sm:p-10">
+              <div className="border border-[#1b2130]/15 bg-gradient-to-br from-yellow-300/15 via-white to-white p-8 sm:p-10">
                 <div className="text-[#1b2130]">
                   {iconMap[segment.icon] || <Globe size={24} />}
                 </div>
-                <h3 className="mt-6 text-2xl font-semibold tracking-[-.04em] text-[#1b2130]">
+                <p className="mt-6 text-2xl font-semibold tracking-[-.04em] text-[#1b2130]">
                   {segment.title}
-                </h3>
+                </p>
                 <p className="mt-4 max-w-[450px] text-sm leading-6 text-[#555b67]">
                   {segment.description}
                 </p>
