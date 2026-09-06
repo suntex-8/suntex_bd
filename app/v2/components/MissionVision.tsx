@@ -17,7 +17,9 @@ export function MissionVision() {
       <div className="mx-auto max-w-[1400px]">
         <Reveal>
           <div className="text-center">
-            <SectionLabel>Who we are</SectionLabel>
+            <p className="text-sm   text-gray-600">
+              Who we are
+            </p>
             <h2 className="mt-8 mx-auto max-w-[800px] text-[clamp(2.5rem,5vw,4.8rem)] font-semibold leading-[.92] tracking-[-.065em] text-[#1b2130]">
               Connecting ideas with{" "}
               <span className="text-[#858a91]">reliable manufacturing.</span>

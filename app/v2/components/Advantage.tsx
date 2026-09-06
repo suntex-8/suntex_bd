@@ -1,6 +1,8 @@
 "use client";
 
+import { useRef } from "react";
 import { Factory, ShieldCheck } from "lucide-react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { trustData } from "@/data/SiteSectionData";
 import { Reveal } from "./Reveal";
 import { SectionLabel } from "./SectionLabel";
@@ -8,6 +10,13 @@ import { SectionLabel } from "./SectionLabel";
 const factoryImage = "https://images.pexels.com/photos/236748/pexels-photo-236748.jpeg";
 
 export function Advantage() {
+  const imageRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: imageRef,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+
   return (
     <section
       id="advantage"
@@ -45,11 +54,12 @@ export function Advantage() {
           </div>
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="relative h-[420px] overflow-hidden sm:h-[560px]">
-            <img
+          <div ref={imageRef} className="relative h-[420px] overflow-hidden sm:h-[560px]">
+            <motion.img
               src={factoryImage}
               alt="SUNTEX partner factory production line"
-              className="h-full w-full object-cover grayscale-[.25]"
+              className="h-[120%] w-full object-cover grayscale-[.25]"
+              style={{ y }}
             />
             <div className="absolute bottom-0 left-0 w-[70%] bg-[#fff000] p-6 sm:p-8">
               <span className="eyebrow text-[#1b2130]">Our commitment</span>
