@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { hanken, kanit } from "../fonts";
+import { archivo, hanken } from "../fonts";
 import "../v2/globals.css";
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export default function V2Layout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${kanit.variable} ${hanken.variable} h-full antialiased`}
+      className={`${archivo.variable} ${hanken.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
         {children}

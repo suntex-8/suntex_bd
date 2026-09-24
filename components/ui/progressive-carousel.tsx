@@ -78,14 +78,19 @@ export const ProgressSlider: FC<ProgressSliderProps> = ({
   const targetValue = useRef<string | null>(null);
 
   const sliderValues = useMemo(() => {
+    type SliderContentElement = React.ReactElement<{
+      children?: ReactNode;
+      value?: string;
+    }>;
+
     const getChildren = React.Children.toArray(children).find(
-      (child) => (child as React.ReactElement).type === SliderContent
-    ) as React.ReactElement | undefined;
+      (child) => (child as SliderContentElement).type === SliderContent
+    ) as SliderContentElement | undefined;
 
     if (!getChildren) return [];
 
     return React.Children.toArray(getChildren.props.children).map(
-      (child) => (child as React.ReactElement).props.value as string
+      (child) => (child as SliderContentElement).props.value as string
     );
   }, [children]);
 
