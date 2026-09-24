@@ -125,7 +125,7 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 260 }}
-              className="fixed inset-y-0 right-0 z-50 flex w-[min(22rem,calc(100vw-1rem))] max-w-full flex-col bg-gradient-to-b from-[#0b2239] via-[#14354f] to-[#020810] text-white shadow-2xl"
+              className="fixed inset-y-0 right-0 z-50 flex w-[min(22rem,calc(100vw-1rem))] max-w-full flex-col bg-ink text-white shadow-2xl"
             >
               <div className="mb-4 flex items-center justify-between px-5 pt-5">
                 <Image

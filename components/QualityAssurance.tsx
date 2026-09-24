@@ -5,7 +5,7 @@ import { qualityData } from "@/data/SiteSectionData";
 
 export function QualityAssurance() {
   return (
-    <section className="bg-[#fafaff] py-20 lg:py-28">
+    <section className="bg-background py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Left — quality steps */}
@@ -15,8 +15,9 @@ export function QualityAssurance() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="mb-5 inline-block rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground"
+              className="mb-5 inline-flex items-center gap-3 text-sm font-semibold text-muted"
             >
+              <span className="h-px w-8 bg-accent" />
               Quality Checks
             </motion.span>
 
@@ -25,14 +26,14 @@ export function QualityAssurance() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="mb-12 text-[36px] leading-tight font-normal text-foreground sm:text-5xl lg:text-[56px]"
+              className="mb-12 text-[36px] leading-[1.04] font-semibold text-foreground sm:text-5xl lg:text-[56px]"
             >
               Quality Checked at Every Stage
             </motion.h2>
 
             <div className="relative">
               {/* Vertical connecting line */}
-              <div className="absolute left-[7px] top-3 bottom-3 w-px bg-foreground/10" />
+              <div className="absolute left-[7px] top-3 bottom-3 w-px bg-line" />
 
               <div className="space-y-8">
                 {qualityData.stages.map((stage, i) => (
@@ -46,18 +47,18 @@ export function QualityAssurance() {
                   >
                     {/* Dot */}
                     <div className="relative z-10 mt-1.5 flex h-[15px] w-[15px] shrink-0 items-center justify-center">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#38bdf8] opacity-30" />
-                      <span className="relative inline-flex h-[9px] w-[9px] rounded-full bg-[#38bdf8]" />
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-40" />
+                      <span className="relative inline-flex h-[9px] w-[9px] rounded-full bg-accent" />
                     </div>
 
                     <div>
-                      <span className="mb-1 block text-sm font-medium text-foreground/40">
+                      <span className="mb-1 block text-sm font-medium text-muted">
                         0{stage.step}
                       </span>
-                      <h3 className="text-lg font-normal text-foreground sm:text-xl">
+                      <h3 className="text-lg font-medium text-foreground sm:text-xl">
                         {stage.stage}
                       </h3>
-                      <p className="mt-1 text-sm leading-relaxed text-foreground/50">
+                      <p className="mt-1 text-sm leading-relaxed text-muted">
                         {stage.description}
                       </p>
                     </div>
@@ -84,7 +85,7 @@ export function QualityAssurance() {
                 />
               </div>
 
-              <p className="mt-8 text-center text-sm italic text-foreground/40">
+              <p className="mt-8 text-center text-sm italic text-muted">
                 {qualityData.caption}
               </p>
             </motion.div>

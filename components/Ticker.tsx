@@ -15,15 +15,15 @@ const items = [
 
 export function Ticker() {
   return (
-    <div className="overflow-hidden bg-foreground py-4">
+    <div className="overflow-hidden bg-ink py-5">
       <div className="flex w-max animate-[ticker_25s_linear_infinite]">
         {items.map((item, index) => (
           <span
             key={`${item}-${index}`}
-            className="flex items-center gap-4 px-6 text-sm font-medium uppercase tracking-widest text-white/80"
+            className="flex items-center gap-5 px-7 text-[13px] font-semibold uppercase tracking-[0.18em] text-white/75"
           >
             {item}
-            <span className="h-1 w-1 rounded-full bg-accent" />
+            <span className="h-1 w-1 rotate-45 bg-accent" />
           </span>
         ))}
       </div>

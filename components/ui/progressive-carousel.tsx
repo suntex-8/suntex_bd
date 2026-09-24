@@ -8,6 +8,7 @@ import React, {
   type ReactNode,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -73,32 +74,20 @@ export const ProgressSlider: FC<ProgressSliderProps> = ({
   const [progress, setProgress] = useState<number>(0);
   const [isFastForward, setIsFastForward] = useState<boolean>(false);
   const frame = useRef<number>(0);
-  const firstFrameTime = useRef<number>(performance.now());
+  const firstFrameTime = useRef<number>(0);
   const targetValue = useRef<string | null>(null);
-  const [sliderValues, setSliderValues] = useState<string[]>([]);
 
-  useEffect(() => {
+  const sliderValues = useMemo(() => {
     const getChildren = React.Children.toArray(children).find(
-      (child) => (child as React.ReactElement<any>).type === SliderContent
-    ) as React.ReactElement<any> | undefined;
+      (child) => (child as React.ReactElement).type === SliderContent
+    ) as React.ReactElement | undefined;
 
-    if (getChildren) {
-      const values = React.Children.toArray(getChildren.props.children).map(
-        (child) => (child as React.ReactElement<any>).props.value as string
-      );
-      setSliderValues(values);
-    }
+    if (!getChildren) return [];
+
+    return React.Children.toArray(getChildren.props.children).map(
+      (child) => (child as React.ReactElement).props.value as string
+    );
   }, [children]);
-
-  useEffect(() => {
-    if (sliderValues.length > 0) {
-      firstFrameTime.current = performance.now();
-      frame.current = requestAnimationFrame(animate);
-    }
-    return () => {
-      cancelAnimationFrame(frame.current);
-    };
-  }, [sliderValues, active, isFastForward]);
 
   const animate = (now: number) => {
     const currentDuration = isFastForward ? fastDuration : duration;
@@ -121,9 +110,18 @@ export const ProgressSlider: FC<ProgressSliderProps> = ({
         setActive(sliderValues[nextIndex]);
       }
       setProgress(0);
-      firstFrameTime.current = performance.now();
     }
   };
+
+  useEffect(() => {
+    if (sliderValues.length > 0) {
+      firstFrameTime.current = performance.now();
+      frame.current = requestAnimationFrame(animate);
+    }
+    return () => {
+      cancelAnimationFrame(frame.current);
+    };
+  }, [sliderValues, active, isFastForward]);
 
   const handleButtonClick = (value: string) => {
     if (value !== active) {
