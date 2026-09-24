@@ -23,6 +23,7 @@ import { Pricing } from "@/components/Pricing";
 import { Contact } from "@/components/Contact";
 import { Blog } from "@/components/Blog";
 import { Footer } from "@/components/Footer";
+import { Faq } from "@/components/Faq";
 
 export default function Home() {
   return (
@@ -30,28 +31,44 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <About />
+        <Counter />
+        
         <Ticker />
-        <MissionVision />
+        <Products />
+        <Moq /> 
+
+        <QualityAssurance />
         <Services />
-        <Trust />
+        <FactoryNetwork /> 
+        <Facilities /> 
+        <WhoWeServe />
+
+        <About />
+        <MissionVision />
+        <Team />
+        <Faq/>
+        <Contact />
+
+
+
+         {/* <Trust />
         <TrustVideo />
         <Advantage />
-        <Counter />
-        <Products />
-        <Moq />
-        <FactoryNetwork />
-        <Facilities />
-        <QualityAssurance />
+        
+       
+        
+        
+       
+        
         <LeadTime />
         <Projects />
         <Process />
-        <WhoWeServe />
-        <Team />
+     
+        
         <Testimonials />
         <Pricing />
-        <Contact />
-        <Blog />
+        
+        <Blog /> */}
       </main>
       <Footer />
     </>

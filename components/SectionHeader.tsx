@@ -7,7 +7,7 @@ import { RevealText } from "./RevealText";
 export function SectionHeader({ data }: { data: TitleBlock }) {
   return (
     <div
-      className={`mb-14 max-w-3xl ${
+      className={`mb-12 max-w-3xl ${
         data.centered ? "mx-auto text-center" : "text-left"
       }`}
     >
@@ -16,14 +16,14 @@ export function SectionHeader({ data }: { data: TitleBlock }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: 0.5 }}
-        className={`mb-4 inline-flex items-center gap-2 rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase  text-foreground ${
-          data.centered ? "mx-auto" : ""
+        className={`mb-4 inline-flex items-center gap-3 text-sm font-semibold text-muted ${
+          data.centered ? "justify-center" : ""
         }`}
       >
-        <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+        <span className="h-px w-8 bg-accent" />
         {data.subTitle}
       </motion.span>
-      <p className="text-[32px] leading-[1.15] sm:text-4xl lg:text-[40px] font-semibold text-foreground">
+      <p className="text-[32px] leading-[1.08] sm:text-4xl lg:text-5xl font-semibold text-foreground">
         <RevealText text={data.headline} />
       </p>
     </div>

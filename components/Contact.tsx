@@ -9,7 +9,7 @@ export function Contact() {
   const fields = contactData.form.fields;
 
   return (
-    <section id="contact" className="bg-[#fafaff] py-20 lg:py-28">
+    <section id="contact" className="bg-background py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2">
           {/* Left: content + form */}
@@ -19,12 +19,12 @@ export function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5 }}
-              className="mb-4 inline-flex items-center gap-2 rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/70"
+              className="mb-4 inline-flex items-center gap-3 text-sm font-semibold text-muted"
             >
-              <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+              <span className="h-px w-8 bg-accent" />
               {contactData.subTitle}
             </motion.span>
-            <h2 className="mb-4 text-[32px] leading-[1.15] text-foreground sm:text-4xl lg:text-[40px]">
+            <h2 className="mb-4 text-[32px] leading-[1.08] text-foreground sm:text-4xl lg:text-[40px]">
               {contactData.headline}
             </h2>
             <motion.p
@@ -32,7 +32,7 @@ export function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5 }}
-              className="mb-10 max-w-lg text-base leading-relaxed text-foreground/60"
+              className="mb-10 max-w-lg text-base leading-relaxed text-muted"
             >
               {contactData.paragraph}
             </motion.p>
@@ -49,7 +49,7 @@ export function Contact() {
               <div className="grid gap-5 sm:grid-cols-2">
                 {fields.slice(0, 2).map((field) => (
                   <div key={field.name}>
-                    <label htmlFor={field.name} className="mb-2 block text-xs font-bold text-foreground/50">
+                    <label htmlFor={field.name} className="mb-2 block text-xs font-semibold text-muted">
                       {field.label}*
                     </label>
                     <input
@@ -57,7 +57,7 @@ export function Contact() {
                       type={field.type}
                       name={field.name}
                       placeholder={field.placeholder}
-                      className="w-full border-b border-foreground/15 bg-transparent py-3 text-sm outline-none transition-colors focus:border-accent"
+                      className="w-full border-b border-line bg-transparent py-3 text-sm outline-none transition-colors focus:border-accent"
                     />
                   </div>
                 ))}
@@ -66,7 +66,7 @@ export function Contact() {
               <div className="grid gap-5 sm:grid-cols-2">
                 {fields.slice(2, 4).map((field) => (
                   <div key={field.name}>
-                    <label htmlFor={field.name} className="mb-2 block text-xs font-bold text-foreground/50">
+                    <label htmlFor={field.name} className="mb-2 block text-xs font-semibold text-muted">
                       {field.label}*
                     </label>
                     <input
@@ -74,7 +74,7 @@ export function Contact() {
                       type={field.type}
                       name={field.name}
                       placeholder={field.placeholder}
-                      className="w-full border-b border-foreground/15 bg-transparent py-3 text-sm outline-none transition-colors focus:border-accent"
+                      className="w-full border-b border-line bg-transparent py-3 text-sm outline-none transition-colors focus:border-accent"
                     />
                   </div>
                 ))}
@@ -82,13 +82,13 @@ export function Contact() {
               {/* Product Category (select) */}
               {fields.slice(4, 5).map((field) => (
                 <div key={field.name}>
-                  <label htmlFor={field.name} className="mb-2 block text-xs font-bold text-foreground/50">
+                  <label htmlFor={field.name} className="mb-2 block text-xs font-semibold text-muted">
                     {field.label}*
                   </label>
                   <select
                     id={field.name}
                     name={field.name}
-                    className="w-full border-b border-foreground/15 bg-transparent py-3 text-sm text-foreground outline-none transition-colors focus:border-accent"
+                    className="w-full border-b border-line bg-transparent py-3 text-sm text-foreground outline-none transition-colors focus:border-accent"
                     defaultValue=""
                   >
                     <option value="" disabled>{field.placeholder}</option>
@@ -101,7 +101,7 @@ export function Contact() {
               {/* Message textarea */}
               {fields.slice(5).map((field) => (
                 <div key={field.name}>
-                  <label htmlFor={field.name} className="mb-2 block text-xs font-bold text-foreground/50">
+                  <label htmlFor={field.name} className="mb-2 block text-xs font-semibold text-muted">
                     {field.label}*
                   </label>
                   <textarea
@@ -109,12 +109,12 @@ export function Contact() {
                     name={field.name}
                     placeholder={field.placeholder}
                     rows={4}
-                    className="w-full resize-none border-b border-foreground/15 bg-transparent py-3 text-sm outline-none transition-colors focus:border-accent"
+                    className="w-full resize-none border-b border-line bg-transparent py-3 text-sm outline-none transition-colors focus:border-accent"
                   />
                 </div>
               ))}
 
-              <p className="max-w-md text-xs leading-relaxed text-foreground/40">
+              <p className="max-w-md text-xs leading-relaxed text-muted">
                 SUNTEX Apparel Group — Garment Manufacturing & Sourcing, Bangladesh. Your trusted partner from concept to delivery.
               </p>
 
@@ -130,14 +130,14 @@ export function Contact() {
             </motion.form>
           </div>
 
-          {/* Right: large image with floating card */}
+          {/* Right image */}
           <div className="relative flex items-center justify-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6 }}
-              className="relative h-[400px] w-full overflow-hidden rounded-2xl shadow-xl lg:h-[520px]"
+              className="relative h-[400px] w-full overflow-hidden rounded-lg ring-1 ring-line lg:h-[520px]"
             >
               <Image
                 src={contactData.images.one}
@@ -145,30 +145,6 @@ export function Contact() {
                 fill
                 className="object-cover"
               />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="absolute -right-4 top-10 z-10 rounded-xl bg-white p-4 shadow-2xl lg:-right-6"
-            >
-              {/* <div className="flex items-center gap-3">
-                <div className="h-10 w-10 overflow-hidden rounded-full">
-                  <Image
-                    src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=200"
-                    alt="Support"
-                    width={40}
-                    height={40}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <div>
-                  <p className="text-[11px] font-bold text-foreground/50">Got Questions?</p>
-                  <p className="text-xs font-bold text-foreground">Let&apos;s Talk</p>
-                </div>
-              </div> */}
             </motion.div>
           </div>
         </div>

@@ -71,7 +71,7 @@ export function Carousel({ items, initialScroll = 0 }: CarouselProps) {
           <button
             onClick={scrollLeft}
             disabled={!canScrollLeft}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-foreground/15 bg-white text-foreground shadow-sm transition-all hover:bg-foreground hover:text-white disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-foreground"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-foreground transition-all hover:bg-foreground hover:text-white disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-foreground"
             aria-label="Scroll left"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -81,7 +81,7 @@ export function Carousel({ items, initialScroll = 0 }: CarouselProps) {
           <button
             onClick={scrollRight}
             disabled={!canScrollRight}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-foreground/15 bg-white text-foreground shadow-sm transition-all hover:bg-foreground hover:text-white disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-foreground"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-foreground transition-all hover:bg-foreground hover:text-white disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-foreground"
             aria-label="Scroll right"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -152,7 +152,7 @@ export function Card({ card, index, layout = false }: CardProps) {
       <motion.div
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
-        className="group relative cursor-pointer overflow-hidden rounded-2xl bg-white shadow-md transition-shadow hover:shadow-xl"
+        className="group relative cursor-pointer overflow-hidden rounded-xl bg-white ring-1 ring-line transition-shadow hover:shadow-lg"
       >
         <div className="relative aspect-3/4 overflow-hidden sm:aspect-[4/5] lg:aspect-[5/6]">
           <img
@@ -160,7 +160,7 @@ export function Card({ card, index, layout = false }: CardProps) {
             alt={card.title}
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/15 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-5">
             <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-accent">
               {card.category}
@@ -184,7 +184,7 @@ export function Card({ card, index, layout = false }: CardProps) {
             />
             <motion.div
               layoutId={layout ? `card-${card.title}` : undefined}
-              className="relative mx-auto max-h-[80vh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-white shadow-2xl"
+              className="relative mx-auto max-h-[80vh] w-full max-w-3xl overflow-y-auto rounded-xl bg-white shadow-2xl"
             >
               {/* Close button */}
               <button

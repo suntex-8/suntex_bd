@@ -9,7 +9,7 @@ import { SectionHeader } from "./SectionHeader";
 
 export function About() {
   return (
-    <section id="about" className="overflow-hidden bg-[#edf2fb] py-20 lg:py-28">
+    <section id="about" className="overflow-hidden bg-background py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
         <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-12">
           {/* Left content */}
@@ -20,7 +20,7 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5 }}
-              className="mb-6 text-base leading-relaxed text-foreground/70"
+              className="mb-6 text-base leading-relaxed text-muted"
             >
               {aboutData.paragraph}
             </motion.p>
@@ -28,10 +28,10 @@ export function About() {
             <div className="mb-8 grid gap-x-8 gap-y-2 sm:grid-cols-2">
               {aboutData.checkList.map((item) => (
                 <div key={item} className="flex items-center gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/30">
-                    <Check className="h-4 w-4 text-black" />
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/25">
+                    <Check className="h-4 w-4 text-foreground" />
                   </span>
-                  <span className="text-sm font-medium text-foreground/80">
+                  <span className="text-sm font-medium text-foreground/85">
                     {item}
                   </span>
                 </div>
@@ -39,16 +39,16 @@ export function About() {
             </div>
 
             {/* Horizontal line separator */}
-            <div className="mb-8 border-t border-black/10" />
+            <div className="mb-8 border-t border-line" />
 
-            {/* Feature icons — dark navy rounded-square boxes */}
+            {/* Feature icons — dark rounded-square boxes */}
             <div className="mb-8 flex flex-wrap gap-8">
               {aboutData.featureItems.map((f) => (
                 <div key={f.text} className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-foreground">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-ink">
                     <Factory className="h-6 w-6 text-white" />
                   </span>
-                  <p className="whitespace-pre-line text-sm font-bold text-foreground">
+                  <p className="whitespace-pre-line text-sm font-semibold text-foreground">
                     {f.text}
                   </p>
                 </div>
@@ -66,16 +66,16 @@ export function About() {
                 </span>
               </Link>
               <div className="flex items-center gap-4">
-                <span className="flex h-14 w-14 items-center justify-center rounded-full border border-foreground/20">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full border border-line">
                   <Phone className="h-6 w-6 text-foreground" />
                 </span>
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-foreground/60">
+                  <p className="text-xs text-muted">
                     {aboutData.phone.label}
                   </p>
                   <a
                     href={aboutData.phone.href}
-                    className="text-lg font-bold text-foreground hover:text-accent"
+                    className="text-lg font-semibold text-foreground hover:text-accent"
                   >
                     {aboutData.phone.number}
                   </a>
@@ -94,7 +94,7 @@ export function About() {
               className="relative mx-auto flex max-w-[420px] items-end justify-center gap-2 sm:gap-4 lg:max-w-none lg:justify-end"
             >
               {/* Smaller left image */}
-              <div className="relative z-10 h-[220px] w-[170px] shrink-0 overflow-hidden rounded-xl shadow-xl sm:h-[280px] sm:w-[220px] lg:-mr-10 lg:h-[340px] lg:w-[270px]">
+              <div className="relative z-10 h-[220px] w-[170px] shrink-0 overflow-hidden rounded-lg sm:h-[280px] sm:w-[220px] lg:-mr-10 lg:h-[340px] lg:w-[270px]">
                 <Image
                   src={aboutData.images.main}
                   alt="About Suntex - craftsmanship"
@@ -104,7 +104,7 @@ export function About() {
               </div>
 
               {/* Taller right image */}
-              <div className="relative h-[280px] w-[200px] shrink-0 overflow-hidden rounded-xl shadow-2xl sm:h-[360px] sm:w-[260px] lg:h-[460px] lg:w-[310px]">
+              <div className="relative h-[280px] w-[200px] shrink-0 overflow-hidden rounded-lg sm:h-[360px] sm:w-[260px] lg:h-[460px] lg:w-[310px]">
                 <Image
                   src={aboutData.images.overlay}
                   alt="About Suntex - team"
@@ -140,7 +140,7 @@ export function About() {
               </div>
 
               {/* Vertical text — right edge */}
-              <span className="absolute -right-2 top-1/2 hidden -translate-y-1/2 rotate-90 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.3em] text-foreground/30 lg:inline-flex">
+              <span className="absolute -right-2 top-1/2 hidden -translate-y-1/2 rotate-90 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.3em] text-muted/50 lg:inline-flex">
                 {aboutData.tagText}
               </span>
             </motion.div>

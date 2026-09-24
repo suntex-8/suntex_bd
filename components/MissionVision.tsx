@@ -8,7 +8,7 @@ export function MissionVision() {
 
   return (
     <> {/* Vision Section — light, text left, heading right */}
-      <section className="bg-[#edf2fb] py-20 md:py-32 px-5 lg:px-8">
+      <section className="bg-background py-20 md:py-32 px-5 lg:px-8">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Left Column (Vision Text) */}
           <div className="order-2 flex flex-col justify-center lg:order-1 lg:col-span-8">
@@ -17,7 +17,7 @@ export function MissionVision() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="max-w-2xl text-2xl font-semibold leading-snug tracking-tight text-foreground/80 md:text-3xl lg:text-4xl"
+              className="max-w-2xl text-2xl font-semibold leading-snug tracking-tight text-foreground/85 md:text-3xl lg:text-4xl"
             >
               {vision.text}
             </motion.p>
@@ -30,7 +30,7 @@ export function MissionVision() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-8 text-3xl font-medium leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl"
+              className="mb-8 text-3xl font-semibold leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl"
             >
               {vision.heading}
             </motion.p>
@@ -44,7 +44,7 @@ export function MissionVision() {
               {vision.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-block rounded-full border border-foreground/15 bg-foreground/5 px-4 py-2 text-xs font-medium uppercase tracking-wider text-foreground/70 transition-colors hover:bg-foreground/10"
+                  className="inline-block border border-line px-4 py-2 text-xs font-medium text-muted transition-colors hover:bg-surface"
                 >
                   {tag}
                 </span>
@@ -53,8 +53,8 @@ export function MissionVision() {
           </div>
         </div>
       </section>
-      {/* Mission Section — dark, heading left, text right */}
-      <section className="bg-[#0a1628] py-20 md:py-32 px-5 lg:px-8">
+      {/* Mission Section — flat dark, heading left, text right */}
+      <section className="dark-gradient-bg py-20 md:py-32 px-5 lg:px-8">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Left Column (Heading + Badges) */}
           <div className="order-1 flex flex-col items-start justify-center lg:col-span-4">
@@ -77,7 +77,7 @@ export function MissionVision() {
               {mission.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-block rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-wider text-white/70 transition-colors hover:bg-white/10"
+                  className="inline-block border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium text-white/70 transition-colors hover:bg-white/10"
                 >
                   {tag}
                 </span>

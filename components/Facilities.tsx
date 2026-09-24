@@ -7,7 +7,7 @@ import { SectionHeader } from "./SectionHeader";
 
 export function Facilities() {
   return (
-    <section id="facilities" className="bg-[#fafaff] py-20 lg:py-28">
+    <section id="facilities" className="bg-background py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHeader data={facilitiesData} />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -18,7 +18,7 @@ export function Facilities() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="group overflow-hidden rounded-xl"
+              className="group overflow-hidden rounded-lg"
             >
               <div className="relative h-64 overflow-hidden">
                 <Image
@@ -27,8 +27,8 @@ export function Facilities() {
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 to-transparent" />
-                <h3 className="absolute bottom-4 left-4 text-lg font-bold text-white">{item.title}</h3>
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent" />
+                <h3 className="absolute bottom-4 left-4 text-lg font-semibold text-white">{item.title}</h3>
               </div>
             </motion.div>
           ))}

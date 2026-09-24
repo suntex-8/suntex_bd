@@ -8,7 +8,7 @@ import {
   SliderContent,
   SliderWrapper,
 } from "@/components/ui/progressive-carousel";
-import { Check, PenTool, Scissors, ShieldCheck, Truck } from "lucide-react";
+import { PenTool, Scissors, ShieldCheck, Truck } from "lucide-react";
 
 const capabilities = [
   {
@@ -50,23 +50,17 @@ const partnerNote = "Collaborative partners who support and grow with us — ext
 
 export function Services() {
   return (
-    <section id="services" className="relative overflow-hidden bg-[#edf2fb] py-20 lg:py-28">
-      {/* Background SVG decorations */}
-      <SewingSVG />
-      <SpoolSVG />
-      <ScissorsSVG />
-      <WeavePatternSVG />
-
+    <section id="services" className="relative overflow-hidden bg-surface py-20 lg:py-28">
       <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8">
-        {/* Pill nav + heading */}
+        {/* Label + heading */}
         <motion.span
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.5 }}
-          className="mb-4 inline-flex items-center gap-2 rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground"
+          className="mb-4 inline-flex items-center gap-3 text-sm font-semibold text-muted"
         >
-          <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+          <span className="h-px w-8 bg-accent" />
           What We Do
         </motion.span>
 
@@ -75,7 +69,7 @@ export function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 max-w-3xl text-[32px] leading-[1.15] font-normal text-foreground sm:text-4xl lg:text-[40px]"
+          className="mb-16 max-w-3xl text-[32px] leading-[1.05] font-semibold text-foreground sm:text-4xl lg:text-[40px]"
         >
           One Partner, Two Ways We Deliver
         </motion.h2>
@@ -87,9 +81,9 @@ export function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
-            className="relative border-t border-foreground/15 pt-6"
+            className="relative border-t border-line pt-6"
           >
-            <div className="mb-6 text-[10px] font-bold uppercase tracking-[0.28em] text-foreground/60">
+            <div className="mb-6 text-sm font-semibold text-muted">
               We make
             </div>
 
@@ -97,14 +91,14 @@ export function Services() {
               {inHouseItems.map((item) => (
                 <p
                   key={item}
-                  className="text-[clamp(1.1rem,2vw,2rem)] leading-[1.1] tracking-[-0.05em] text-foreground/85"
+                  className="text-[clamp(1.4rem,3vw,2.4rem)] leading-[1.08] tracking-[-0.02em] font-semibold text-foreground"
                 >
                   {item}
                 </p>
               ))}
             </div>
 
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-foreground/60">
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted">
               {inHouseNote}
             </p>
           </motion.div>
@@ -114,9 +108,9 @@ export function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative border-t border-foreground/15 pt-6 md:border-l md:border-foreground/15 md:pl-8"
+            className="relative border-t border-line pt-6 md:border-l md:border-line md:pl-8"
           >
-            <div className="mb-6 text-[10px] font-bold uppercase tracking-[0.28em] text-foreground/60">
+            <div className="mb-6 text-sm font-semibold text-muted">
               We source
             </div>
 
@@ -124,14 +118,14 @@ export function Services() {
               {partnerItems.map((item) => (
                 <p
                   key={item}
-                  className="text-[clamp(1.1rem,2vw,2rem)] leading-[1.1] tracking-[-0.05em] text-foreground/85"
+                  className="text-[clamp(1.4rem,3vw,2.4rem)] leading-[1.08] tracking-[-0.02em] font-semibold text-foreground"
                 >
                   {item}
                 </p>
               ))}
             </div>
 
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-foreground/60">
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted">
               {partnerNote}
             </p>
           </motion.div>
@@ -139,14 +133,14 @@ export function Services() {
       </div>
 
       {/* End-to-End Service Capability — full-width progressive carousel */}
-      <div className="relative z-10 mt-20 w-full border-t border-foreground/10">
+      <div className="relative z-10 mt-20 w-full border-t border-line">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <motion.h3
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-8 pt-16 text-[28px] leading-tight font-normal text-foreground sm:text-3xl lg:text-[36px]"
+            className="mb-8 pt-16 text-[28px] leading-tight font-semibold text-foreground sm:text-3xl lg:text-[36px]"
           >
             End-to-End Service Capability
           </motion.h3>
@@ -162,7 +156,7 @@ export function Services() {
                     alt={cap.title}
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-foreground/40" />
+                  <div className="absolute inset-0 bg-ink/45" />
                   <div className="absolute inset-0 flex items-center justify-center px-5">
                     <div className="max-w-2xl text-center">
                       <cap.icon className="mx-auto mb-4 h-10 w-10 text-accent" />
@@ -179,18 +173,18 @@ export function Services() {
             ))}
           </SliderContent>
 
-          <SliderBtnGroup className="relative z-20 grid w-full grid-cols-2 border-t border-foreground/10 bg-white md:grid-cols-4">
+          <SliderBtnGroup className="relative z-20 grid w-full grid-cols-2 border-t border-line bg-background md:grid-cols-4">
             {capabilities.map((cap) => (
               <SliderBtn
                 key={cap.title}
                 value={cap.title}
-                className="border-r border-foreground/10 p-4 text-left last:border-r-0"
-                progressBarClass="bg-accent/20 h-full"
+                className="border-r border-line p-4 text-left last:border-r-0"
+                progressBarClass="bg-accent/25 h-full"
               >
                 <span className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-foreground/5 text-foreground">
                   <cap.icon className="h-4 w-4" />
                 </span>
-                <p className="text-xs font-semibold uppercase tracking-wide text-foreground sm:text-sm">
+                <p className="text-sm font-semibold text-foreground">
                   {cap.title}
                 </p>
               </SliderBtn>
@@ -199,55 +193,5 @@ export function Services() {
         </ProgressSlider>
       </div>
     </section>
-  );
-}
-
-function SewingSVG() {
-  return (
-    <svg className="pointer-events-none absolute -left-4 top-[8%] h-[220px] w-[220px] opacity-[0.05]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.2">
-      <path d="M50 10 L50 75" />
-      <ellipse cx="50" cy="80" rx="8" ry="12" />
-      <path d="M50 10 L55 5 L60 12 L55 15 Z" fill="currentColor" stroke="none" />
-      <path d="M58 78 Q70 60 85 65 Q95 68 90 80 Q85 90 70 85 Q60 82 58 78" strokeDasharray="3 3" />
-    </svg>
-  );
-}
-
-function SpoolSVG() {
-  return (
-    <svg className="pointer-events-none absolute -right-4 bottom-[5%] h-[200px] w-[200px] opacity-[0.05]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.2">
-      <rect x="30" y="20" width="40" height="60" rx="4" />
-      <ellipse cx="50" cy="20" rx="20" ry="6" />
-      <ellipse cx="50" cy="80" rx="20" ry="6" />
-      <path d="M35 30 Q50 35 65 30" />
-      <path d="M35 40 Q50 45 65 40" />
-      <path d="M35 50 Q50 55 65 50" />
-      <path d="M35 60 Q50 65 65 60" />
-      <path d="M35 70 Q50 75 65 70" />
-    </svg>
-  );
-}
-
-function ScissorsSVG() {
-  return (
-    <svg className="pointer-events-none absolute -left-2 bottom-[8%] h-[160px] w-[160px] opacity-[0.05]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.2">
-      <circle cx="25" cy="75" r="12" />
-      <circle cx="75" cy="75" r="12" />
-      <line x1="33" y1="67" x2="67" y2="20" />
-      <line x1="67" y1="67" x2="33" y2="20" />
-    </svg>
-  );
-}
-
-function WeavePatternSVG() {
-  return (
-    <svg className="pointer-events-none absolute -right-2 top-[5%] h-[240px] w-[240px] opacity-[0.04]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.8">
-      {Array.from({ length: 10 }, (_, i) => (
-        <g key={i}>
-          <path d={`M${10 + i * 9} 10 Q${15 + i * 9} 30 ${10 + i * 9} 50 Q${5 + i * 9} 70 ${10 + i * 9} 90`} />
-          <path d={`M10 ${10 + i * 9} Q30 ${15 + i * 9} 50 ${10 + i * 9} Q70 ${5 + i * 9} 90 ${10 + i * 9}`} />
-        </g>
-      ))}
-    </svg>
   );
 }

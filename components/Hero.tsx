@@ -58,12 +58,9 @@ export function Hero() {
             priority
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/50 to-foreground/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/30" />
         </motion.div>
       </AnimatePresence>
-
-      {/* Decorative yellow line */}
-      <div className="absolute left-0 top-0 h-full w-1 bg-accent/60" />
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-5 lg:px-8">
@@ -80,18 +77,18 @@ export function Hero() {
               <motion.span
                 variants={contentVariants}
                 custom={0}
-                className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent"
+                className="inline-flex items-center gap-3 text-sm font-semibold text-white/85"
               >
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+                <span className="h-px w-8 bg-accent" />
                 {slide.subTitle}
               </motion.span>
               <motion.h1
                 variants={contentVariants}
                 custom={1}
-                className="text-4xl leading-[1.1] text-white sm:text-5xl lg:text-6xl xl:text-7xl"
+                className="text-4xl leading-[1.02] text-white sm:text-5xl lg:text-6xl xl:text-7xl"
               >
                 {slide.headline.split("\n").map((line, i) => (
-                  <span key={i} className={i === 1 ? "text-accent" : "text-white"}>
+                  <span key={i} className="text-white">
                     {line}
                     {i === 0 && <br />}
                   </span>
@@ -153,9 +150,6 @@ export function Hero() {
           />
         ))}
       </div>
-
-      {/* Bottom-right decorative accent */}
-      <div className="absolute bottom-0 right-0 h-24 w-1 bg-accent/40" />
     </section>
   );
 }

@@ -6,23 +6,23 @@ import { teamData } from "@/data/SiteSectionData";
 
 export function Team() {
   return (
-    <section id="team" className="dark-gradient-bg py-20 lg:py-28">
+    <section id="team" className="bg-background py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mb-12 text-center">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-white"
+            className="mb-4 inline-flex items-center gap-3 text-sm font-semibold text-muted"
           >
-            <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+            <span className="h-px w-8 bg-accent" />
             {teamData.subTitle}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-[32px] leading-[1.15] text-white sm:text-4xl lg:text-[44px]"
+            className="text-[32px] leading-[1.08] text-foreground sm:text-4xl lg:text-[44px]"
           >
             {teamData.headline}
           </motion.h2>
@@ -37,7 +37,7 @@ export function Team() {
               transition={{ delay: i * 0.1 }}
               className="group text-center"
             >
-              <div className="relative mx-auto mb-4 h-48 w-48 overflow-hidden rounded-full border-4 border-white/10">
+              <div className="relative mx-auto mb-4 h-48 w-48 overflow-hidden rounded-full ring-1 ring-line">
                 <Image
                   src={m.avatar}
                   alt={m.name}
@@ -45,8 +45,8 @@ export function Team() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <h3 className="text-lg font-bold text-white">{m.name}</h3>
-              <p className="mt-1 text-xs text-accent">{m.role}</p>
+              <h3 className="text-lg font-semibold text-foreground">{m.name}</h3>
+              <p className="mt-1 text-sm text-muted">{m.role}</p>
             </motion.div>
           ))}
         </div>

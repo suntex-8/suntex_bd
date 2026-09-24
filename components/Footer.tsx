@@ -21,10 +21,10 @@ export function Footer() {
               height={48}
               className="mb-5 h-12 w-auto object-contain"
             />
-            <p className="mb-4 max-w-sm text-sm leading-relaxed text-white/60">
+            <p className="mb-4 max-w-sm text-sm leading-relaxed text-white/65">
               {footerData.description}
             </p>
-            <p className="mb-6 font-display text-lg font-bold text-accent">
+            <p className="font-display mb-6 text-lg font-semibold text-accent">
               Since 1999
             </p>
             <div className="flex gap-3">
@@ -50,9 +50,8 @@ export function Footer() {
                   <li key={l.label}>
                     <Link
                       href={l.href}
-                      className="flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-accent"
+                      className="flex items-center gap-2 text-sm text-white/65 transition-colors hover:text-accent"
                     >
-                      <span className="text-accent">+</span>
                       {l.label}
                     </Link>
                   </li>

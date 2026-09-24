@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { hanken, kanit } from "./fonts";
+import { hanken, archivo } from "./fonts";
 import { Providers } from "./providers";
 import { Loader } from "@/components/Loader";
 import "./globals.css";
@@ -14,7 +14,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${kanit.variable} ${hanken.variable} h-full antialiased`}
+      className={`${archivo.variable} ${hanken.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
         <Providers>

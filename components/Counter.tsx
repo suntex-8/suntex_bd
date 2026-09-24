@@ -42,16 +42,16 @@ function CounterStat({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="border-b border-black/10 pb-6 pt-4"
+      className="border-b border-line pb-6 pt-4"
     >
-      <p className="font-bold text-5xl  leading-none text-foreground lg:text-[56px]">
+      <p className="font-display text-5xl leading-none text-foreground lg:text-[56px]">
         <span ref={numRef}>0</span>
         {suffix}
       </p>
-      <h4 className="mt-2 text-sm font-bold uppercase tracking-wide text-foreground">
+      <h4 className="mt-2 text-sm font-semibold tracking-wide text-foreground">
         {label}
       </h4>
-      <p className="mt-3 text-sm leading-relaxed text-foreground/60">
+      <p className="mt-3 text-sm leading-relaxed text-muted">
         {description}
       </p>
     </motion.div>
@@ -62,21 +62,8 @@ export function Counter() {
   return (
     <section
       id="innovation"
-      className="relative overflow-hidden bg-[#edf2fb] py-20 lg:py-28"
+      className="relative overflow-hidden bg-background py-20 lg:py-28"
     >
-      {/* Crosshatch pattern */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          backgroundImage: `
-            repeating-linear-gradient(22.5deg, transparent, transparent 2px, rgba(75, 85, 99, 0.06) 2px, rgba(75, 85, 99, 0.06) 3px, transparent 3px, transparent 8px),
-            repeating-linear-gradient(67.5deg, transparent, transparent 2px, rgba(107, 114, 128, 0.05) 2px, rgba(107, 114, 128, 0.05) 3px, transparent 3px, transparent 8px),
-            repeating-linear-gradient(112.5deg, transparent, transparent 2px, rgba(55, 65, 81, 0.04) 2px, rgba(55, 65, 81, 0.04) 3px, transparent 3px, transparent 8px),
-            repeating-linear-gradient(157.5deg, transparent, transparent 2px, rgba(31, 41, 55, 0.03) 2px, rgba(31, 41, 55, 0.03) 3px, transparent 3px, transparent 8px)
-          `,
-        }}
-      />
-      
       <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-12">
           {/* Left image — tall */}
@@ -86,7 +73,7 @@ export function Counter() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative h-[420px] overflow-hidden rounded-xl shadow-2xl lg:h-[600px]"
+              className="relative h-[420px] overflow-hidden rounded-lg ring-1 ring-line lg:h-[600px]"
             >
               <Image
                 src={counterData.image}
@@ -99,22 +86,21 @@ export function Counter() {
 
           {/* Right content */}
           <div className="lg:col-span-7">
-            {/* Label pill */}
+            {/* Label */}
             <motion.span
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5 }}
-              className="mb-5 inline-flex items-center gap-2 rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground"
+              className="mb-5 inline-flex items-center gap-3 text-sm font-semibold text-muted"
             >
-              <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+              <span className="h-px w-8 bg-accent" />
               {counterData.subTitle}
             </motion.span>
 
-            {/* Headline with small yellow circle accent */}
-            <h2 className="relative mb-6 text-[32px] leading-[1.15] text-foreground sm:text-4xl lg:text-[44px]">
+            {/* Headline */}
+            <h2 className="relative mb-6 text-[32px] leading-[1.08] text-foreground sm:text-4xl lg:text-[44px]">
               <RevealText text={counterData.headline} />
-              <span className="absolute -left-8 top-[1.8em] inline-block h-4 w-4 rounded-full bg-accent/60" />
             </h2>
 
             <motion.p
@@ -122,7 +108,7 @@ export function Counter() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-10 max-w-2xl text-base leading-relaxed text-foreground/60"
+              className="mb-10 max-w-2xl text-base leading-relaxed text-muted"
             >
               {counterData.paragraph}
             </motion.p>
