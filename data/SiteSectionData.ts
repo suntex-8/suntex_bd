@@ -3,6 +3,8 @@
 // Projects, Process, Testimonials, Pricing, Contact, Blog, Footer)
 // =====================================================================
 
+import { productCards } from "./ProductCardsData";
+
 // --- SHARED ---
 export interface TitleBlock {
   subTitle: string;
@@ -721,14 +723,11 @@ export const productsData: ProductsData = {
   subTitle: "Our Products",
   headline: "All Types of Products, Under One Roof",
   centered: true,
-  items: [
-    { category: "Knit", note: "Manufactured in-house", image: "https://images.pexels.com/photos/7375531/pexels-photo-7375531.jpeg?auto=compress&cs=tinysrgb&w=600" },
-    { category: "Woven", note: "Manufactured in-house", image: "https://images.pexels.com/photos/5910517/pexels-photo-5910517.jpeg?auto=compress&cs=tinysrgb&w=600" },
-    { category: "Sweater", note: "Via trusted partners", image: "https://images.pexels.com/photos/1266823/pexels-photo-1266823.jpeg?auto=compress&cs=tinysrgb&w=600" },
-    { category: "Home Textiles", note: "Via trusted partners", image: "https://images.pexels.com/photos/132197/pexels-photo-132197.jpeg?auto=compress&cs=tinysrgb&w=600" },
-    { category: "Socks", note: "Via trusted partners", image: "https://images.pexels.com/photos/4498310/pexels-photo-4498310.jpeg?auto=compress&cs=tinysrgb&w=600" },
-    { category: "Shoes & Leather", note: "Via trusted partners", image: "https://images.pexels.com/photos/984619/pexels-photo-984619.jpeg?auto=compress&cs=tinysrgb&w=600" },
-  ],
+  items: productCards.map(({ category, note, image }) => ({
+    category,
+    note,
+    image,
+  })),
   caption: "Knit and woven are manufactured in-house; sweaters, home textiles, socks, and shoes & leather items are supplied through trusted, collaborative business partners.",
 };
 

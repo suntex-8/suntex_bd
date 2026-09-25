@@ -24,6 +24,7 @@ import { Contact } from "@/components/Contact";
 import { Blog } from "@/components/Blog";
 import { Footer } from "@/components/Footer";
 import { Faq } from "@/components/Faq";
+import { QuoteCta } from "@/components/QuoteCta";
 
 export default function Home() {
   return (
@@ -46,7 +47,8 @@ export default function Home() {
         <About />
         <MissionVision />
         <Team />
-        <Faq/>
+        <Faq />
+        <QuoteCta />
         <Contact />
 
 

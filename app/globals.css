@@ -226,3 +226,36 @@ a.btn-ghost:hover {
   -webkit-backdrop-filter: blur(24px);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
 }
+
+.product-card-image {
+  transform: scale(1);
+  transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.product-card-mask {
+  clip-path: circle(150% at 88% 12%);
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+  .product-card-mask {
+    clip-path: circle(0% at 88% 12%);
+    transition: clip-path 420ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .product-card:hover .product-card-mask,
+  .product-card:focus-visible .product-card-mask {
+    clip-path: circle(150% at 88% 12%);
+  }
+
+  .product-card:hover .product-card-image,
+  .product-card:focus-visible .product-card-image {
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-card-image,
+  .product-card-mask {
+    transition: none;
+  }
+}
