@@ -234,6 +234,33 @@ a.btn-ghost:hover {
 
 .product-card-mask {
   clip-path: circle(150% at 88% 12%);
+  background-color: rgba(14, 16, 19, 0.93);
+}
+
+.product-card-mask::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    var(--accent) 1.3px,
+    transparent 1.4px
+  );
+  background-size: 12px 12px;
+  opacity: 0.9;
+  -webkit-mask-image: linear-gradient(
+    to top right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.12) 45%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  mask-image: linear-gradient(
+    to top right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.12) 45%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  pointer-events: none;
 }
 
 @media (hover: hover) and (pointer: fine) and (min-width: 768px) {

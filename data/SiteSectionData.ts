@@ -794,10 +794,10 @@ export const facilitiesData: FacilitiesData = {
   headline: "See Where It's Made",
   centered: true,
   items: [
-    { title: "Cutting Section", image: "https://images.pexels.com/photos/4498310/pexels-photo-4498310.jpeg?auto=compress&cs=tinysrgb&w=800" },
-    { title: "Sewing Line", image: "https://images.pexels.com/photos/5910517/pexels-photo-5910517.jpeg?auto=compress&cs=tinysrgb&w=800" },
-    { title: "Finishing & QC", image: "https://images.pexels.com/photos/7375531/pexels-photo-7375531.jpeg?auto=compress&cs=tinysrgb&w=800" },
-    { title: "Warehouse & Logistics", image: "https://images.pexels.com/photos/1266823/pexels-photo-1266823.jpeg?auto=compress&cs=tinysrgb&w=800" },
+    { title: "Cutting Section", image: "https://images.pexels.com/photos/5894144/pexels-photo-5894144.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+    { title: "Sewing Line", image: "https://images.pexels.com/photos/4492077/pexels-photo-4492077.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+    { title: "Finishing & QC", image: "https://images.pexels.com/photos/5699287/pexels-photo-5699287.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+    { title: "Warehouse & Logistics", image: "https://images.pexels.com/photos/17260158/pexels-photo-17260158.jpeg?auto=compress&cs=tinysrgb&w=1200" },
   ],
 };
 
