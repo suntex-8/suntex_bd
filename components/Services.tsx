@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { PenTool, Scissors, ShieldCheck, Truck } from "lucide-react";
+import { FeralGradient } from "@/components/FeralGradient";
 
 const capabilities = [
   {
@@ -62,9 +63,25 @@ export function Services() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section id="services" className="relative overflow-hidden bg-surface py-20 lg:py-28">
+    <section
+      id="services"
+      className="relative isolate overflow-hidden bg-surface py-20 lg:py-28"
+    >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+        <FeralGradient
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            aspectRatio: "auto",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-surface/25 from-20% via-surface/70 via-52% to-surface to-80%" />
+      </div>
+
       <motion.div
-        className="mx-auto max-w-7xl px-5 lg:px-8"
+        className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8"
         variants={group}
         initial={prefersReducedMotion ? false : "hidden"}
         whileInView="show"
@@ -132,14 +149,15 @@ export function Services() {
           {capabilities.map((cap) => (
             <div
               key={cap.title}
-              className="group relative isolate min-h-[280px] overflow-hidden rounded-xl lg:min-h-0 lg:flex-1 lg:transition-[flex-grow] lg:duration-500 lg:ease-[cubic-bezier(0.23,1,0.32,1)] lg:hover:flex-[1.7_1_0%] motion-reduce:transition-none"
+              tabIndex={0}
+              className="capability-panel group relative isolate min-h-[280px] overflow-hidden rounded-xl outline-none lg:min-h-0 lg:flex-1"
             >
               <Image
                 src={cap.img}
                 alt=""
                 fill
                 sizes="(min-width: 1024px) 30vw, 100vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transition-none"
+                className="capability-image object-cover motion-reduce:transition-none"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/50 to-ink/15" />
               <div className="relative flex h-full flex-col justify-end p-5 lg:p-6">
