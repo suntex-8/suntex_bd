@@ -1,6 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import Image from "next/image";
+import { useState } from "react";
+import { motion, useReducedMotion, type Variants } from "motion/react";
 import {
   Anchor,
   Building2,
@@ -11,78 +13,31 @@ import {
 } from "lucide-react";
 import { factoryNetworkData } from "@/data/SiteSectionData";
 
-const BOUNDS = { minLon: 89.3, maxLon: 92.7, minLat: 21.9, maxLat: 24.9 };
-const MAP_W = 560;
-const MAP_H = 540;
+const MAP_W = 936;
+const MAP_H = 1250;
 
-function project(lon: number, lat: number) {
-  return {
-    x: ((lon - BOUNDS.minLon) / (BOUNDS.maxLon - BOUNDS.minLon)) * MAP_W,
-    y: ((BOUNDS.maxLat - lat) / (BOUNDS.maxLat - BOUNDS.minLat)) * MAP_H,
-  };
-}
+/* Viewport into the source image: drops the far west and the north so the
+   Dhaka → Chattogram corridor fills the frame. */
+const CROP = { x: 300, y: 390, w: 636, h: 850 };
 
-const BORDER: [number, number][] = [
-  [88.2, 25.9],
-  [88.6, 26.3],
-  [88.9, 26.63],
-  [89.3, 26.2],
-  [89.55, 26.05],
-  [89.8, 25.9],
-  [89.85, 25.55],
-  [89.95, 25.15],
-  [90.1, 24.85],
-  [90.2, 24.6],
-  [90.45, 24.3],
-  [90.65, 24.05],
-  [90.85, 23.8],
-  [91.05, 23.45],
-  [91.2, 23.1],
-  [91.4, 22.95],
-  [91.7, 22.75],
-  [91.95, 22.6],
-  [92.2, 22.3],
-  [92.45, 21.9],
-  [92.3, 21.45],
-  [92.05, 21.2],
-  [91.75, 20.95],
-  [91.35, 20.85],
-  [90.9, 21.0],
-  [90.5, 21.5],
-  [90.2, 21.7],
-  [89.8, 21.8],
-  [89.4, 21.85],
-  [89.1, 22.0],
-  [88.9, 22.1],
-  [88.6, 22.25],
-  [88.35, 22.4],
-  [88.05, 22.6],
-  [88.15, 22.95],
-  [88.25, 23.25],
-  [88.35, 23.55],
-  [88.45, 23.8],
-  [88.3, 24.1],
-  [88.25, 24.45],
-  [88.45, 24.75],
-  [88.35, 25.05],
-  [88.15, 25.3],
-  [88.05, 25.55],
-  [88.1, 25.75],
-];
+/* Linear lon/lat projection, fitted to public/dotted-bd-map.png so the
+   markers land where the dots actually are. */
+const PROJECT = { tx: 87.7821, ty: 26.80114, sx: 181.142, sy: 192.559 };
 
-const outlinePath = `${BORDER.map(([lon, lat], i) => {
-  const p = project(lon, lat);
-  return `${i === 0 ? "M" : "L"}${p.x.toFixed(1)} ${p.y.toFixed(1)}`;
-}).join(" ")} Z`;
+const project = (lon: number, lat: number) => ({
+  x: (lon - PROJECT.tx) * PROJECT.sx,
+  y: (PROJECT.ty - lat) * PROJECT.sy,
+});
 
 type Site = {
   name: string;
   lon: number;
   lat: number;
   icon: LucideIcon;
-  labelX: number;
-  labelY: number;
-  align: "left" | "right";
+  role: string;
+  side: "left" | "right";
+  dx: number;
+  dy: number;
   hub?: boolean;
 };
 
@@ -92,18 +47,20 @@ const SITES: Site[] = [
     lon: 90.4203,
     lat: 23.9999,
     icon: Factory,
-    labelX: -18,
-    labelY: -14,
-    align: "right",
+    role: "Factory cluster",
+    side: "right",
+    dx: 34,
+    dy: -52,
   },
   {
     name: "Dhaka",
     lon: 90.4125,
     lat: 23.8103,
     icon: Building2,
-    labelX: -20,
-    labelY: 1,
-    align: "right",
+    role: "Sourcing hub",
+    side: "left",
+    dx: -34,
+    dy: -2,
     hub: true,
   },
   {
@@ -111,38 +68,83 @@ const SITES: Site[] = [
     lon: 90.499,
     lat: 23.6238,
     icon: Anchor,
-    labelX: -18,
-    labelY: 16,
-    align: "right",
+    role: "River port",
+    side: "right",
+    dx: 34,
+    dy: 54,
   },
   {
     name: "Chattogram",
     lon: 91.7832,
     lat: 22.3569,
     icon: Ship,
-    labelX: -18,
-    labelY: 0,
-    align: "right",
+    role: "Seaport & export",
+    side: "left",
+    dx: -38,
+    dy: 4,
   },
 ];
 
-const hub = project(90.4125, 23.8103);
+const HUB_POINT = project(90.4125, 23.8103);
 
-const routes = SITES.filter((site) => !site.hub).map((site) => {
+const ROUTES = SITES.filter((site) => !site.hub).map((site) => {
   const to = project(site.lon, site.lat);
+  const dx = to.x - HUB_POINT.x;
+  const dy = to.y - HUB_POINT.y;
+  const len = Math.hypot(dx, dy) || 1;
+  const bend = len * 0.14;
+  const cx = (HUB_POINT.x + to.x) / 2 + (-dy / len) * bend;
+  const cy = (HUB_POINT.y + to.y) / 2 + (dx / len) * bend;
   return {
     id: site.name,
-    d: `M${hub.x.toFixed(1)} ${hub.y.toFixed(1)} L${to.x.toFixed(1)} ${to.y.toFixed(1)}`,
+    d: `M${HUB_POINT.x.toFixed(1)} ${HUB_POINT.y.toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${to.x.toFixed(1)} ${to.y.toFixed(1)}`,
   };
 });
 
+/* The crop cuts through the dot field on the west and north edges — both
+   edges dissolve into the section background instead of ending flat.
+   These live on frame-sized wrappers so the fade is measured against the
+   visible viewport, not the full map layer. */
+const FADE_NORTH = "linear-gradient(to bottom, transparent 0%, #000 8%)";
+const FADE_WEST = "linear-gradient(to right, transparent 0%, #000 10%)";
+
+const EASE: [number, number, number, number] = [0.23, 1, 0.32, 1];
+
 export function FactoryNetwork() {
   const prefersReducedMotion = useReducedMotion();
+  const [active, setActive] = useState<string | null>(null);
+
+  const overlayShow: Variants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : 0.14,
+        delayChildren: prefersReducedMotion ? 0 : 0.4,
+      },
+    },
+  };
+
+  const routeVariant: Variants = {
+    hidden: { pathLength: 0, opacity: 0 },
+    show: {
+      pathLength: 1,
+      opacity: 1,
+      transition: { duration: prefersReducedMotion ? 0 : 1, ease: EASE },
+    },
+  };
+
+  const markerVariant: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { duration: prefersReducedMotion ? 0 : 0.5, ease: EASE },
+    },
+  };
 
   return (
     <section id="network" className="dark-gradient-bg py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="grid items-center gap-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-20">
+        <div className="grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-16">
           <div>
             <motion.span
               initial={{ opacity: 0, y: 10 }}
@@ -173,10 +175,15 @@ export function FactoryNetwork() {
               {factoryNetworkData.paragraph}
             </motion.p>
 
-            <ul className="mt-9 border-t border-white/10">
+            <ul
+              className="mt-9 border-t border-white/10"
+              onMouseLeave={() => setActive(null)}
+            >
               {factoryNetworkData.locations.map((loc, i) => {
                 const site = SITES.find((s) => s.name === loc);
-                const Icon = site?.icon;
+                if (!site) return null;
+                const Icon = site.icon;
+                const isActive = active === loc;
 
                 return (
                   <motion.li
@@ -188,27 +195,51 @@ export function FactoryNetwork() {
                       delay: prefersReducedMotion ? 0 : 0.1 + i * 0.07,
                       duration: prefersReducedMotion ? 0 : 0.5,
                     }}
-                    className="flex items-center gap-4 border-b border-white/10 py-3.5"
+                    onMouseEnter={() => setActive(loc)}
+                    className={`group border-b border-white/10 transition-colors motion-reduce:transition-none ${
+                      isActive ? "bg-white/[0.03]" : ""
+                    }`}
                   >
-                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-accent/30 bg-accent/10 text-accent">
-                      {Icon ? (
+                    <div className="flex items-center gap-4 py-4">
+                      <span
+                        className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg border transition-colors motion-reduce:transition-none ${
+                          isActive || site.hub
+                            ? "border-accent bg-accent text-ink"
+                            : "border-accent/30 bg-accent/10 text-accent"
+                        }`}
+                      >
                         <Icon className="h-4 w-4" strokeWidth={2} />
-                      ) : (
-                        <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                      )}
-                    </span>
-                    <span className="font-display text-lg font-semibold text-white">
-                      {loc}
-                    </span>
-                    <span className="ml-auto hidden text-xs tracking-[0.18em] text-white/35 uppercase sm:block">
-                      Bangladesh
-                    </span>
+                      </span>
+
+                      <span className="min-w-0">
+                        <span className="flex items-baseline gap-2.5">
+                          <span className="font-display text-lg font-semibold text-white">
+                            {loc}
+                          </span>
+                          {site.hub && (
+                            <span className="text-[10px] font-semibold tracking-[0.18em] text-accent uppercase">
+                              Hub
+                            </span>
+                          )}
+                        </span>
+                        <span className="mt-0.5 block text-xs text-white/55">
+                          {site.role}
+                        </span>
+                      </span>
+
+                      <span
+                        aria-hidden="true"
+                        className={`ml-auto h-px shrink-0 transition-all duration-500 motion-reduce:transition-none ${
+                          isActive ? "w-10 bg-accent" : "w-4 bg-white/15"
+                        }`}
+                      />
+                    </div>
                   </motion.li>
                 );
               })}
             </ul>
 
-            <ul className="mt-8 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+            <ul className="mt-8 grid gap-x-6 gap-y-3 border-t border-white/10 pt-6 sm:grid-cols-3">
               {factoryNetworkData.advantages.map((a) => (
                 <li
                   key={a}
@@ -224,95 +255,201 @@ export function FactoryNetwork() {
           <motion.figure
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.7 }}
-            className="relative mx-auto w-full max-w-[420px] lg:max-w-none"
+            className="mx-auto w-full max-w-[440px] lg:max-w-none"
           >
-            <svg
-              viewBox={`0 0 ${MAP_W} ${MAP_H}`}
-              className="fn-map-mask block h-auto w-full"
-              role="img"
-              aria-label="Map of Bangladesh marking the factory locations in Dhaka, Gazipur, Narayanganj and Chattogram"
+            <div
+              className="relative overflow-hidden"
+              style={{ aspectRatio: `${CROP.w} / ${CROP.h}` }}
             >
-              <defs>
-                <pattern
-                  id="fn-dots"
-                  width="11"
-                  height="11"
-                  patternUnits="userSpaceOnUse"
-                >
-                  <circle cx="2" cy="2" r="1.5" fill="rgba(255,255,255,0.22)" />
-                </pattern>
-                <radialGradient id="fn-hub" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.32" />
-                  <stop offset="55%" stopColor="var(--accent)" stopOpacity="0.09" />
-                  <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-
-              <path
-                d={outlinePath}
-                fill="rgba(255,255,255,0.04)"
-                stroke="rgba(255,255,255,0.18)"
-                strokeWidth="1"
-                strokeLinejoin="round"
+              <div
+                className="absolute h-[50%] w-[60%] rounded-full bg-accent/10 blur-[70px]"
+                style={{
+                  left: "55%",
+                  top: "45%",
+                  transform: "translate(-50%, -50%)",
+                }}
               />
-              <path d={outlinePath} fill="url(#fn-dots)" />
 
-              <circle cx={hub.x} cy={hub.y} r="96" fill="url(#fn-hub)" />
-
-              {routes.map((route) => (
-                <path
-                  key={route.id}
-                  d={route.d}
-                  fill="none"
-                  stroke="var(--accent)"
-                  strokeOpacity="0.45"
-                  strokeWidth="1"
-                  strokeDasharray="3 5"
-                />
-              ))}
-            </svg>
-
-            {SITES.map((site) => {
-              const p = project(site.lon, site.lat);
-              const Icon = site.icon;
-
-              return (
+              <div
+                className="absolute inset-0"
+                style={{
+                  WebkitMaskImage: FADE_NORTH,
+                  maskImage: FADE_NORTH,
+                }}
+              >
                 <div
-                  key={site.name}
-                  aria-hidden="true"
-                  className="pointer-events-none absolute"
+                  className="absolute inset-0"
                   style={{
-                    left: `${(p.x / MAP_W) * 100}%`,
-                    top: `${(p.y / MAP_H) * 100}%`,
+                    WebkitMaskImage: FADE_WEST,
+                    maskImage: FADE_WEST,
                   }}
                 >
-                  <span
-                    className={`absolute grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border ${
-                      site.hub
-                        ? "h-5 w-5 border-accent bg-accent text-ink lg:h-6 lg:w-6"
-                        : "h-5 w-5 border-accent/70 bg-ink text-accent lg:h-6 lg:w-6"
-                    }`}
-                  >
-                    <Icon className="h-2.5 w-2.5 lg:h-3 lg:w-3" strokeWidth={2.4} />
-                  </span>
-
-                  <span
-                    className={`absolute flex items-center gap-1.5 whitespace-nowrap text-[11px] font-semibold tracking-[0.06em] text-white/85 ${
-                      site.align === "right" ? "flex-row-reverse" : "flex-row"
-                    }`}
+                  <div
+                    className="absolute"
                     style={{
-                      left: site.labelX,
-                      top: site.labelY,
-                      transform: "translateY(-50%)",
+                      width: `${(MAP_W / CROP.w) * 100}%`,
+                      height: `${(MAP_H / CROP.h) * 100}%`,
+                      left: `${-(CROP.x / CROP.w) * 100}%`,
+                      top: `${-(CROP.y / CROP.h) * 100}%`,
                     }}
                   >
-                    {site.name}
-                  </span>
+                    <Image
+                      src="/dotted-bd-map-transparent.png"
+                      alt="Dotted map of Bangladesh, zoomed onto the Dhaka–Chattogram corridor, marking Gazipur, Dhaka, Narayanganj and Chattogram"
+                      width={MAP_W}
+                      height={MAP_H}
+                      sizes="(min-width: 1024px) 800px, (min-width: 640px) 680px, 140vw"
+                      className="block h-full w-full"
+                    />
+
+                <motion.div
+                  className="pointer-events-none absolute inset-0"
+                  initial={prefersReducedMotion ? "show" : "hidden"}
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.35 }}
+                  variants={overlayShow}
+                >
+                  <svg
+                    viewBox={`0 0 ${MAP_W} ${MAP_H}`}
+                    className="absolute inset-0 h-full w-full"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    {ROUTES.map((route) => (
+                      <motion.path
+                        key={route.id}
+                        d={route.d}
+                        stroke="var(--accent)"
+                        strokeOpacity={0.5}
+                        strokeWidth={1.5}
+                        strokeLinecap="round"
+                        variants={routeVariant}
+                      />
+                    ))}
+
+                    {SITES.map((site) => {
+                      const p = project(site.lon, site.lat);
+                      return (
+                        <motion.line
+                          key={`lead-${site.name}`}
+                          x1={p.x}
+                          y1={p.y}
+                          x2={p.x + site.dx}
+                          y2={p.y + site.dy}
+                          stroke="var(--accent)"
+                          strokeOpacity={0.55}
+                          strokeWidth={1.5}
+                          strokeLinecap="round"
+                          variants={markerVariant}
+                        />
+                      );
+                    })}
+                  </svg>
+
+                  {SITES.map((site) => {
+                    const p = project(site.lon, site.lat);
+                    const Icon = site.icon;
+                    const isActive = active === site.name;
+
+                    return (
+                      <motion.div
+                        key={site.name}
+                        aria-hidden="true"
+                        className="absolute"
+                        variants={markerVariant}
+                        style={{
+                          left: `${(p.x / MAP_W) * 100}%`,
+                          top: `${(p.y / MAP_H) * 100}%`,
+                        }}
+                      >
+                        {site.hub && !prefersReducedMotion && (
+                          <span className="absolute top-1/2 left-1/2 grid h-8 w-8 sm:h-10 sm:w-10 -translate-x-1/2 -translate-y-1/2 place-items-center">
+                            <motion.span
+                              className="block h-full w-full rounded-full border border-accent/60"
+                              initial={{ scale: 1, opacity: 0.7 }}
+                              animate={{ scale: [1, 2.4], opacity: [0.7, 0] }}
+                              transition={{
+                                duration: 2.6,
+                                ease: "easeOut",
+                                repeat: Infinity,
+                                repeatDelay: 0.8,
+                              }}
+                            />
+                          </span>
+                        )}
+
+                        <span
+                          className={`absolute top-1/2 left-1/2 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border backdrop-blur-[2px] transition-all duration-300 motion-reduce:transition-none ${
+                            site.hub
+                              ? "h-5 w-5 border border-accent bg-ink/90 text-accent sm:h-7 sm:w-7 sm:border-2"
+                              : "h-3 w-3 border border-accent/60 bg-ink/85 text-accent sm:h-[22px] sm:w-[22px] sm:border-[1.5px]"
+                          } ${isActive ? "scale-110 ring-4 ring-accent/25" : ""}`}
+                        >
+                          <Icon
+                            className={`${site.hub ? "h-3 w-3 sm:h-4 sm:w-4" : "hidden h-3 w-3 sm:block"}`}
+                            strokeWidth={2}
+                          />
+                        </span>
+                      </motion.div>
+                    );
+                  })}
+
+                  {SITES.map((site) => {
+                    const p = project(site.lon, site.lat);
+                    const isActive = active === site.name;
+                    const show = site.hub || isActive;
+                    const ax = ((p.x + site.dx) / MAP_W) * 100;
+                    const ay = ((p.y + site.dy) / MAP_H) * 100;
+
+                    const pos =
+                      site.side === "right"
+                        ? { left: `${ax}%` }
+                        : { right: `${100 - ax}%` };
+
+                    return (
+                      <div
+                        key={`label-${site.name}`}
+                        aria-hidden="true"
+                        className={`absolute -translate-y-1/2 ${show ? "block" : "hidden sm:block"}`}
+                        style={{ ...pos, top: `${ay}%` }}
+                      >
+                        <span
+                          className={`block whitespace-nowrap rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] uppercase backdrop-blur-sm transition-colors motion-reduce:transition-none ${
+                            site.side === "right" ? "ml-1.5" : "mr-1.5"
+                          } ${
+                            isActive || site.hub
+                              ? "border-accent/50 bg-ink/85 text-accent"
+                              : "border-white/10 bg-ink/70 text-white/75"
+                          }`}
+                        >
+                          {site.name}
+                        </span>
+                      </div>
+                    );
+                  })}
+                  </motion.div>
+                  </div>
                 </div>
-              );
-            })}
+              </div>
+            </div>
+
+            <figcaption className="mt-4 flex flex-wrap items-center justify-between gap-x-5 gap-y-2">
+              <p className="text-[11px] leading-relaxed text-white/45">
+                Routes run from the Dhaka hub to every location in the network.
+              </p>
+              <ul className="flex items-center gap-4 text-[10px] font-semibold tracking-[0.14em] text-white/40 uppercase">
+                <li className="flex items-center gap-1.5">
+                  <span className="h-2 w-2 rounded-full bg-accent" />
+                  Hub
+                </li>
+                <li className="flex items-center gap-1.5">
+                  <span className="h-2 w-2 rounded-full border border-accent/70" />
+                  Location
+                </li>
+              </ul>
+            </figcaption>
           </motion.figure>
         </div>
       </div>

@@ -236,11 +236,6 @@ a.btn-ghost:hover {
   mix-blend-mode: normal !important;
 }
 
-.fn-map-mask {
-  -webkit-mask-image: radial-gradient(closest-side, #000 84%, transparent 100%);
-  mask-image: radial-gradient(closest-side, #000 84%, transparent 100%);
-}
-
 .mv-aurora-glow {
   background-image:
     radial-gradient(120% 85% at 16% -10%, rgba(247, 197, 39, 0.2), transparent 58%),

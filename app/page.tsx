@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
+import { About2 } from "@/components/About2";
 import { Ticker } from "@/components/Ticker";
 import { MissionVision } from "@/components/MissionVision";
 import { Services } from "@/components/Services";
@@ -25,6 +26,8 @@ import { Blog } from "@/components/Blog";
 import { Footer } from "@/components/Footer";
 import { Faq } from "@/components/Faq";
 import { QuoteCta } from "@/components/QuoteCta";
+import Chart from "@/components/chart";
+import Intro from "@/components/intro";
 
 export default function Home() {
   return (
@@ -32,7 +35,10 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Counter />
+        <Intro/>
+        {/* <Counter /> */}
+        {/* <About2/> */}
+        {/* <Chart/> */}
         
         <Ticker />
         <Products />
