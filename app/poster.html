@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGUQ Implementation · A0 Poster</title>
+    <!-- Tailwind via CDN + basic print-friendly adjustments -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* custom tweaks for poster feel & print */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
+        * {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background: #e6e9ef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .poster {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            border-radius: 2rem;
+            padding: 2.5rem 3rem;
+            transition: all 0.2s;
+            border: 1px solid #d1d9e6;
+        }
+        /* A0 is 841x1189mm, but we keep a responsive web poster */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.8rem;
+        }
+        .section-title {
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            border-bottom: 4px solid #2563eb;
+            padding-bottom: 0.4rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            line-height: 1.2;
+            color: #0b1e3a;
+        }
+        .subsection-title {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #1e3a8a;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .card {
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1.2rem 1.4rem;
+            border-left: 6px solid #3b82f6;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.8rem;
+            border-radius: 999px;
+            letter-spacing: 0.02em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        th {
+            background: #1e3a8a;
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 0.5rem;
+            text-align: left;
+        }
+        td {
+            padding: 0.6rem 0.5rem;
+            border-bottom: 1px solid #d1d5db;
+            vertical-align: top;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .highlight {
+            background: #fef9c3;
+            border-radius: 0.25rem;
+            padding: 0.1rem 0.3rem;
+            font-weight: 600;
+        }
+        .mono {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            background: #eef2ff;
+            padding: 0.15rem 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.85rem;
+        }
+        .footnote {
+            font-size: 0.75rem;
+            color: #4b5563;
+            margin-top: 0.6rem;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 0.5rem;
+        }
+        .icon-small {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+        /* print */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .poster {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+                padding: 1.5cm;
+            }
+            .badge {
+                border: 1px solid #aaa;
+            }
+        }
+        /* responsive fallback */
+        @media (max-width: 900px) {
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .poster {
+                padding: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <!-- poster header -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <span class="badge text-sm">MGUQ · Multi-Granular Uncertainty Quantification</span>
+                <span class="text-sm font-medium text-gray-500">Implementation & Results</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mt-4 tracking-tight leading-tight">
+                Uncertainty Quantification for<br>Small Language Models (SLMs)
+            </h1>
+            <p class="text-lg text-gray-700 mt-3 max-w-3xl">
+                A resource-aware pipeline for GPQA evaluation: token/answer entropy, semantic uncertainty, 
+                calibration, error discrimination, and bidirectional cross-model validation.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4 text-sm">
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Qwen · Llama · Mistral · Gemma</span>
+                <span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">4-bit NF4 · GPU</span>
+                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">GPQA benchmark</span>
+            </div>
+        </div>
+
+        <!-- main 3-column grid -->
+        <div class="grid-3">
+            <!-- left column -->
+            <div>
+                <!-- 4.1 Environment -->
+                <div class="card mb-6">
+                    <h2 class="section-title">4.1 Environment</h2>
+                    <ul class="list-disc list-inside space-y-1.5 text-sm text-gray-800">
+                        <li>Python · Hugging Face Transformers · PyTorch</li>
+                        <li>bitsandbytes (4-bit NF4 quantization)</li>
+                        <li>NumPy, pandas, scikit-learn, SentenceTransformers</li>
+                        <li>Automatic device mapping (GPU / Colab)</li>
+                    </ul>
+                </div>
+
+                <!-- 4.2 Testing & Evaluation -->
+                <div class="card mb-6">
+                    <h2 class="section-title">4.2 Testing & Evaluation</h2>
+                    <ol class="list-decimal list-inside text-sm text-gray-800 space-y-1">
+                        <li>MCQ answer key with shuffled options (fixed seed)</li>
+                        <li>Model's answer choice recorded</li>
+                        <li>Token entropy & probability from generation scores</li>
+                        <li>Answer-level UQ = mean token entropy</li>
+                        <li>Confidence = option probability (calibration)</li>
+                        <li>5 stochastic responses → semantic analysis</li>
+                        <li>Encode → cosine similarity → clustering → normalized semantic entropy</li>
+                        <li>AUROC/AUPRC vs. correctness; ECE, Brier, NLL</li>
+                        <li>Cross-model validation: Llama ↔ Qwen</li>
+                        <li>Mistral ↔ Gemma cross-validation</li>
+                    </ol>
+                </div>
+
+                <!-- 4.3.1 Token & Answer level uncertainty -->
+                <div class="card mb-6">
+                    <h2 class="section-title">4.3.1 Token & Answer Uncertainty</h2>
+                    <div class="bg-white/60 p-3 rounded-lg mb-2 font-mono text-sm">
+                        H(P) = − Σ pᵢ · log(pᵢ)
+                    </div>
+                    <div class="bg-white/60 p-3 rounded-lg font-mono text-sm">
+                        Answer UQ = (1/n) Σ H(token)
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 italic">
+                        Example: if token entropies = 0.20, 0.40, 0.30 → Answer UQ = 0.30 (illustrative only).
+                    </p>
+                </div>
+            </div>
+
+            <!-- middle column -->
+            <div>
+                <!-- 4.3.2 Semantic Uncertainty -->
+                <div class="card mb-6">
+                    <h2 class="section-title">4.3.2 Semantic Uncertainty</h2>
+                    <p class="text-sm mb-2">
+                        <span class="font-semibold">all-MiniLM-L6-v2</span> on 5 stochastic responses.
+                    </p>
+                    <ul class="list-disc list-inside text-sm space-y-1 text-gray-800">
+                        <li>Pairwise cosine similarity</li>
+                        <li>Cluster responses with similarity ≥ 0.80</li>
+                        <li>Semantic entropy: H = − Σ pᵢ log(pᵢ) (pᵢ = cluster proportions)</li>
+                        <li>Normalized by log(k)</li>
+                    </ul>
+                    <p class="text-xs mt-2 bg-gray-100 p-2 rounded">
+                        One cluster → UQ = 0; uniform clusters → higher uncertainty.
+                    </p>
+                </div>
+
+                <!-- 4.3.3 Calibration & Error discrimination -->
+                <div class="card mb-6">
+                    <h2 class="section-title">4.3.3 Calibration & Error</h2>
+                    <div class="grid grid-cols-2 gap-2 text-sm mb-2">
+                        <span class="bg-white p-1.5 rounded border border-gray-200 font-medium">ECE</span>
+                        <span class="text-gray-700">10 confidence bins vs. empirical accuracy</span>
+                        <span class="bg-white p-1.5 rounded border border-gray-200 font-medium">Brier</span>
+                        <span class="text-gray-700">Squared error of probability estimates</span>
+                        <span class="bg-white p-1.5 rounded border border-gray-200 font-medium">NLL</span>
+                        <span class="text-gray-700">Penalty for low probability on observed event</span>
+                        <span class="bg-white p-1.5 rounded border border-gray-200 font-medium">AUROC/AUPRC</span>
+                        <span class="text-gray-700">Uncertainty as discriminator for incorrect answers</span>
+                    </div>
+                </div>
+
+                <!-- table from PDF (evaluation measures) -->
+                <div class="card mb-6">
+                    <h2 class="section-title">Evaluation levels</h2>
+                    <table>
+                        <thead>
+                            <tr><th>Level</th><th>Measurement</th><th>Interpretation</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Prediction</td><td>Accuracy</td><td>Selected option matches GPQA ground truth</td></tr>
+                            <tr><td>Token / answer UQ</td><td>Entropy; mean token entropy</td><td>Uncertainty within one generated answer</td></tr>
+                            <tr><td>Calibration</td><td>ECE, Brier, NLL</td><td>Agreement between confidence & observed correctness</td></tr>
+                            <tr><td>Error discrimination</td><td>AUROC, AUPRC</td><td>Higher uncertainty associated with incorrect answers</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- right column -->
+            <div>
+                <!-- 4.3.4 Cross-Model Validation -->
+                <div class="card mb-6">
+                    <h2 class="section-title">4.3.4 Cross-Model Validation</h2>
+                    <p class="text-sm">Bidirectional:</p>
+                    <div class="flex items-center gap-2 my-2 text-sm font-mono bg-white p-2 rounded-lg border border-blue-200">
+                        <span class="text-blue-700">Llama → Qwen</span>
+                        <span class="text-gray-400">|</span>
+                        <span class="text-blue-700">Qwen → Llama</span>
+                    </div>
+                    <p class="text-sm">Validator outputs <span class="highlight">CORRECT / INCORRECT</span>; first-token probabilities → p(correct), p(incorrect).</p>
+                    <p class="text-sm mt-2">Also performed: <span class="font-semibold">Mistral ↔ Gemma</span>.</p>
+                </div>
+
+                <!-- 4.3.5 work not completed -->
+                <div class="card mb-6 border-l-amber-500">
+                    <h2 class="section-title text-amber-800 border-amber-500">4.3.5 Work not completed</h2>
+                    <ul class="list-disc list-inside text-sm text-gray-800 space-y-1">
+                        <li>Evaluation using 4 SLMs</li>
+                        <li>Claim-level uncertainty / NLI-based verification</li>
+                        <li>More benchmarks: TriviaQA, TruthfulQA, CoQA</li>
+                        <li>Final dashboard & visual reporting interface</li>
+                    </ul>
+                    <p class="text-xs text-amber-700 mt-2">(Due to supervisor departure / timeline constraints)</p>
+                </div>
+
+                <!-- 4.4 Summary & 5.3.1 complex problem -->
+                <div class="card mb-6">
+                    <h2 class="section-title">4.4 Summary</h2>
+                    <p class="text-sm">
+                        Partial pipeline implemented: deterministic token/answer uncertainty, stochastic semantic uncertainty, 
+                        calibration, uncertainty-based error discrimination, bidirectional cross-model validation for two SLMs 
+                        (Llama & Qwen) plus Mistral/Gemma. Missing: claim-level, multi-model expansion, broader benchmarks.
+                    </p>
+                </div>
+
+                <!-- 5.3.1 complex engineering problem -->
+                <div class="card mb-6 bg-blue-50/50">
+                    <h2 class="section-title">5.3.1 Complex Engineering Problem</h2>
+                    <p class="text-sm">
+                        Multi-level uncertainty (token, answer, semantic) paired with correctness. Pipeline includes 
+                        next-token distributions, entropy, stochastic generation, embeddings, clustering, calibration 
+                        metrics, and cross-model validation. Resource-intensive due to repeated generation.
+                    </p>
+                </div>
+
+                <!-- 5.3 Cost analysis table -->
+                <div class="card">
+                    <h2 class="section-title">5.3 Cost Analysis (BDT)</h2>
+                    <table>
+                        <thead><tr><th>Component</th><th>Est. Cost</th></tr></thead>
+                        <tbody>
+                            <tr><td>GPU / Compute Resources</td><td>4,000</td></tr>
+                            <tr><td>Hardware / Compute</td><td>3,000</td></tr>
+                            <tr><td>Hosting & Deployment</td><td>1,000</td></tr>
+                            <tr><td>Testing Models</td><td>Free</td></tr>
+                            <tr class="font-bold bg-blue-50"><td>Total Estimated Cost</td><td>8,000</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="text-xs text-gray-500 mt-2">Planning estimate, not audited spend.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- bottom row: standards & constraints / footer -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 pt-4 border-t-2 border-gray-200">
+            <div>
+                <h3 class="subsection-title">📐 Software Standards</h3>
+                <p class="text-sm">Modular Python, CSV results, explicit seed, checkpointing, open-source libraries. Five-step pipeline: Data Prep → Inference → Uncertainty → Semantic → Evaluation.</p>
+                <h3 class="subsection-title mt-4">⚙️ Hardware Standards</h3>
+                <p class="text-sm">4-bit NF4 quantization, automatic device mapping, consumer GPU / cloud notebook friendly.</p>
+            </div>
+            <div>
+                <h3 class="subsection-title">🌍 Design Constraints</h3>
+                <p class="text-sm"><span class="font-semibold">Economic:</span> open-source, compute time main cost.<br>
+                <span class="font-semibold">Environmental:</span> quantization + checkpointing.<br>
+                <span class="font-semibold">Ethical:</span> not a fact-checking tool — measures uncertainty.<br>
+                <span class="font-semibold">Social:</span> expert-level GPQA, not for other domains/languages.</p>
+            </div>
+            <div>
+                <h3 class="subsection-title">♻️ Sustainability & Future</h3>
+                <p class="text-sm">Checkpointing, quantization, modular invocation reduce repeated computation. Future: compute efficiency, larger scale deployment, claim-level verification.</p>
+                <div class="bg-gray-100 p-3 rounded-lg mt-3 text-xs text-gray-600">
+                    <span class="font-semibold">Note:</span> Exact numerical results (Accuracy, ECE, Brier, NLL, AUROC, AUPRC) must be copied from actual experiment output; not estimated here.
+                </div>
+            </div>
+        </div>
+
+        <!-- poster footer -->
+        <div class="footnote text-center mt-6 flex justify-between items-center">
+            <span>MGUQ · Multi-Granular Uncertainty Quantification for SLMs</span>
+            <span>Chapter 4 & 5 · Implementation, Standards, Constraints</span>
+        </div>
+    </div>
+</body>
+</html>
