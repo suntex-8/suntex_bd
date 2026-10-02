@@ -987,36 +987,40 @@ export const whoWeServeData: WhoWeServeData = {
 // =====================================================================
 // SLIM CTA (full-bleed accent strip)
 // =====================================================================
-export interface SlimCtaData extends TitleBlock {
+export interface SlimCtaData {
+  headline: string;
   cta: { label: string; href: string };
 }
 
+/* Deliberately not a TitleBlock: the strip carries no eyebrow and is not
+   centred. Its whole job is to be a low-commitment prompt that doesn't
+   compete with the quote CTA further down the page. */
 export const slimCtaData: SlimCtaData = {
-  subTitle: "",
-  headline: "Ready to price your next collection?",
-  centered: false,
-  cta: { label: "Get a Quote", href: "#contact" },
+  headline: "Working back from a delivery date?",
+  cta: { label: "Send us the date", href: "#contact" },
 };
 
 // =====================================================================
 // QUOTE CTA
 // =====================================================================
-export interface QuoteCtaData extends TitleBlock {
-  paragraph: string;
+export interface QuoteCtaData {
+  headline: string;
+  intro: string;
   cta: { label: string; href: string };
-  commitments: { value: string; label: string }[];
+  youSend: string[];
+  weReturn: string[];
+  assurance: string;
 }
 
+/* The exchange framing replaces the old "commitments" stat block, which
+   repeated 500 pcs / 1 week / 5 stages verbatim from the MOQ, lead-time
+   and quality sections further up the page. */
 export const quoteCtaData: QuoteCtaData = {
-  subTitle: "Next Step",
   headline: "Tell us what you're building.",
-  centered: false,
-  paragraph:
-    "Send the style, the quantity, and the date you need it in. Costing, a production plan, and a sample timeline come back from one accountable team.",
+  intro:
+    "One thread from enquiry to shipment, so the costing and the factory plan come from the same conversation. Nothing needs to be finished before you send it.",
   cta: { label: "Get a Quote", href: "#contact" },
-  commitments: [
-    { value: "500 pcs", label: "Minimum order per style, single color" },
-    { value: "1 week", label: "Fastest turnaround on repeat styles with approved specs" },
-    { value: "5 stages", label: "In-house quality checks, from fabric to pre-shipment" },
-  ],
+  youSend: ["Style number or tech pack", "Quantity per colour", "The date you need it in"],
+  weReturn: ["Costing per style", "A production plan", "A sample timeline"],
+  assurance: "First reply within one working day.",
 };

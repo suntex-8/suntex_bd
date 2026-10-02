@@ -85,7 +85,7 @@ export function Hero() {
             src={slide.image}
             alt={slide.headline}
             fill
-            priority
+            preload
             sizes="100vw"
             className="object-cover"
           />
@@ -160,7 +160,34 @@ export function Hero() {
                 className="mt-2 block h-px w-32 origin-left bg-accent/60"
               />
             </motion.div>
-          </AnimatePresence>
+</AnimatePresence>
+
+      {/* The plate above only ever mounts the active slide, so advancing
+          the carousel used to request a 1920px image on the spot and
+          flash an empty frame while it arrived. These render off-screen
+          and `preload`, which hoists a <link rel="preload"> per slide into
+          the head — by the time a slide becomes active its bytes are
+          already in the HTTP cache. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0 h-0 w-0 overflow-hidden"
+      >
+        {slides.map((s, i) =>
+          i === index ? null : (
+            <Image
+              key={`preload-${s.image}`}
+              src={s.image}
+              alt=""
+              width={1920}
+              height={1280}
+              preload
+              sizes="100vw"
+              className="h-0 w-0"
+            />
+          ),
+        )}
+      </div>
+
         </div>
       </div>
 

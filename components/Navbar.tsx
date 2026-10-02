@@ -10,7 +10,7 @@ import {
   useReducedMotion,
   useScroll,
 } from "motion/react";
-import { ChevronDown, Menu, Search, X } from "lucide-react";
+import { ChevronDown, Menu, MessageSquare, Search, X } from "lucide-react";
 import { navbarData } from "@/data/NavbarData";
 
 const EASE: [number, number, number, number] = [0.23, 1, 0.32, 1];
@@ -100,7 +100,7 @@ export function Navbar() {
             width={140}
             height={36}
             className="h-7 w-auto object-contain sm:h-8"
-            priority
+            preload
           />
         </Link>
 
@@ -158,19 +158,25 @@ export function Navbar() {
               <Search className="h-5 w-5" />
             </button>
           )}
-          <Link
-            href={navbarData.cta.href}
-            className="btn-brand hidden items-center gap-2 rounded-xl px-7 py-3 text-sm font-bold md:flex"
-          >
-            <span className="relative z-10 inline-flex items-center gap-2">{navbarData.cta.label}</span>
-          </Link>
+         <Link
+  href={navbarData.cta.href}
+  className="btn-brand hidden lg:flex items-center gap-2 rounded-xl px-7 py-2 text-sm font-semibold"
+>
+  <span className="relative z-10 inline-flex items-center gap-2">
+    {navbarData.cta.label}
+  </span>
+</Link>
+
+          {/* Contact on mobile — the labelled button needs ~180px, which the
+              pill has no room for below md. An icon keeps the conversion
+         
           {/* Hamburger (mobile) */}
           <button
             aria-label="Open menu"
             onClick={() => setMobileOpen(true)}
-            className="flex items-center justify-center p-2 text-white lg:hidden"
+            className="-mr-1.5 flex shrink-0 items-center justify-center p-2 text-white transition-colors hover:text-accent lg:hidden"
           >
-            <Menu className="h-6 w-6" />
+            <Menu className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -194,31 +200,31 @@ export function Navbar() {
               transition={{ type: "spring", damping: 28, stiffness: 260 }}
               className="fixed inset-y-0 right-0 z-50 flex w-[min(22rem,calc(100vw-1rem))] max-w-full flex-col bg-ink text-white shadow-2xl"
             >
-              <div className="mb-4 flex items-center justify-between px-5 pt-5">
+              <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
                 <Image
                   src={navbarData.logo}
                   alt={navbarData.logoAlt}
                   width={140}
                   height={36}
-                  className="h-7 w-auto object-contain sm:h-8"
+                  className="h-7 w-auto object-contain"
                 />
                 <button
                   aria-label="Close menu"
                   onClick={() => setMobileOpen(false)}
-                  className="p-1 text-white/80 hover:text-white"
+                  className="-mr-2.5 p-2.5 text-white/80 transition-colors hover:text-white"
                 >
                   <X className="h-6 w-6" />
                 </button>
               </div>
               {/* All nav items — scrollable list */}
-              <nav className="flex-1 overflow-y-auto px-5 pb-4">
+              <nav className="flex-1 overflow-y-auto overscroll-contain px-5 pt-1 pb-6">
                 {navbarData.menu.map((item, i) => (
-                  <div key={item.label} className="border-b border-white/10">
-                    <div className="flex w-full items-center justify-between py-3.5 text-left text-[15px] font-bold text-white/90">
+                  <div key={item.label} className="border-b border-white/10 last:border-b-0">
+                    <div className="flex w-full items-center justify-between text-left text-[15px] font-medium text-white/90">
                       <Link
                         href={item.href}
                         onClick={() => !item.children?.length && setMobileOpen(false)}
-                        className="flex-1 rounded-lg px-2 py-1.5 hover:bg-white/5 hover:text-accent"
+                        className="flex-1 rounded-lg px-2 py-3 transition-colors hover:bg-white/5 hover:text-accent"
                       >
                         {item.label}
                       </Link>
@@ -226,13 +232,15 @@ export function Navbar() {
                         <button
                           type="button"
                           aria-expanded={openMenu === i}
+                          aria-label={`${item.label} submenu`}
                           onClick={() => setOpenMenu(openMenu === i ? null : i)}
-                          className="ml-2 rounded-lg p-1 text-white/80 hover:text-accent"
+                          className="ml-1 rounded-lg p-3.5 text-white/80 transition-colors hover:text-accent"
                         >
                           <ChevronDown
                             className={`h-4 w-4 transition-transform ${
                               openMenu === i ? "rotate-180" : ""
                             }`}
+                            aria-hidden="true"
                           />
                         </button>
                       ) : null}
@@ -262,15 +270,6 @@ export function Navbar() {
                   </div>
                 ))}
               </nav>
-              <div className="border-t border-white/10 px-5 py-4">
-                <Link
-                  href={navbarData.cta.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="btn-brand block w-full rounded-xl px-6 py-3 text-center text-sm font-bold"
-                >
-                  <span className="relative z-10">{navbarData.cta.label}</span>
-                </Link>
-              </div>
             </motion.div>
           </>
         )}
