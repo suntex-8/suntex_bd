@@ -18,6 +18,7 @@ export interface TitleBlock {
 export interface AboutData extends TitleBlock {
   paragraph: string;
   checkList: string[];
+  specs: { value: string; label: string }[];
   cta: { label: string; href: string };
   phone: { label: string; number: string; href: string };
   featureItems: { icon: string; text: string }[];
@@ -36,6 +37,12 @@ export const aboutData: AboutData = {
     "5M+ Knit Pieces / Month Capacity",
     "1M+ Woven Pieces / Month Capacity",
     "500 Minimum Order Quantity (pcs)",
+  ],
+  specs: [
+    { value: "200+", label: "Partner factories across Bangladesh" },
+    { value: "5M+", label: "Knit pieces produced per month" },
+    { value: "1M+", label: "Woven pieces produced per month" },
+    { value: "500", label: "Minimum order quantity, per style" },
   ],
   cta: { label: "Explore More", href: "#services" },
   phone: {
@@ -781,12 +788,20 @@ export const factoryNetworkData: FactoryNetworkData = {
 // FACILITIES GALLERY SECTION
 // =====================================================================
 export interface FacilityItem {
+  index: string;
   title: string;
+  note: string;
   image: string;
+}
+
+export interface FacilityStat {
+  value: string;
+  label: string;
 }
 
 export interface FacilitiesData extends TitleBlock {
   items: FacilityItem[];
+  stats: FacilityStat[];
 }
 
 export const facilitiesData: FacilitiesData = {
@@ -794,10 +809,38 @@ export const facilitiesData: FacilitiesData = {
   headline: "See Where It's Made",
   centered: true,
   items: [
-    { title: "Cutting Section", image: "https://images.pexels.com/photos/5894144/pexels-photo-5894144.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-    { title: "Sewing Line", image: "https://images.pexels.com/photos/4492077/pexels-photo-4492077.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-    { title: "Finishing & QC", image: "https://images.pexels.com/photos/5699287/pexels-photo-5699287.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-    { title: "Warehouse & Logistics", image: "https://images.pexels.com/photos/17260158/pexels-photo-17260158.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+    {
+      index: "01",
+      title: "Cutting Section",
+      note: "Spread tables and CNC cutters hold pattern dimensions identical across every size in the run.",
+      image: "https://images.pexels.com/photos/5894144/pexels-photo-5894144.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    },
+    {
+      index: "02",
+      title: "Sewing Line",
+      note: "Lines are held per buyer and per category, so a reorder repeats the same make.",
+      image: "https://images.pexels.com/photos/4492077/pexels-photo-4492077.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    },
+    {
+      index: "03",
+      title: "Finishing & QC",
+      note: "Measurement, thread and pressing checks all run in-house before anything is packed.",
+      image: "https://images.pexels.com/photos/5699287/pexels-photo-5699287.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    },
+    {
+      index: "04",
+      title: "Warehouse & Logistics",
+      note: "Finished goods are held and consolidated here before the container is booked.",
+      image: "https://images.pexels.com/photos/17260158/pexels-photo-17260158.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    },
+  ],
+  /* Figures already claimed elsewhere on the site, so nothing here is a
+     new business claim. Swap for the real numbers before launch. */
+  stats: [
+    { value: "500", label: "MOQ per style" },
+    { value: "5", label: "QC stages" },
+    { value: "1 wk", label: "Fastest lead time" },
+    { value: "200+", label: "Partner factories" },
   ],
 };
 
@@ -856,13 +899,21 @@ export interface TeamMember {
 }
 
 export interface TeamData extends TitleBlock {
+  paragraph: string;
   members: TeamMember[];
+  quote: string;
+  quoteAttribution: string;
 }
 
 export const teamData: TeamData = {
   subTitle: "Our Team",
   headline: "Specialists Across the Value Chain",
-  centered: true,
+  centered: false,
+  paragraph:
+    "Production, merchandising, design and e-commerce sit in the same room. One team owns your order from costing to container, so nothing is handed off and nothing gets lost between departments.",
+  quote:
+    "The people who cost your order are the people who make it. Nothing is passed down the line to someone who has to guess.",
+  quoteAttribution: "Suntex Production & Sourcing",
   members: [
     { name: "Production Lead", role: "Production & Factory Management", avatar: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400" },
     { name: "Merchandising Lead", role: "Merchandising Leadership (15+ Yrs)", avatar: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400" },
@@ -874,14 +925,24 @@ export const teamData: TeamData = {
 // =====================================================================
 // WHO WE SERVE SECTION
 // =====================================================================
+export interface WhoWeServeMatrixRow {
+  attribute: string;
+  international: string;
+  local: string;
+}
+
 export interface WhoWeServeData extends TitleBlock {
+  intro: string;
   segments: { title: string; description: string; icon: string }[];
+  matrix: WhoWeServeMatrixRow[];
 }
 
 export const whoWeServeData: WhoWeServeData = {
   subTitle: "Who We Serve",
   headline: "Built for Global Buyers and Local Clients",
-  centered: true,
+  centered: false,
+  intro:
+    "Both kinds of client buy the same thing from us: in-house knit and woven production, design and sampling, and our own quality checks. What changes is the distance — export paperwork on one side, a drive across town on the other.",
   segments: [
     {
       title: "International Buyers",
@@ -893,5 +954,69 @@ export const whoWeServeData: WhoWeServeData = {
       description: "Local brands and businesses get the same in-house design, sampling, QC, and production capability — with the ease of working with a partner just down the road.",
       icon: "home",
     },
+  ],
+  matrix: [
+    {
+      attribute: "Product range",
+      international: "In-house knit and woven, plus 200+ partner factories for sweaters, home textiles, socks and leather.",
+      local: "The same range, drawn from the same partner network.",
+    },
+    {
+      attribute: "Order size",
+      international: "500 pieces per style, single color — flexible as the relationship grows.",
+      local: "The same 500-piece starting point, with room to grow into larger runs.",
+    },
+    {
+      attribute: "Development",
+      international: "Tech pack to physical sample, reviewed with you remotely at every step.",
+      local: "Bring a sketch to our Dhaka studio and approve the sample in person.",
+    },
+    {
+      attribute: "Quality control",
+      international: "AQL reports, inline checks, and a pre-shipment inspection before dispatch.",
+      local: "Walk the running line yourself — any weekday, no appointment needed.",
+    },
+    {
+      attribute: "Delivery",
+      international: "Export documents, freight booking, and port coordination handled end to end.",
+      local: "Collect from the factory, or have the finished goods delivered to your door.",
+    },
+  ],
+};
+
+// =====================================================================
+// SLIM CTA (full-bleed accent strip)
+// =====================================================================
+export interface SlimCtaData extends TitleBlock {
+  cta: { label: string; href: string };
+}
+
+export const slimCtaData: SlimCtaData = {
+  subTitle: "",
+  headline: "Ready to price your next collection?",
+  centered: false,
+  cta: { label: "Get a Quote", href: "#contact" },
+};
+
+// =====================================================================
+// QUOTE CTA
+// =====================================================================
+export interface QuoteCtaData extends TitleBlock {
+  paragraph: string;
+  cta: { label: string; href: string };
+  commitments: { value: string; label: string }[];
+}
+
+export const quoteCtaData: QuoteCtaData = {
+  subTitle: "Next Step",
+  headline: "Tell us what you're building.",
+  centered: false,
+  paragraph:
+    "Send the style, the quantity, and the date you need it in. Costing, a production plan, and a sample timeline come back from one accountable team.",
+  cta: { label: "Get a Quote", href: "#contact" },
+  commitments: [
+    { value: "500 pcs", label: "Minimum order per style, single color" },
+    { value: "1 week", label: "Fastest turnaround on repeat styles with approved specs" },
+    { value: "5 stages", label: "In-house quality checks, from fabric to pre-shipment" },
   ],
 };

@@ -1,32 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
+import { group, imageIn, rule, textIn } from "@/lib/motion";
 import { facilitiesData } from "@/data/SiteSectionData";
 import { SectionHeader } from "./SectionHeader";
 
-const spans = [
-  "sm:col-span-2 lg:col-span-6 lg:row-span-2",
+/* An asymmetric 4-tile plate: one tall anchor on the left, two stacked
+   beside it, one wide band underneath. Spans are declared explicitly per
+   tile rather than pulled from an index so adding or reordering an item
+   can't silently break the layout. */
+const SPANS = [
+  "lg:col-span-6 lg:row-span-2",
   "lg:col-span-3",
   "lg:col-span-3",
-  "sm:col-span-2 lg:col-span-6",
+  "lg:col-span-6",
 ];
 
-const heights = "h-[300px] sm:h-[340px] lg:h-[252px]";
-
-const group: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
-
-const rise: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] },
-  },
-};
+const HEIGHTS = "h-[340px] sm:h-[380px] lg:h-[280px] lg:first:h-auto";
 
 export function Facilities() {
   const prefersReducedMotion = useReducedMotion();
@@ -41,33 +32,72 @@ export function Facilities() {
           variants={group}
           initial={prefersReducedMotion ? false : "hidden"}
           whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
         >
           {facilitiesData.items.map((item, i) => (
             <motion.figure
-              key={item.title}
-              variants={rise}
-              className={`group relative overflow-hidden rounded-xl ${heights} ${spans[i]} ${
-                i === 0 ? "lg:h-auto" : ""
-              }`}
+              key={item.index}
+              variants={imageIn}
+              className={`group relative overflow-hidden rounded-xl ${HEIGHTS} ${SPANS[i]}`}
             >
               <Image
                 src={item.image}
                 alt=""
                 fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
+                sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05] motion-reduce:transition-none"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/40 to-ink/10" />
-              <figcaption className="absolute inset-x-0 bottom-0 flex items-end gap-3 p-5 lg:p-6">
-                <span className="mb-2 h-px w-6 shrink-0 bg-accent transition-all duration-500 ease-out group-hover:w-11 motion-reduce:transition-none" />
-                <h3 className="font-display text-lg leading-tight font-semibold text-white sm:text-xl">
+
+              {/* Scrim is bottom-weighted so the caption always has a
+                  floor to sit on, at any image crop. */}
+              <div className="absolute inset-0 bg-linear-to-t from-ink/95 via-ink/55 to-ink/10" />
+
+              <figcaption className="absolute inset-x-0 bottom-0 p-5 lg:p-6">
+                <span className="flex items-center gap-2.5 text-[10px] font-semibold tracking-[0.18em] text-accent uppercase tabular-nums">
+                  <span className="h-px w-5 bg-accent transition-all duration-500 ease-out group-hover:w-9 motion-reduce:transition-none" />
+                  {item.index}
+                </span>
+
+                <h3
+                  className="mt-2.5 text-white"
+                  style={{ fontSize: "1.15rem", lineHeight: 1.25 }}
+                >
                   {item.title}
                 </h3>
+
+                <p className="mt-2 max-w-[46ch] text-[13px] leading-relaxed text-white/70">
+                  {item.note}
+                </p>
               </figcaption>
             </motion.figure>
           ))}
         </motion.div>
+
+        {/* Ledger strip — the numbers are already claimed elsewhere on the
+            site, so this reads as a summary rather than new claims. */}
+        <motion.div
+          variants={rule}
+          className="mt-10 block h-px w-full origin-left bg-line"
+        />
+
+        <motion.ul
+          variants={group}
+          className="grid grid-cols-2 gap-x-8 gap-y-7 pt-8 lg:grid-cols-4"
+        >
+          {facilitiesData.stats.map((stat) => (
+            <motion.li key={stat.label} variants={textIn}>
+              <span
+                className="font-display block text-3xl font-semibold text-foreground lg:text-4xl"
+                style={{ letterSpacing: "-0.02em" }}
+              >
+                {stat.value}
+              </span>
+              <span className="mt-1.5 block text-[11px] tracking-[0.14em] text-muted uppercase">
+                {stat.label}
+              </span>
+            </motion.li>
+          ))}
+        </motion.ul>
       </div>
     </section>
   );

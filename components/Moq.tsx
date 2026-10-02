@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
+import { group, textIn } from "@/lib/motion";
 import { moqData } from "@/data/SiteSectionData";
 import { TwistingRibbon } from "@/components/TwistingRibbon";
 
@@ -9,20 +10,6 @@ const ribbonColors = {
   foldA: "#fbe87e",
   foldB: "#fff3bf",
   foldC: "#e9a112",
-};
-
-const group: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.09 } },
-};
-
-const rise: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.23, 1, 0.32, 1] },
-  },
 };
 
 export function Moq() {
@@ -56,7 +43,7 @@ export function Moq() {
         viewport={{ once: true, amount: 0.2 }}
       >
         <motion.span
-          variants={rise}
+          variants={textIn}
           className="mb-5 inline-flex items-center gap-3 text-sm font-semibold text-muted"
         >
           <span className="h-px w-8 bg-accent" />
@@ -64,7 +51,7 @@ export function Moq() {
         </motion.span>
 
         <motion.h2
-          variants={rise}
+          variants={textIn}
           className="max-w-3xl text-[32px] leading-[1.08] text-foreground sm:text-4xl lg:text-[44px]"
         >
           {moqData.headline}
@@ -72,14 +59,14 @@ export function Moq() {
 
         <div className="mt-12 grid gap-10 md:grid-cols-12 md:gap-14">
           <motion.p
-            variants={rise}
+            variants={textIn}
             className="max-w-2xl text-[17px] leading-relaxed text-muted md:col-span-7"
           >
             {moqData.standard.philosophy}
           </motion.p>
 
           <motion.div
-            variants={rise}
+            variants={textIn}
             className="md:col-span-5 md:border-l md:border-line md:pl-10"
           >
             <span className="font-display block text-6xl leading-none font-semibold text-foreground lg:text-7xl">
@@ -92,7 +79,7 @@ export function Moq() {
         </div>
 
         <motion.div
-          variants={rise}
+          variants={textIn}
           className="mt-14 border-t border-accent pt-8 md:flex md:items-start md:justify-between md:gap-14"
         >
           <div className="md:w-2/5">

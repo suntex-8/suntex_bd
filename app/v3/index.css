@@ -1,0 +1,93 @@
+/* Fonts (DM Sans / DM Mono / Playfair Display) are loaded with <link> tags
+   in app/v3/layout.tsx — a remote @import does not survive the CSS build. */
+@import 'tailwindcss';
+
+/* Design tokens for the v3 page — ported from the v3 tailwind.config
+   (colors / fonts / letterSpacing extend). Tailwind v4 declares them
+   here instead of in a JS config file. */
+@theme {
+  --color-cream: #f6f4ef;
+  --color-sand: #e9e6dc;
+  --color-ink: #1f2d38;
+  --color-ink-dark: #001d3d;
+  --color-ink-darker: #052c69;
+  --color-blue-deep: #0b4da2;
+
+  --color-gold: #eac20e;
+  --color-gold-dark: #c39c00;
+  --color-gold-deep: #d9a900;
+
+  --color-muted: #77756d;
+  --color-muted-light: #89867d;
+  --color-muted-dark: #63635c;
+
+  --color-line: #d7d4ca;
+  --color-line-dark: #c9c6bc;
+  --color-line-sand: #bbb9b0;
+  --color-line-faq: #aaa89e;
+
+  --font-sans: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-serif: 'Playfair Display', serif;
+
+  --tracking-tightest: -0.045em;
+  --tracking-tighter: -0.06em;
+  --tracking-tightest2: -0.09em;
+}
+
+/* --- v3 base --------------------------------------------------------------
+   Everything below is scoped to the page root (`.v3-page`) so it never
+   leaks into the rest of the site: global stylesheets are not removed when
+   you navigate between routes. */
+
+.v3-page {
+  min-height: 100vh;
+  background-color: var(--color-cream);
+  color: #24231f;
+  font-family: 'DM Sans', sans-serif;
+
+  /* ink / muted / line / fonts / tracking are also defined by the root
+     theme with different values — re-declaring them here means the v3
+     value wins regardless of which stylesheet loads last. The `--ink`,
+     `--muted`, `--line` aliases are the spellings the root stylesheet's
+     utilities reference. */
+  --color-ink: #1f2d38;
+  --color-muted: #77756d;
+  --color-line: #d7d4ca;
+  --ink: #1f2d38;
+  --muted: #77756d;
+  --line: #d7d4ca;
+  --font-sans: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-serif: 'Playfair Display', serif;
+  --tracking-tightest: -0.045em;
+  --tracking-tighter: -0.06em;
+  --tracking-tightest2: -0.09em;
+}
+
+body:has(.v3-page) {
+  min-width: 320px;
+  background: #f6f4ef;
+  color: #24231f;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* The root stylesheet styles h1–h6 outside any cascade layer, which beats
+   Tailwind's utilities on every route. Roll this page's headings back a
+   layer so the v3 utility classes (size, weight, tracking, leading) apply. */
+.v3-page :is(h1, h2, h3, h4, h5, h6) {
+  font-family: revert-layer;
+  font-size: revert-layer;
+  font-weight: revert-layer;
+  letter-spacing: revert-layer;
+  line-height: revert-layer;
+  text-wrap: revert-layer;
+}
+
+@layer base {
+  .v3-page img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+  }
+}

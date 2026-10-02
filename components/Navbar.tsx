@@ -2,24 +2,91 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
+import { useRef, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from "motion/react";
 import { ChevronDown, Menu, Search, X } from "lucide-react";
 import { navbarData } from "@/data/NavbarData";
 
+const EASE: [number, number, number, number] = [0.23, 1, 0.32, 1];
+
+/* Don't start hiding until the hero is behind us — the nav is part of
+   the hero composition, so it stays put for the first screen. */
+const HIDE_AFTER = 240;
+
+/* Ignore scroll noise below this delta, or a trackpad twitch flips the
+   nav on and off. */
+const MIN_DELTA = 8;
+
 export function Navbar() {
   const { scrollY } = useScroll();
+  const prefersReducedMotion = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [openMenu, setOpenMenu] = useState<number | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 60));
+  const lastY = useRef(0);
+  const lastDir = useRef(1);
+
+  useMotionValueEvent(scrollY, "change", (v) => {
+    setScrolled(v > 60);
+
+    /* Never hide while the drawer is open, or it would vanish out from
+       under the user's finger. */
+    if (mobileOpen) return;
+
+    if (v < HIDE_AFTER) {
+      lastY.current = v;
+      lastDir.current = 1;
+      setHidden(false);
+      return;
+    }
+
+    const delta = v - lastY.current;
+    lastY.current = v;
+
+    if (Math.abs(delta) < MIN_DELTA) return;
+
+    /* Scroll locks at the very bottom, which would otherwise read as a
+       downward flick and hide the nav exactly when the user looks for it. */
+    const atBottom =
+      window.innerHeight + v > document.documentElement.scrollHeight - 2;
+
+    if (atBottom) {
+      lastDir.current = -1;
+      setHidden(false);
+      return;
+    }
+
+    const dir = delta > 0 ? 1 : -1;
+    if (dir !== lastDir.current) {
+      lastDir.current = dir;
+      setHidden(dir > 0);
+    }
+  });
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 transition-all duration-500">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <motion.header
+      initial={false}
+      animate={{ y: hidden ? "-130%" : 0 }}
+      transition={
+        prefersReducedMotion
+          ? { duration: 0 }
+          : { duration: 0.38, ease: EASE }
+      }
+      className={`fixed inset-x-0 top-0 z-50 ${
+        hidden ? "pointer-events-none" : ""
+      }`}
+    >
+      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
         <div
-          className={`mt-3 flex h-14 items-center justify-between rounded-full border px-4 transition-all duration-500 sm:px-6 ${
+          className={`mt-4 flex h-12 items-center justify-between rounded-xl border px-5 transition-all duration-500 sm:h-[60px] sm:px-7 ${
             scrolled
               ? "border-white/10 navbar-glass-scrolled"
               : "border-white/10 navbar-glass"
@@ -30,15 +97,15 @@ export function Navbar() {
           <Image
             src={navbarData.logo}
             alt={navbarData.logoAlt}
-            width={120}
-            height={32}
-            className="h-7 w-auto object-contain"
+            width={140}
+            height={36}
+            className="h-7 w-auto object-contain sm:h-8"
             priority
           />
         </Link>
 
         {/* Desktop menu */}
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-4 lg:flex">
           {navbarData.menu.map((item, i) => (
             <div
               key={item.label}
@@ -48,7 +115,7 @@ export function Navbar() {
             >
               <Link
                 href={item.href}
-                className="flex items-center gap-1 text-[13px] font-semibold uppercase tracking-wide text-white transition-colors hover:text-accent"
+                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold tracking-[0.06em] text-white uppercase transition-colors hover:bg-white/10 hover:text-accent"
               >
                 {item.label}
                 {item.children?.length ? (
@@ -68,7 +135,7 @@ export function Navbar() {
                       <li key={c.label}>
                         <Link
                           href={c.href}
-                          className="block rounded px-4 py-2 text-sm text-foreground transition-colors hover:bg-accent/20 hover:text-accent"
+                          className="block rounded-lg px-4 py-2 text-sm text-foreground transition-colors hover:bg-accent/20 hover:text-accent"
                         >
                           {c.label}
                         </Link>
@@ -88,12 +155,12 @@ export function Navbar() {
               aria-label="Search"
               className="hidden items-center justify-center p-2 text-white transition-colors hover:text-accent sm:flex"
             >
-              <Search className="h-4 w-4" />
+              <Search className="h-5 w-5" />
             </button>
           )}
           <Link
             href={navbarData.cta.href}
-            className="btn-brand hidden items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-bold md:flex"
+            className="btn-brand hidden items-center gap-2 rounded-xl px-7 py-3 text-sm font-bold md:flex"
           >
             <span className="relative z-10 inline-flex items-center gap-2">{navbarData.cta.label}</span>
           </Link>
@@ -131,9 +198,9 @@ export function Navbar() {
                 <Image
                   src={navbarData.logo}
                   alt={navbarData.logoAlt}
-                  width={120}
+                  width={140}
                   height={36}
-                  className="h-8 w-auto object-contain"
+                  className="h-7 w-auto object-contain sm:h-8"
                 />
                 <button
                   aria-label="Close menu"
@@ -151,7 +218,7 @@ export function Navbar() {
                       <Link
                         href={item.href}
                         onClick={() => !item.children?.length && setMobileOpen(false)}
-                        className="flex-1 hover:text-accent"
+                        className="flex-1 rounded-lg px-2 py-1.5 hover:bg-white/5 hover:text-accent"
                       >
                         {item.label}
                       </Link>
@@ -160,7 +227,7 @@ export function Navbar() {
                           type="button"
                           aria-expanded={openMenu === i}
                           onClick={() => setOpenMenu(openMenu === i ? null : i)}
-                          className="ml-2 rounded-full p-1 text-white/80 hover:text-accent"
+                          className="ml-2 rounded-lg p-1 text-white/80 hover:text-accent"
                         >
                           <ChevronDown
                             className={`h-4 w-4 transition-transform ${
@@ -183,7 +250,7 @@ export function Navbar() {
                               <Link
                                 href={c.href}
                                 onClick={() => setMobileOpen(false)}
-                                className="block px-3 py-2 text-sm text-white/70 hover:text-accent"
+                                className="block rounded-lg px-3 py-2 text-sm text-white/70 hover:bg-white/5 hover:text-accent"
                               >
                                 {c.label}
                               </Link>
@@ -199,7 +266,7 @@ export function Navbar() {
                 <Link
                   href={navbarData.cta.href}
                   onClick={() => setMobileOpen(false)}
-                  className="btn-brand block w-full rounded-full px-6 py-3 text-center text-sm font-bold"
+                  className="btn-brand block w-full rounded-xl px-6 py-3 text-center text-sm font-bold"
                 >
                   <span className="relative z-10">{navbarData.cta.label}</span>
                 </Link>
@@ -207,7 +274,7 @@ export function Navbar() {
             </motion.div>
           </>
         )}
-      </AnimatePresence>
-    </header>
+</AnimatePresence>
+    </motion.header>
   );
 }

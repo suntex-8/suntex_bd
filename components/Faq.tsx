@@ -16,8 +16,8 @@ export function Faq() {
           {/* Left content */}
           <div>
             <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -28 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5 }}
               className="mb-4 inline-flex items-center gap-3 text-sm font-semibold text-muted"
@@ -27,8 +27,8 @@ export function Faq() {
             </motion.span>
 
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -28 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6 }}
               className="mb-6 text-[32px] leading-[1.08] text-foreground sm:text-4xl lg:text-[40px]"
@@ -37,8 +37,8 @@ export function Faq() {
             </motion.h2>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -28 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="mb-10 max-w-md text-sm leading-relaxed text-muted"
@@ -48,8 +48,8 @@ export function Faq() {
 
             {/* People looking at fabric image */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -28 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mb-8 flex items-center gap-3"
@@ -75,13 +75,13 @@ export function Faq() {
             {/* Contact boxes */}
             <div className="flex flex-wrap gap-4">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -28 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
                 className="flex items-center gap-3 rounded-lg border border-accent/25 bg-accent/10 px-5 py-4"
               >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-foreground">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-foreground">
                   <Phone className="h-4 w-4" />
                 </span>
                 <div>
@@ -90,13 +90,13 @@ export function Faq() {
                 </div>
               </motion.div>
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -28 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="flex items-center gap-3 rounded-lg border border-accent/25 bg-accent/10 px-5 py-4"
               >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-foreground">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-foreground">
                   <Mail className="h-4 w-4" />
                 </span>
                 <div>
@@ -114,8 +114,8 @@ export function Faq() {
               return (
                 <motion.div
                   key={item.question}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: -28 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.4, delay: i * 0.05 }}
                   className={`overflow-hidden rounded-lg border transition-colors ${
@@ -130,7 +130,7 @@ export function Faq() {
                       {item.question}
                     </span>
                     <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors ${
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors ${
                         isOpen ? "bg-accent text-foreground" : "bg-ink/5 text-muted"
                       }`}
                     >

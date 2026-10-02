@@ -154,7 +154,7 @@ a.btn-brand {
   color: var(--foreground);
   font-weight: 600;
   white-space: nowrap;
-  border-radius: 9999px;
+  border-radius: 9px;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .btn-brand:hover,
@@ -294,19 +294,25 @@ a.btn-ghost:hover {
 }
 
 @media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+  /* Resting state is the written panel; the picture is what you get for
+     hovering. Keyboard focus keeps the text, so the description stays
+     reachable, and the ring replaces the mask as the focus cue. */
   .product-card-mask {
-    clip-path: circle(0% at 88% 12%);
+    clip-path: circle(150% at 88% 12%);
     transition: clip-path 420ms cubic-bezier(0.23, 1, 0.32, 1);
   }
 
-  .product-card:hover .product-card-mask,
-  .product-card:focus-visible .product-card-mask {
-    clip-path: circle(150% at 88% 12%);
+  .product-card:hover .product-card-mask {
+    clip-path: circle(0% at 88% 12%);
   }
 
-  .product-card:hover .product-card-image,
-  .product-card:focus-visible .product-card-image {
+  .product-card:hover .product-card-image {
     transform: scale(1.04);
+  }
+
+  .product-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 }
 
