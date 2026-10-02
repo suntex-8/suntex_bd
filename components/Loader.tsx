@@ -72,7 +72,7 @@ export function Loader() {
                 width={1082}
                 height={241}
                 className="h-10 w-auto object-contain sm:h-14"
-                priority
+                preload
               />
             </motion.div>
           </motion.div>

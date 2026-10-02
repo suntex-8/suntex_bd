@@ -56,7 +56,6 @@ export function MissionVision() {
           alt=""
           fill
           sizes="100vw"
-          priority={false}
           className="object-cover"
           style={{ mixBlendMode: "luminosity", opacity: 0.34 }}
         />

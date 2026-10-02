@@ -13,7 +13,7 @@ export function ServicesHero() {
         src="https://images.pexels.com/photos/6044196/pexels-photo-6044196.jpeg?auto=compress&cs=tinysrgb&w=1600"
         alt="Suntex services workshop"
         fill
-        priority
+        preload
         className="object-cover"
       />
       <div className="absolute inset-0 bg-foreground/60" />
