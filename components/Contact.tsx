@@ -15,8 +15,8 @@ export function Contact() {
           {/* Left: content + form */}
           <div>
             <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -28 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5 }}
               className="mb-4 inline-flex items-center gap-3 text-sm font-semibold text-muted"
@@ -28,8 +28,8 @@ export function Contact() {
               {contactData.headline}
             </h2>
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -28 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5 }}
               className="mb-10 max-w-lg text-base leading-relaxed text-muted"
@@ -120,7 +120,7 @@ export function Contact() {
 
               <button
                 type="submit"
-                className="btn-brand inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-bold"
+                className="btn-brand inline-flex items-center gap-2 rounded-xl px-8 py-4 text-sm font-bold"
               >
                 <span className="relative z-10 inline-flex items-center gap-2">
                   {contactData.form.submitLabel}
@@ -133,8 +133,8 @@ export function Contact() {
           {/* Right image */}
           <div className="relative flex items-center justify-center">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0, transition: { delay: 0.5 } }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6 }}
               className="relative h-[400px] w-full overflow-hidden rounded-lg ring-1 ring-line lg:h-[520px]"

@@ -144,7 +144,7 @@ export function FactoryNetwork() {
   return (
     <section id="network" className="dark-gradient-bg py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-16">
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] lg:gap-14">
           <div>
             <motion.span
               initial={{ opacity: 0, y: 10 }}
@@ -170,13 +170,13 @@ export function FactoryNetwork() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.15 }}
-              className="mt-5 max-w-xl text-sm leading-relaxed text-white/65 sm:text-base"
+              className="mt-4 max-w-xl text-sm leading-relaxed text-white/65"
             >
               {factoryNetworkData.paragraph}
             </motion.p>
 
             <ul
-              className="mt-9 border-t border-white/10"
+              className="mt-7 border-t border-white/10"
               onMouseLeave={() => setActive(null)}
             >
               {factoryNetworkData.locations.map((loc, i) => {
@@ -200,9 +200,9 @@ export function FactoryNetwork() {
                       isActive ? "bg-white/[0.03]" : ""
                     }`}
                   >
-                    <div className="flex items-center gap-4 py-4">
+                    <div className="flex items-center gap-4 py-3">
                       <span
-                        className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg border transition-colors motion-reduce:transition-none ${
+                        className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg border transition-colors motion-reduce:transition-none ${
                           isActive || site.hub
                             ? "border-accent bg-accent text-ink"
                             : "border-accent/30 bg-accent/10 text-accent"
@@ -213,7 +213,7 @@ export function FactoryNetwork() {
 
                       <span className="min-w-0">
                         <span className="flex items-baseline gap-2.5">
-                          <span className="font-display text-lg font-semibold text-white">
+                          <span className="font-display text-base font-semibold text-white">
                             {loc}
                           </span>
                           {site.hub && (
@@ -239,11 +239,11 @@ export function FactoryNetwork() {
               })}
             </ul>
 
-            <ul className="mt-8 grid gap-x-6 gap-y-3 border-t border-white/10 pt-6 sm:grid-cols-3">
+            <ul className="mt-6 grid gap-x-6 gap-y-2.5 border-t border-white/10 pt-5 sm:grid-cols-3">
               {factoryNetworkData.advantages.map((a) => (
                 <li
                   key={a}
-                  className="flex items-start gap-2.5 text-sm text-white/65"
+                  className="flex items-start gap-2.5 text-xs text-white/65"
                 >
                   <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                   {a}
@@ -257,7 +257,7 @@ export function FactoryNetwork() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.7 }}
-            className="mx-auto w-full max-w-[440px] lg:max-w-none"
+            className="mx-auto w-full max-w-[360px] lg:max-w-none"
           >
             <div
               className="relative overflow-hidden"
@@ -435,7 +435,7 @@ export function FactoryNetwork() {
               </div>
             </div>
 
-            <figcaption className="mt-4 flex flex-wrap items-center justify-between gap-x-5 gap-y-2">
+            <figcaption className="mt-3 flex flex-wrap items-center justify-between gap-x-5 gap-y-2">
               <p className="text-[11px] leading-relaxed text-white/45">
                 Routes run from the Dhaka hub to every location in the network.
               </p>

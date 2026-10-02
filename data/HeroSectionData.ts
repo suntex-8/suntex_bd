@@ -35,7 +35,7 @@ export const heroSectionData: HeroData = {
   ],
   slides: [
     {
-      image: "https://images.pexels.com/photos/984619/pexels-photo-984619.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      image: "https://images.pexels.com/photos/18359551/pexels-photo-18359551.jpeg?auto=compress&cs=tinysrgb&w=1920",
       subTitle: "Connecting Ideas to Reality",
       headline: "SUNTEX\nApparel Group",
       paragraph:
@@ -44,7 +44,7 @@ export const heroSectionData: HeroData = {
       ctaHref: "#contact",
     },
     {
-      image: "https://images.pexels.com/photos/9776239/pexels-photo-9776239.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      image: "https://images.pexels.com/photos/14331366/pexels-photo-14331366.jpeg?auto=compress&cs=tinysrgb&w=1920",
       subTitle: "200+ Partner Factories Across Bangladesh",
       headline: "Manufacturing\nYou Can Trust",
       paragraph:
@@ -53,7 +53,7 @@ export const heroSectionData: HeroData = {
       ctaHref: "#services",
     },
     {
-      image: "https://images.pexels.com/photos/326240/pexels-photo-326240.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      image: "https://images.pexels.com/photos/31850032/pexels-photo-31850032.jpeg?auto=compress&cs=tinysrgb&w=1920",
       subTitle: "Flexible MOQ from 500 Pieces",
       headline: "Quality Without\nCompromise",
       paragraph:

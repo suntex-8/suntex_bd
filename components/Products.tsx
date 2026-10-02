@@ -11,13 +11,13 @@ import {
   ShoppingBag,
   type LucideIcon,
 } from "lucide-react";
+import { group, rule, textIn, textInSoft } from "@/lib/motion";
 import { productsData } from "@/data/SiteSectionData";
 import {
   productCards,
   type ProductCard as ProductCardData,
   type ProductCardIconKey,
 } from "@/data/ProductCardsData";
-import { FeralGradient } from "@/components/FeralGradient";
 
 const productIcons: Record<ProductCardIconKey, LucideIcon> = {
   knit: Shirt,
@@ -73,69 +73,108 @@ function ProductCard({ item }: { item: ProductCardData }) {
   );
 }
 
+function SupplyTally({
+  count,
+  label,
+  categories,
+}: {
+  count: number;
+  label: string;
+  categories: string[];
+}) {
+  return (
+    <div>
+      <div className="flex items-baseline gap-3">
+        <span className="font-display text-3xl font-semibold text-foreground">
+          {count}
+        </span>
+        <h3 className="text-sm font-semibold text-foreground">{label}</h3>
+      </div>
+      <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-muted">
+        {categories.join(", ")}
+      </p>
+    </div>
+  );
+}
+
 export function Products() {
   const prefersReducedMotion = useReducedMotion();
+  const inHouse = productCards.filter((c) => c.supply === "in-house");
+  const partner = productCards.filter((c) => c.supply === "partner");
 
   return (
-    <section
+    <motion.section
       id="products"
       className="relative isolate overflow-hidden bg-surface py-20 lg:py-28"
+      variants={group}
+      initial={prefersReducedMotion ? false : "hidden"}
+      whileInView="show"
+      viewport={{ once: true, amount: 0.1 }}
     >
+      {/* One quiet wash, held to a corner, instead of a blurred field. */}
       <div
-        className="pointer-events-none absolute inset-0 z-0"
         aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
       >
-        <FeralGradient
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            aspectRatio: "auto",
-          }}
-        />
-        <div className="absolute inset-0 bg-surface/60" />
+        <div className="absolute top-[-28%] right-[-8%] h-[620px] w-[620px] rounded-[50%] bg-accent/12 blur-[130px] lg:h-[760px] lg:w-[760px]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="mb-10">
-          <motion.span
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5 }}
-            className="mb-4 inline-flex items-center gap-3 text-sm font-semibold text-muted"
-          >
-            <span className="h-px w-8 bg-accent" />
-            {productsData.subTitle}
-          </motion.span>
-          <motion.h2
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl text-[32px] leading-[1.08] text-foreground sm:text-4xl lg:text-[44px]"
-          >
-            {productsData.headline}
-          </motion.h2>
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-16">
+          <div className="lg:col-span-7">
+            <motion.span
+              variants={textInSoft}
+              className="inline-flex items-center gap-3 text-sm font-semibold text-muted"
+            >
+              <span className="h-px w-8 bg-accent" />
+              {productsData.subTitle}
+            </motion.span>
+
+            <motion.h2
+              variants={textIn}
+              className="mt-5 max-w-2xl text-[32px] text-foreground sm:text-4xl lg:text-[44px]"
+            >
+              {productsData.headline}
+            </motion.h2>
+          </div>
+
+          <motion.div variants={textInSoft} className="lg:col-span-5">
+            <p className="max-w-md text-[15px] leading-relaxed text-muted">
+              {productsData.caption}
+            </p>
+          </motion.div>
         </div>
 
+        <motion.span
+          variants={rule}
+          className="mt-12 block h-px w-full origin-left bg-line"
+        />
+
         <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.12 }}
-          transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          variants={textIn}
+          className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
           {productCards.map((item) => (
             <ProductCard key={item.category} item={item} />
           ))}
         </motion.div>
 
-        <p className="mt-9 max-w-2xl text-sm leading-relaxed text-muted">
-          {productsData.caption}
-        </p>
+        <motion.div
+          variants={textInSoft}
+          className="mt-14 grid gap-8 border-t border-line pt-8 sm:grid-cols-2 sm:gap-12"
+        >
+          <SupplyTally
+            count={inHouse.length}
+            label="Manufactured in-house"
+            categories={inHouse.map((c) => c.category)}
+          />
+          <SupplyTally
+            count={partner.length}
+            label="Via trusted partners"
+            categories={partner.map((c) => c.category)}
+          />
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

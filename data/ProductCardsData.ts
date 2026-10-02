@@ -9,6 +9,7 @@ export type ProductCardIconKey =
 export interface ProductCard {
   category: string;
   note: string;
+  supply: "in-house" | "partner";
   image: string;
   imageAlt: string;
   description: string;
@@ -19,6 +20,7 @@ export const productCards: ProductCard[] = [
   {
     category: "Knit",
     note: "Manufactured in-house",
+    supply: "in-house",
     image:
       "https://images.pexels.com/photos/5806993/pexels-photo-5806993.jpeg?auto=compress&cs=tinysrgb&w=1200",
     imageAlt: "Close-up of grey knitted fabric",
@@ -29,6 +31,7 @@ export const productCards: ProductCard[] = [
   {
     category: "Woven",
     note: "Manufactured in-house",
+    supply: "in-house",
     image:
       "https://images.pexels.com/photos/6634463/pexels-photo-6634463.jpeg?auto=compress&cs=tinysrgb&w=1200",
     imageAlt: "Close-up of blue and white woven fabric",
@@ -39,6 +42,7 @@ export const productCards: ProductCard[] = [
   {
     category: "Sweater",
     note: "Via trusted partners",
+    supply: "partner",
     image:
       "https://images.pexels.com/photos/5704187/pexels-photo-5704187.jpeg?auto=compress&cs=tinysrgb&w=1200",
     imageAlt: "Stack of folded knitted sweaters",
@@ -49,6 +53,7 @@ export const productCards: ProductCard[] = [
   {
     category: "Home Textiles",
     note: "Via trusted partners",
+    supply: "partner",
     image:
       "https://images.pexels.com/photos/282892/pexels-photo-282892.jpeg?auto=compress&cs=tinysrgb&w=1200",
     imageAlt: "Rolled white towels stacked together",
@@ -59,6 +64,7 @@ export const productCards: ProductCard[] = [
   {
     category: "Socks",
     note: "Via trusted partners",
+    supply: "partner",
     image:
       "https://images.pexels.com/photos/6832964/pexels-photo-6832964.jpeg?auto=compress&cs=tinysrgb&w=1200",
     imageAlt: "Colorful knitted socks on a wooden table",
@@ -69,6 +75,7 @@ export const productCards: ProductCard[] = [
   {
     category: "Shoes & Leather",
     note: "Via trusted partners",
+    supply: "partner",
     image:
       "https://images.pexels.com/photos/26587826/pexels-photo-26587826.jpeg?auto=compress&cs=tinysrgb&w=1200",
     imageAlt: "Pair of brown leather dress shoes",

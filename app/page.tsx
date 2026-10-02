@@ -26,6 +26,7 @@ import { Blog } from "@/components/Blog";
 import { Footer } from "@/components/Footer";
 import { Faq } from "@/components/Faq";
 import { QuoteCta } from "@/components/QuoteCta";
+import { SlimCta } from "@/components/SlimCta";
 import Chart from "@/components/chart";
 import Intro from "@/components/intro";
 
@@ -41,7 +42,9 @@ export default function Home() {
         {/* <Chart/> */}
         
         <Ticker />
+        
         <Products />
+        <SlimCta />
         <Moq /> 
 
         <QualityAssurance />

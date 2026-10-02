@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { PenTool, Scissors, ShieldCheck, Truck } from "lucide-react";
 import { FeralGradient } from "@/components/FeralGradient";
+import { group, imageIn, textIn } from "@/lib/motion";
 
 const capabilities = [
   {
@@ -35,29 +36,23 @@ const capabilities = [
 const lanes = [
   {
     label: "We make",
-    items: ["Knit garments", "Woven garments"],
+    items: [
+      { label: "Knit garments", img: "/knit.png" },
+      { label: "Woven garments", img: "/woven.png" },
+    ],
     note: "Full control over quality, cost, and lead time from fabric to finished garment.",
   },
   {
     label: "We source",
-    items: ["Sweaters", "Home textiles", "Socks", "Shoes & leather items"],
+    items: [
+      { label: "Sweaters", img: "/sweater.png" },
+      { label: "Home textiles", img: "/home_apperal.png" },
+      { label: "Socks", img: "/socks.png" },
+      { label: "Shoes & leather items", img: "/shoes.png" },
+    ],
     note: "Collaborative partners who support and grow with us — extending our range without stretching our quality standards.",
   },
 ];
-
-const group: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07 } },
-};
-
-const rise: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.23, 1, 0.32, 1] },
-  },
-};
 
 export function Services() {
   const prefersReducedMotion = useReducedMotion();
@@ -88,7 +83,7 @@ export function Services() {
         viewport={{ once: true, amount: 0.15 }}
       >
         <motion.span
-          variants={rise}
+          variants={textIn}
           className="mb-4 inline-flex items-center gap-3 text-sm font-semibold text-muted"
         >
           <span className="h-px w-8 bg-accent" />
@@ -96,14 +91,14 @@ export function Services() {
         </motion.span>
 
         <motion.h2
-          variants={rise}
+          variants={textIn}
           className="max-w-3xl text-[32px] leading-[1.05] font-semibold text-foreground sm:text-4xl lg:text-[44px]"
         >
           One Partner, Two Ways We Deliver
         </motion.h2>
 
         <motion.div
-          variants={rise}
+          variants={textIn}
           className="mt-10 overflow-hidden rounded-2xl border border-line bg-background lg:mt-14"
         >
           {lanes.map((lane, i) => (
@@ -113,9 +108,9 @@ export function Services() {
                 i === 1 ? "border-t-2 border-accent" : ""
               }`}
             >
-              <div className="flex flex-col gap-5 border-b border-line p-7 sm:p-9 md:border-r md:border-b-0 lg:p-11">
+              <div className="flex flex-col justify-center gap-5 border-b border-line p-7 sm:p-9 md:border-r md:border-b-0 lg:p-11">
                 <div className="flex items-center gap-3">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  <span className="h-1.5 w-1.5 rounded-sm bg-accent" />
                   <span className="text-sm font-semibold text-muted">{lane.label}</span>
                 </div>
                 <p className="max-w-sm text-sm leading-relaxed text-muted">{lane.note}</p>
@@ -123,12 +118,35 @@ export function Services() {
 
               <div className="p-7 sm:p-9 lg:p-11">
                 {lane.items.map((item) => (
-                  <p
-                    key={item}
-                    className="font-display border-t border-line py-4 text-[clamp(1.35rem,2.5vw,2rem)] leading-[1.1] font-semibold tracking-[-0.02em] text-foreground first:border-t-0 first:pt-0"
+                  <div
+                    key={item.label}
+                    className="flex items-center justify-between gap-6 border-b border-line py-1 first:pt-0"
                   >
-                    {item}
-                  </p>
+                    <p className=" text-[clamp(1.35rem,2.5vw,2rem)] font-semibold tracking-[-0.02em] text-foreground">
+                      {item.label}
+                    </p>
+
+                    {/* No border and a feathered edge, so the thumbnail
+                        dissolves into the card instead of sitting on it. */}
+                    <motion.span
+                      variants={imageIn}
+                      className="relative block h-11 w-11 shrink-0 sm:h-13 sm:w-13"
+                      style={{
+                        WebkitMaskImage:
+                          "radial-gradient(70% 70% at 50% 50%, #000 50%, transparent 100%)",
+                        maskImage:
+                          "radial-gradient(70% 70% at 50% 50%, #000 50%, transparent 100%)",
+                      }}
+                    >
+                      <Image
+                        src={item.img}
+                        alt=""
+                        fill
+                        sizes="(min-width: 640px) 52px, 44px"
+                        className="object-cover"
+                      />
+                    </motion.span>
+                  </div>
                 ))}
               </div>
             </div>
@@ -136,14 +154,14 @@ export function Services() {
         </motion.div>
 
         <motion.h3
-          variants={rise}
+          variants={textIn}
           className="mt-20 border-t border-line pt-14 text-[26px] leading-tight font-semibold text-foreground sm:text-3xl lg:mt-24 lg:pt-16 lg:text-[34px]"
         >
           End-to-End Service Capability
         </motion.h3>
 
         <motion.div
-          variants={rise}
+          variants={imageIn}
           className="mt-8 flex flex-col gap-3 lg:h-[440px] lg:flex-row lg:gap-3"
         >
           {capabilities.map((cap) => (

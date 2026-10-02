@@ -27,7 +27,7 @@ export const navbarData: NavbarData = {
   showSearch: false,
   cta: { label: "Get In Touch", href: "#contact" },
   menu: [
-    { label: "Home", href: "#home" },
+    // { label: "Home", href: "#home" },
     { label: "About Us", href: "#about" },
     { label: "Services", href: "#services" },
     { label: "Products", href: "#products" },

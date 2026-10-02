@@ -49,8 +49,8 @@ export function QualityAssurance() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8">
         <motion.span
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, x: -28 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           className="mx-auto mb-5 flex w-fit items-center gap-3 text-sm font-semibold text-muted"
@@ -60,8 +60,8 @@ export function QualityAssurance() {
         </motion.span>
 
         <motion.h2
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, x: -28 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-4xl text-center text-[36px] leading-[1.04] font-semibold text-foreground sm:text-5xl lg:text-[56px]"
@@ -70,8 +70,8 @@ export function QualityAssurance() {
         </motion.h2>
 
         <motion.p
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, x: -28 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.08 }}
           className="mx-auto mt-5 max-w-2xl text-center text-sm leading-relaxed text-muted sm:text-base"
@@ -89,8 +89,8 @@ export function QualityAssurance() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto mt-14 hidden w-full max-w-[1600px] px-5 lg:px-8 xl:block">
-        <div className="relative h-[340px] w-full">
+      <div className="relative z-10 mx-auto mt-14 hidden w-full max-w-[1440px] px-5 lg:px-8 xl:block">
+        <div className="relative h-[300px] w-full">
           <svg
             className="absolute inset-0 z-0 h-full w-full"
             viewBox="0 0 1600 340"
@@ -127,9 +127,9 @@ export function QualityAssurance() {
               return (
                 <li
                   key={stage.step}
-                  className={`relative h-[250px] ${
+                  className={`relative h-[210px] ${
                     isOffset
-                      ? "translate-y-[70px] rotate-[1deg]"
+                      ? "translate-y-[56px] rotate-[1deg]"
                       : "rotate-[-1deg]"
                   }`}
                 >
@@ -138,24 +138,24 @@ export function QualityAssurance() {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.5, delay: i * 0.08 }}
-                    className="flex h-full flex-col rounded-[22px] border border-line bg-surface p-2.5 shadow-[0_18px_45px_rgba(14,16,19,0.08)]"
+                    className="flex h-full flex-col rounded-[18px] border border-line bg-surface p-2 shadow-[0_14px_36px_rgba(14,16,19,0.07)]"
                   >
                     <div className="flex justify-center">
                       <span
-                        className={`flex h-9 w-9 items-center justify-center rounded-full border shadow-sm ${stageIconColors[i]}`}
+                        className={`flex h-8 w-8 items-center justify-center rounded-lg border shadow-sm ${stageIconColors[i]}`}
                       >
-                        <StageIcon className="h-4 w-4" aria-hidden="true" />
+                        <StageIcon className="h-[15px] w-[15px]" aria-hidden="true" />
                       </span>
                     </div>
 
-                    <div className="mt-3 flex flex-1 flex-col rounded-xl border border-accent/20 bg-accent/10 px-4 py-4">
-                      <span className="font-display text-3xl leading-none font-medium text-[#967400]">
+                    <div className="mt-2.5 flex flex-1 flex-col rounded-lg border border-accent/20 bg-accent/10 px-3.5 py-3">
+                      <span className="font-display text-2xl leading-none font-medium text-[#967400]">
                         0{stage.step}
                       </span>
                       <h3 className="mt-2 text-lg font-semibold text-foreground">
                         {stage.stage}
                       </h3>
-                      <p className="mt-1.5 text-[13px] leading-relaxed text-muted">
+                      <p className="mt-1 text-xs leading-relaxed text-muted">
                         {stage.description}
                       </p>
                     </div>
@@ -168,8 +168,8 @@ export function QualityAssurance() {
       </div>
 
       <motion.p
-        initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={prefersReducedMotion ? false : { opacity: 0, x: -28 }}
+        whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.2 }}
         className="relative z-10 mx-auto mt-8 max-w-3xl px-5 text-center text-sm leading-relaxed text-muted"

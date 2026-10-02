@@ -8,14 +8,43 @@ import { ArrowRight } from "lucide-react";
 import { heroSectionData } from "@/data/HeroSectionData";
 import { SocialIcon } from "@/components/SocialIcon";
 
-const contentVariants: Variants = {
-  enter: () => ({ opacity: 0, x: -60 }),
-  center: (i: number) => ({
+const EASE: [number, number, number, number] = [0.23, 1, 0.32, 1];
+
+/* Copy enters from the left, one beat apart, so the eye reads down the
+   block in the order it was written. */
+const copy: Variants = {
+  enter: (i: number) => ({
+    opacity: 0,
+    x: -32,
+    transition: { duration: 0.55, ease: EASE, delay: i * 0.09 },
+  }),
+  center: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: i * 0.12 },
+    transition: { duration: 0.7, ease: EASE },
+  },
+  exit: () => ({
+    opacity: 0,
+    x: 24,
+    transition: { duration: 0.35, ease: EASE },
   }),
-  exit: () => ({ opacity: 0, x: 60, transition: { duration: 0.4 } }),
+};
+
+/* The rule under the CTA draws itself in after the button lands. */
+const wipe: Variants = {
+  hidden: { scaleX: 0 },
+  show: (i: number) => ({
+    scaleX: 1,
+    transition: { duration: 0.7, ease: EASE, delay: 0.1 + i * 0.09 },
+  }),
+};
+
+/* The plate settles rather than cuts — a slow drift out keeps the
+   crossfade from reading as a flicker. */
+const plate: Variants = {
+  hidden: { opacity: 0, scale: 1.06 },
+  show: { opacity: 1, scale: 1, transition: { duration: 1.4, ease: EASE } },
+  exit: { opacity: 0, transition: { duration: 0.9, ease: EASE } },
 };
 
 export function Hero() {
@@ -33,22 +62,23 @@ export function Hero() {
   }, [index, paused, slides.length]);
 
   const slide = slides[index];
+  const current = String(index + 1).padStart(2, "0");
 
   return (
     <section
       id="home"
-      className="relative h-[100svh] min-h-[600px] w-full overflow-hidden bg-foreground"
+      className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-foreground"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Background image */}
+      {/* Background plate */}
       <AnimatePresence mode="sync">
         <motion.div
           key={index}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2 }}
+          variants={plate}
+          initial="hidden"
+          animate="show"
+          exit="exit"
           className="absolute inset-0"
         >
           <Image
@@ -56,69 +86,96 @@ export function Hero() {
             alt={slide.headline}
             fill
             priority
+            sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/30" />
+          {/* Two scrims: a vertical one to seat the type, a horizontal one
+              that keeps the right half readable for the social rail. */}
+          <div className="absolute inset-0 bg-linear-to-b from-ink/70 via-ink/45 to-ink/80" />
+          <div className="absolute inset-0 bg-linear-to-r from-ink/90 via-ink/45 to-ink/20" />
         </motion.div>
       </AnimatePresence>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-5 lg:px-8">
-        <div className="max-w-2xl">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1400px] items-center px-5 lg:px-10 mt-10">
+        <div className="w-full max-w-3xl">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
               initial="enter"
               animate="center"
               exit="exit"
-              custom={0}
-              className="flex flex-col items-start gap-5"
+              className="flex flex-col items-start gap-4 sm:gap-5"
             >
               <motion.span
-                variants={contentVariants}
+                variants={copy}
                 custom={0}
-                className="inline-flex items-center gap-3 text-sm font-semibold text-white/85"
+                className="inline-flex items-center gap-3 text-sm font-semibold tracking-[0.02em] text-white/85"
               >
-                <span className="h-px w-8 bg-accent" />
+                <span className="h-px w-10 bg-accent" />
                 {slide.subTitle}
               </motion.span>
+
               <motion.h1
-                variants={contentVariants}
+                variants={copy}
                 custom={1}
-                className="text-4xl leading-[1.02] text-white sm:text-5xl lg:text-6xl xl:text-7xl"
+                className="text-white"
+                style={{
+                  fontSize: "clamp(2.05rem, 4.6vw, 3.5rem)",
+                  lineHeight: 1.06,
+                  textWrap: "balance",
+                }}
               >
-                {slide.headline.split("\n").map((line, i) => (
-                  <span key={i} className="text-white">
+                {slide.headline.split("\n").map((line, i, arr) => (
+                  <span key={i} className="block">
                     {line}
-                    {i === 0 && <br />}
+                    {i < arr.length - 1 && <br className="hidden sm:block" />}
                   </span>
                 ))}
               </motion.h1>
+
               <motion.p
-                variants={contentVariants}
+                variants={copy}
                 custom={2}
-                className="max-w-lg text-sm leading-relaxed text-white/70 sm:text-base"
+                className="max-w-xl text-sm leading-relaxed text-white/70 sm:text-[15px]"
               >
                 {slide.paragraph}
               </motion.p>
-              <motion.div variants={contentVariants} custom={3}>
+
+              <motion.div variants={copy} custom={3} className="pt-1">
                 <Link
                   href={slide.ctaHref}
-                  className="btn-brand inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold"
+                  className="btn-brand inline-flex items-center gap-2.5 rounded-sm px-8 py-4 text-sm font-bold"
                 >
-                  <span className="relative z-10 inline-flex items-center gap-2">
+                  <span className="relative z-10 inline-flex items-center gap-2.5">
                     {slide.cta}
                     <ArrowRight className="h-4 w-4" />
                   </span>
                 </Link>
               </motion.div>
+
+              <motion.span
+                variants={wipe}
+                custom={4}
+                className="mt-2 block h-px w-32 origin-left bg-accent/60"
+              />
             </motion.div>
           </AnimatePresence>
         </div>
       </div>
 
+      {/* Slide counter, bottom left */}
+      <div className="absolute bottom-9 left-5 z-10 flex items-baseline gap-2 lg:left-10">
+        <span className="font-display text-2xl leading-none text-accent tabular-nums">
+          {current}
+        </span>
+        <span className="text-xs text-white/40 tabular-nums">
+          / {String(slides.length).padStart(2, "0")}
+        </span>
+      </div>
+
       {/* Right vertical social rail */}
-      <div className="absolute right-8 top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center gap-4 xl:flex">
+      <div className="absolute right-10 top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center gap-4 xl:flex">
         <span className="h-20 w-px bg-white/30" />
         <div className="flex flex-col gap-3">
           {heroSectionData.social.map((s) => (
@@ -126,26 +183,27 @@ export function Hero() {
               key={s.label}
               href={s.href}
               aria-label={s.label}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-accent hover:text-accent"
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/20 text-white/80 transition-colors hover:border-accent hover:text-accent"
             >
-              <SocialIcon name={s.icon} className="h-3.5 w-3.5" />
+              <SocialIcon name={s.icon} className="h-4 w-4" />
             </a>
           ))}
         </div>
-        <span className="text-[10px] uppercase tracking-widest text-white/50">
+        <span className="text-[10px] tracking-[0.18em] text-white/50 uppercase">
           {heroSectionData.followLabel}
         </span>
       </div>
 
       {/* Slider dots */}
-      <div className="absolute bottom-8 right-8 z-10 flex items-center gap-2">
+      <div className="absolute right-5 bottom-9 z-10 flex items-center gap-2 lg:right-10">
         {slides.map((_, i) => (
           <button
             key={i}
             aria-label={`Slide ${i + 1}`}
+            aria-current={i === index}
             onClick={() => setIndex(i)}
             className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === index ? "w-6 bg-accent" : "w-3 bg-white/40"
+              i === index ? "w-8 bg-accent" : "w-3 bg-white/40 hover:bg-white/70"
             }`}
           />
         ))}
