@@ -16,13 +16,17 @@ export const IMAGE_DELAY = 0.5;
 
 /* Parent orchestration. Children inherit `show` through variant
    propagation, so a section only needs `variants={group}` +
-   `whileInView="show"`. */
+   `whileInView="show"`. The beat before `delayChildren` lets a section
+   land in the viewport first, so the header entrance is actually seen
+   instead of firing off-screen. */
+export const HEADER_DELAY = 0.2;
+
 export const group: Variants = {
   hidden: {},
   show: {
     transition: {
       staggerChildren: 0.07,
-      delayChildren: 0.05,
+      delayChildren: HEADER_DELAY,
     },
   },
 };

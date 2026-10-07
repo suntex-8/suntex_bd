@@ -5,6 +5,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown, Phone, Mail } from "lucide-react";
 import { faqItems } from "@/data/ServicesPageData";
+import { HEADER_DELAY } from "@/lib/motion";
 
 export function Faq() {
   const [openIndex, setOpenIndex] = useState(2);
@@ -19,7 +20,7 @@ export function Faq() {
               initial={{ opacity: 0, x: -28 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, delay: HEADER_DELAY }}
               className="mb-4 inline-flex items-center gap-3 text-sm font-semibold text-muted"
             >
               <span className="h-px w-8 bg-accent" />
@@ -30,7 +31,7 @@ export function Faq() {
               initial={{ opacity: 0, x: -28 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, delay: HEADER_DELAY }}
               className="mb-6 text-[32px] leading-[1.08] text-foreground sm:text-4xl lg:text-[40px]"
             >
               Assisting you in comprehending our Suntex offerings
@@ -40,7 +41,7 @@ export function Faq() {
               initial={{ opacity: 0, x: -28 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: HEADER_DELAY + 0.1 }}
               className="mb-10 max-w-md text-sm leading-relaxed text-muted"
             >
               Suntex & Garment Factory website, the FAQs section should address MOQ, lead times, quality control, export customization, etc.
@@ -51,8 +52,8 @@ export function Faq() {
               initial={{ opacity: 0, x: -28 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-8 flex items-center gap-3"
+                transition={{ duration: 0.6, delay: HEADER_DELAY + 0.2 }}
+                className="mb-8 flex items-center gap-3"
             >
               <div className="flex -space-x-2">
                 {[1, 2, 3].map((i) => (
@@ -78,7 +79,7 @@ export function Faq() {
                 initial={{ opacity: 0, x: -28 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
+                transition={{ duration: 0.5, delay: HEADER_DELAY + 0.3 }}
                 className="flex items-center gap-3 rounded-lg border border-accent/25 bg-accent/10 px-5 py-4"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-foreground">
@@ -93,7 +94,7 @@ export function Faq() {
                 initial={{ opacity: 0, x: -28 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
+                transition={{ duration: 0.5, delay: HEADER_DELAY + 0.4 }}
                 className="flex items-center gap-3 rounded-lg border border-accent/25 bg-accent/10 px-5 py-4"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-foreground">
@@ -117,7 +118,7 @@ export function Faq() {
                   initial={{ opacity: 0, x: -28 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.4, delay: i * 0.05 }}
+                  transition={{ duration: 0.4, delay: HEADER_DELAY + i * 0.05 }}
                   className={`overflow-hidden rounded-lg border transition-colors ${
                     isOpen ? "border-line bg-background" : "border-line bg-background/60"
                   }`}

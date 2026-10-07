@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import type { TitleBlock } from "@/data/SiteSectionData";
+import { HEADER_DELAY } from "@/lib/motion";
 import { RevealText } from "./RevealText";
 
 export function SectionHeader({ data }: { data: TitleBlock }) {
@@ -15,7 +16,7 @@ export function SectionHeader({ data }: { data: TitleBlock }) {
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.5, delay: HEADER_DELAY }}
         className={`mb-4 inline-flex items-center gap-3 text-sm font-semibold text-muted ${
           data.centered ? "justify-center" : ""
         }`}
@@ -24,7 +25,7 @@ export function SectionHeader({ data }: { data: TitleBlock }) {
         {data.subTitle}
       </motion.span>
       <p className="text-[32px] leading-[1.08] sm:text-4xl lg:text-5xl font-semibold text-foreground">
-        <RevealText text={data.headline} />
+        <RevealText text={data.headline} delay={HEADER_DELAY + 0.05} />
       </p>
     </div>
   );

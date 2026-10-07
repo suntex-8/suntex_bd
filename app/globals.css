@@ -142,16 +142,18 @@ p {
 }
 
 /* --- Buttons ---
-   A flat, single-accent button. The yellow fill is the brand's one
-   loud moment; hover deepens the gold instead of layering gradients. */
+   One flat black fill with a white label. Hover lifts the black a step
+   rather than swapping in the yellow — the accent stays for the small
+   marks (rules, icon chips, counters) so the buttons read as a single
+   quiet surface instead of competing with the highlights. */
 .btn-brand,
 a.btn-brand {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: var(--accent);
-  color: var(--foreground);
+  background: var(--ink);
+  color: #fff;
   font-weight: 600;
   white-space: nowrap;
   border-radius: 9px;
@@ -159,20 +161,24 @@ a.btn-brand {
 }
 .btn-brand:hover,
 a.btn-brand:hover {
-  background: #e6b20e;
+  background: #24272d;
 }
 .btn-brand:active,
 a.btn-brand:active {
   transform: translateY(1px);
 }
 
+/* Same fill as .btn-brand — the ghost variant is kept only for the
+   different geometry (pill radius) and the pair no longer diverge in
+   colour. */
 .btn-ghost,
 a.btn-ghost {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: var(--ink);
+  border: 1px solid var(--ink);
   color: #fff;
   font-weight: 600;
   white-space: nowrap;
@@ -181,8 +187,8 @@ a.btn-ghost {
 }
 .btn-ghost:hover,
 a.btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: #24272d;
+  border-color: #24272d;
 }
 
 /* --- Flat dark section ---
@@ -213,13 +219,9 @@ a.btn-ghost:hover {
 }
 
 /* --- Navbar ---
-   A floating dark glass pill over the hero; a flat solid bar while
-   scrolling. Text stays light so the logo and links stay legible. */
-.navbar-glass {
-  background: rgba(14, 16, 19, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
+    Transparent over the hero — no fill, no border, so it blends with the
+    image — and a flat solid dark bar once the page scrolls. Text stays
+    light so the logo and links stay legible. */
 .navbar-glass-scrolled {
   background: rgba(14, 16, 19, 0.82);
   backdrop-filter: blur(24px);

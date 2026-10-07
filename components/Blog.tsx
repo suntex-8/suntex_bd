@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { blogData } from "@/data/SiteSectionData";
+import { HEADER_DELAY } from "@/lib/motion";
 import { SectionHeader } from "./SectionHeader";
 
 export function Blog() {
@@ -19,7 +20,7 @@ export function Blog() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.5, delay: HEADER_DELAY + i * 0.1 }}
               className="group overflow-hidden rounded-xl bg-[#f6f6f3]"
             >
               <div className="relative h-56 overflow-hidden">

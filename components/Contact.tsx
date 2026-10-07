@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { contactData } from "@/data/SiteSectionData";
+import { HEADER_DELAY } from "@/lib/motion";
 
 export function Contact() {
   const fields = contactData.form.fields;
@@ -18,7 +19,7 @@ export function Contact() {
               initial={{ opacity: 0, x: -28 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, delay: HEADER_DELAY }}
               className="mb-4 inline-flex items-center gap-3 text-sm font-semibold text-muted"
             >
               <span className="h-px w-8 bg-accent" />
@@ -31,7 +32,7 @@ export function Contact() {
               initial={{ opacity: 0, x: -28 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, delay: HEADER_DELAY }}
               className="mb-10 max-w-lg text-base leading-relaxed text-muted"
             >
               {contactData.paragraph}
@@ -41,7 +42,7 @@ export function Contact() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, delay: HEADER_DELAY }}
               onSubmit={(e) => e.preventDefault()}
               className="space-y-5"
             >
@@ -116,17 +117,9 @@ export function Contact() {
 
               <p className="max-w-md text-xs leading-relaxed text-muted">
                 SUNTEX Apparel Group — Garment Manufacturing & Sourcing, Bangladesh. Your trusted partner from concept to delivery.
-              </p>
+</p>
 
-              <button
-                type="submit"
-                className="btn-brand inline-flex items-center gap-2 rounded-xl px-8 py-4 text-sm font-bold"
-              >
-                <span className="relative z-10 inline-flex items-center gap-2">
-                  {contactData.form.submitLabel}
-                  <ArrowRight className="h-4 w-4" />
-                </span>
-              </button>
+              <Button type="submit">{contactData.form.submitLabel}</Button>
             </motion.form>
           </div>
 

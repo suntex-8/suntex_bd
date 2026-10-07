@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Star } from "lucide-react";
+import { Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { group, imageIn, rule, textIn, textInSoft } from "@/lib/motion";
 import { aboutData } from "@/data/SiteSectionData";
 
@@ -46,18 +46,9 @@ export function About() {
 
             <motion.div
               variants={textInSoft}
-              className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-6"
+className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-6"
             >
-              <Link
-                href={aboutData.cta.href}
-                className="btn-brand group inline-flex items-center gap-2 rounded-xl px-7 py-3.5 text-sm font-semibold"
-              >
-                {aboutData.cta.label}
-                <ArrowRight
-                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none"
-                  aria-hidden="true"
-                />
-              </Link>
+              <Button href={aboutData.cta.href}>{aboutData.cta.label}</Button>
 
               <div>
                 <p className="text-xs text-muted">{aboutData.phone.label}</p>
@@ -74,7 +65,7 @@ export function About() {
           <motion.figure variants={imageIn} className="lg:col-span-5">
             <div className="relative aspect-4/5 overflow-hidden rounded-lg ring-1 ring-line">
               <Image
-                src={aboutData.images.main}
+                src="https://images.pexels.com/photos/18359551/pexels-photo-18359551.jpeg?auto=compress&cs=tinysrgb&w=1920"
                 alt="SUNTEX garment production"
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"

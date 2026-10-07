@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { processSteps } from "@/data/ServicesPageData";
+import { HEADER_DELAY } from "@/lib/motion";
 
 export function ProcessTimeline() {
   return (
@@ -14,7 +15,7 @@ export function ProcessTimeline() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: HEADER_DELAY }}
             className="mb-4 inline-flex items-center gap-2 rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground"
           >
             <span className="inline-block h-2 w-2 rounded-full bg-accent" />
@@ -24,7 +25,7 @@ export function ProcessTimeline() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: HEADER_DELAY }}
             className="text-[32px] leading-[1.15] text-foreground sm:text-4xl lg:text-[44px]"
           >
             Our Structured Manufacturing Process
@@ -45,7 +46,7 @@ export function ProcessTimeline() {
                   initial={{ opacity: 0, y: isTop ? -30 : 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  transition={{ duration: 0.6, delay: HEADER_DELAY + i * 0.1 }}
                   className="relative flex flex-col items-center text-center"
                 >
                   {/* Content */}

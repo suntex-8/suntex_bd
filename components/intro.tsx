@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 
 const metrics = [
   { value: '200', suffix: '+', label: 'Partner factories<br />worldwide' },
@@ -9,65 +10,87 @@ const metrics = [
 
 export default function Intro() {
   return (
-    <section
-      className="mx-auto w-full max-w-[1180px] px-5 py-16 sm:px-8 sm:py-20 lg:px-0 lg:py-[120px] lg:pb-[112px]"
-      id="approach"
-    >
-      <div className="font-mono text-[10px] uppercase leading-[1.5] tracking-[0.07em] text-accent sm:text-[11px]">
-        A better way to make
-      </div>
-
-      {/* Single column until lg. At two columns on a 375px screen the
-          headline was sharing ~150px with the paragraph. */}
-      <div className="mt-5 grid grid-cols-1 items-start gap-8 sm:gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-[90px]">
-        <h2
-          /* globals.css sets an unlayered font-size, line-height and
-             letter-spacing on h2, which beats any Tailwind utility.
-             Inlined so the intended display scale actually applies. */
-          style={{
-            fontSize: 'clamp(2rem, 5.1vw, 4.4375rem)',
-            lineHeight: 0.98,
-            letterSpacing: '-0.03em',
-          }}
-          className="font-medium"
-        >
-          Good products start
-          <br />
-          with <em className="font-serif font-medium">good relationships.</em>
-        </h2>
-
-        <div>
-          <p className="max-w-[410px] text-[15px] leading-[1.7] text-muted">
-            At SUNTEX, we believe the best garments come from working closely with the people who make them. No
-            black boxes. No unnecessary layers. Just a clear, capable partner from first idea to final delivery.
-          </p>
-          <a
-            className="mt-[17px] inline-flex min-h-11 items-center gap-2 border-b border-ink pb-[7px] text-[12px] font-semibold"
-            href="#about"
-          >
-            Our story <ArrowRight size={15} />
-          </a>
-        </div>
-      </div>
-
-      {/* Two-up on mobile, four across on lg. The vertical rules between
-          columns only exist at lg, where there are columns to divide. */}
-      <div className="mt-14 grid grid-cols-2 gap-x-6 gap-y-9 border-t border-line pt-7 sm:mt-16 lg:mt-[82px] lg:grid-cols-4 lg:gap-x-6">
-        {metrics.map((m, i) => (
-          <div
-            key={i}
-            className={`flex items-center gap-4 sm:gap-5 ${i > 0 && i < 3 ? 'lg:border-l lg:border-line lg:pl-6' : ''}`}
-          >
-            <strong className="text-[28px] font-medium tracking-tighter sm:text-[32px] lg:text-[39px]">
-              {m.value}
-              <span className="font-serif text-[19px] italic text-accent lg:text-[26px]">{m.suffix}</span>
-            </strong>
-            <small
-              className="text-[11px] leading-[1.35] text-muted"
-              dangerouslySetInnerHTML={{ __html: m.label }}
-            />
+    <section className="mx-auto w-full max-w-full px-5 sm:px-8   lg:px-0 " id="approach">
+      <div className="overflow-hidden rounded-3xl border border-line bg-white py-8">
+        {/* Top block: label column | headline column */}
+        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr]">
+          {/* Left column */}
+          <div className="border-b border-line p-6 sm:p-8 lg:border-b-0 lg:border-r">
+            <div className="text-[14px] font-bold uppercase leading-[1.5] tracking-[0.12em] text-accent">
+              A better way to make
+            </div>
+            <figure className="mt-26">
+              <div className="relative aspect-4/3 overflow-hidden rounded-xl">
+                <Image
+                  src="/suntex-bg-1.webp"
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 236px, (min-width: 640px) 60vw, 100vw"
+                  className="object-cover object-bottom "
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-transparent from-40% via-background/30 to-background" />
+              </div>
+            </figure>
           </div>
-        ))}
+
+          {/* Right column */}
+          <div className="p-6 sm:p-8 lg:p-10">
+            <h4
+              style={{
+                fontSize: 'clamp(1.75rem, 2.5vw, 2.75rem)',
+                lineHeight: 1.1,
+                letterSpacing: '-0.04em',
+              }}
+              className="max-w-full font-medium text-muted"
+            >
+              At Suntex <span className="inline-flex items-center gap-1.5 align-middle">
+                <Image
+                  src="/suntex1logo.png"
+                  alt="SUNTEX"
+                  width={100}
+                  height={100}
+                  className="h-10 rounded-md w-auto object-contain relative -top-0.5"
+                />
+              </span>, we believe the best garments come from working closely with the people who make them.
+              <br />
+              with{' '}
+              <span className="text-ink">No
+              black boxes. No unnecessary layers. Just a clear, capable partner from first idea to final delivery.</span>
+            </h4>
+
+            <a
+              href="#about"
+              className="mt-7 inline-flex min-h-11 items-center gap-3 rounded-full bg-ink py-1 pl-5 pr-1 text-[12px] font-medium text-white"
+            >
+              Our story
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-ink">
+                <ArrowRight size={15} />
+              </span>
+            </a>
+          </div>
+        </div>
+
+        {/* Metrics row */}
+        <div className="grid grid-cols-2 gap-3 border-t border-line p-4 sm:p-5 lg:grid-cols-4">
+          {metrics.map((m, i) => (
+            <div
+              key={i}
+              className="flex flex-col justify-between gap-6 rounded-2xl border border-line bg-white p-5 sm:p-6"
+            >
+              <strong
+                className="font-medium text-ink"
+                style={{ fontSize: 'clamp(2rem, 3.4vw, 3rem)', letterSpacing: '-0.04em', lineHeight: 1 }}
+              >
+                {m.value}
+                <span className="text-accent">{m.suffix}</span>
+              </strong>
+              <small
+                className="text-[12px] italic leading-[1.4] text-muted"
+                dangerouslySetInnerHTML={{ __html: m.label }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

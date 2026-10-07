@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { Check } from "lucide-react";
 import { trustData } from "@/data/SiteSectionData";
+import { HEADER_DELAY } from "@/lib/motion";
 import { SectionHeader } from "./SectionHeader";
 
 export function Trust() {
@@ -43,7 +44,7 @@ export function Trust() {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, delay: HEADER_DELAY }}
               className="relative h-full min-h-[520px] lg:min-h-[560px]"
             >
               <div className="absolute inset-0 overflow-hidden rounded-xl">
@@ -75,7 +76,7 @@ export function Trust() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, delay: HEADER_DELAY }}
               className="mb-8 max-w-2xl text-base leading-relaxed text-foreground/70"
             >
               {trustData.paragraph}
@@ -88,7 +89,7 @@ export function Trust() {
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6 }}
+                  transition={{ duration: 0.6, delay: HEADER_DELAY }}
                   className="relative h-64 overflow-hidden rounded-xl lg:h-full lg:min-h-[280px]"
                 >
                   <motion.div
@@ -109,7 +110,7 @@ export function Trust() {
                 {/* Skill bars */}
                 <div className="mb-10 space-y-6">
                   {trustData.bars.map((bar, i) => (
-                    <Bar key={bar.label} label={bar.label} value={bar.value} delay={i * 0.15} />
+                    <Bar key={bar.label} label={bar.label} value={bar.value} delay={HEADER_DELAY + i * 0.15} />
                   ))}
                 </div>
 

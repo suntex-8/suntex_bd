@@ -4,7 +4,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
+import { IconButton } from "@/components/ui/button";
 import { testimonialsData } from "@/data/SiteSectionData";
+import { HEADER_DELAY } from "@/lib/motion";
 import { RevealText } from "./RevealText";
 
 export function Testimonials() {
@@ -32,7 +34,7 @@ export function Testimonials() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: HEADER_DELAY }}
             className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-white/70"
           >
             <span className="inline-block h-2 w-2 rounded-full bg-accent" />
@@ -40,6 +42,7 @@ export function Testimonials() {
           </motion.span>
           <RevealText
             text={testimonialsData.headline}
+            delay={HEADER_DELAY + 0.05}
             className="text-[28px] leading-[1.15] text-white sm:text-3xl lg:text-[40px]"
           />
         </div>
@@ -51,7 +54,7 @@ export function Testimonials() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, delay: HEADER_DELAY }}
               className="flex items-center gap-4"
             >
               <div className="h-14 w-14 overflow-hidden rounded-full border-2 border-accent">
@@ -71,7 +74,7 @@ export function Testimonials() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
+              transition={{ duration: 0.6, delay: HEADER_DELAY + 0.15 }}
               className="mt-6 max-w-xs text-sm leading-relaxed text-white/60"
             >
               {testimonialsData.badge.text}
@@ -145,26 +148,20 @@ export function Testimonials() {
                         aria-label={`Go to testimonial ${i + 1}`}
                         onClick={() => setIndex(i)}
                         className={`h-2.5 rounded-full transition-all duration-300 ${
-                          i === index ? "w-6 bg-accent" : "w-2.5 bg-white/30"
+                          i === index
+                            ? "w-6 bg-black ring-1 ring-white"
+                            : "w-2.5 bg-black ring-1 ring-white/40 hover:ring-white/80"
                         }`}
                       />
                     ))}
                   </div>
                   <div className="ml-auto flex gap-2">
-                    <button
-                      aria-label="Previous testimonial"
-                      onClick={prev}
-                      className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground/80 text-white transition-colors hover:bg-accent hover:text-foreground"
-                    >
+                    <IconButton label="Previous testimonial" onClick={prev}>
                       <ArrowLeft className="h-4 w-4" />
-                    </button>
-                    <button
-                      aria-label="Next testimonial"
-                      onClick={next}
-                      className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground/80 text-white transition-colors hover:bg-accent hover:text-foreground"
-                    >
+                    </IconButton>
+                    <IconButton label="Next testimonial" onClick={next}>
                       <ArrowRight className="h-4 w-4" />
-                    </button>
+                    </IconButton>
                   </div>
                 </div>
               </div>

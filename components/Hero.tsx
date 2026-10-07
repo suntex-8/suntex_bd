@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, type Variants } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { heroSectionData } from "@/data/HeroSectionData";
 import { SocialIcon } from "@/components/SocialIcon";
 
@@ -143,15 +142,9 @@ export function Hero() {
               </motion.p>
 
               <motion.div variants={copy} custom={3} className="pt-1">
-                <Link
-                  href={slide.ctaHref}
-                  className="btn-brand inline-flex items-center gap-2.5 rounded-sm px-8 py-4 text-sm font-bold"
-                >
-                  <span className="relative z-10 inline-flex items-center gap-2.5">
-                    {slide.cta}
-                    <ArrowRight className="h-4 w-4" />
-                  </span>
-                </Link>
+                <Button href={slide.ctaHref} variant="inverted" className="ring-1 ring-ink bg-white text-ink hover:bg-white/90">
+                  {slide.cta}
+                </Button>
               </motion.div>
 
               <motion.span
@@ -230,7 +223,9 @@ export function Hero() {
             aria-current={i === index}
             onClick={() => setIndex(i)}
             className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === index ? "w-8 bg-accent" : "w-3 bg-white/40 hover:bg-white/70"
+              i === index
+                ? "w-8 bg-black ring-1 ring-white"
+                : "w-3 bg-black ring-1 ring-white/40 hover:ring-white/80"
             }`}
           />
         ))}

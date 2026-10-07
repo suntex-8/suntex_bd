@@ -55,11 +55,6 @@ export function Loader() {
             className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-ink"
             aria-hidden="true"
           >
-            {/* A breath of brand yellow behind the mark. */}
-            <div className="pointer-events-none absolute inset-0">
-              <div className="absolute top-1/2 left-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-accent/12 blur-[130px]" />
-            </div>
-
             <motion.div
               initial={{ opacity: 0, y: 14, scale: 0.985 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}

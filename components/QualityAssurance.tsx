@@ -10,6 +10,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { qualityData } from "@/data/SiteSectionData";
+import { HEADER_DELAY } from "@/lib/motion";
 import { QualityStepsMobile } from "./QualityStepsMobile";
 import { FeralGradient } from "./FeralGradient";
 
@@ -52,7 +53,7 @@ export function QualityAssurance() {
           initial={prefersReducedMotion ? false : { opacity: 0, x: -28 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: HEADER_DELAY }}
           className="mx-auto mb-5 flex w-fit items-center gap-3 text-sm font-semibold text-muted"
         >
           <span className="h-px w-8 bg-accent" />
@@ -63,7 +64,7 @@ export function QualityAssurance() {
           initial={prefersReducedMotion ? false : { opacity: 0, x: -28 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, delay: HEADER_DELAY }}
           className="mx-auto max-w-4xl text-center text-[36px] leading-[1.04] font-semibold text-foreground sm:text-5xl lg:text-[56px]"
         >
           {qualityData.headline}
@@ -73,7 +74,7 @@ export function QualityAssurance() {
           initial={prefersReducedMotion ? false : { opacity: 0, x: -28 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.08 }}
+          transition={{ duration: 0.5, delay: HEADER_DELAY + 0.08 }}
           className="mx-auto mt-5 max-w-2xl text-center text-sm leading-relaxed text-muted sm:text-base"
         >
           Every checkpoint is handled by our own QC team, from incoming
@@ -114,6 +115,7 @@ export function QualityAssurance() {
               viewport={{ once: true }}
               transition={{
                 duration: prefersReducedMotion ? 0 : 1.1,
+                delay: prefersReducedMotion ? 0 : HEADER_DELAY,
                 ease: "easeInOut",
               }}
             />
@@ -137,7 +139,7 @@ export function QualityAssurance() {
                     initial={prefersReducedMotion ? false : { opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.5, delay: i * 0.08 }}
+                    transition={{ duration: 0.5, delay: HEADER_DELAY + i * 0.08 }}
                     className="flex h-full flex-col rounded-[18px] border border-line bg-surface p-2 shadow-[0_14px_36px_rgba(14,16,19,0.07)]"
                   >
                     <div className="flex justify-center">
@@ -171,7 +173,7 @@ export function QualityAssurance() {
         initial={prefersReducedMotion ? false : { opacity: 0, x: -28 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.2 }}
+        transition={{ duration: 0.5, delay: HEADER_DELAY + 0.2 }}
         className="relative z-10 mx-auto mt-8 max-w-3xl px-5 text-center text-sm leading-relaxed text-muted"
       >
         {qualityData.caption}

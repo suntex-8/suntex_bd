@@ -7,12 +7,13 @@ import { group, textInSoft } from "@/lib/motion";
 import { slimCtaData } from "@/data/SiteSectionData";
 
 /* A quiet ruled note rather than a full accent band. This strip sits
-   between the products grid and the MOQ section, and the MOQ section
-   opens on a yellow ribbon — so a yellow band here put two loud moments
-   back to back. Dropping to --surface reads as an annotation and lets the
-   ribbon that follows land harder. The CTA is an underlined link, not a
-   button: three full-width buttons inside one screen of each other is
-   hierarchy noise, and the real button lives in the quote CTA below. */
+   between the products grid and the MOQ section, and the MOQ section is
+   a dark photographic band — so an accent band here would put two loud
+   moments back to back. Dropping to --surface reads as an annotation and
+   lets the dark plate that follows land harder. The CTA is an underlined
+   link, not a button: three full-width buttons inside one screen of each
+   other is hierarchy noise, and the real button lives in the quote CTA
+   below. */
 export function SlimCta() {
   const prefersReducedMotion = useReducedMotion();
 
