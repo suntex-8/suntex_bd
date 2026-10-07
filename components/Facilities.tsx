@@ -2,22 +2,52 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
-import { group, imageIn, rule, textIn } from "@/lib/motion";
+import { group, imageIn, textIn } from "@/lib/motion";
 import { facilitiesData } from "@/data/SiteSectionData";
 import { SectionHeader } from "./SectionHeader";
 
-/* An asymmetric 4-tile plate: one tall anchor on the left, two stacked
-   beside it, one wide band underneath. Spans are declared explicitly per
-   tile rather than pulled from an index so adding or reordering an item
-   can't silently break the layout. */
-const SPANS = [
-  "lg:col-span-6 lg:row-span-2",
-  "lg:col-span-3",
-  "lg:col-span-3",
-  "lg:col-span-6",
+/* Bento layout (lg, 12 cols). Placement is auto-flow in DOM order:
+
+   ┌───────────────┬───────┬───────┐
+   │               │   B   │   C   │
+   │       A       ├───┬───┼───┬───┤
+   │               │ s1│ s2│ s3│ s4│  (2x2 stat cards)
+   ├───────────────┴───┴───┴───┴───┤
+   │               D               │
+   └───────────────────────────────┘
+
+   Spans are declared per tile (not computed from an index) so reordering
+   or adding an item can't silently break the layout. */
+const ITEM_SPANS = [
+  "col-span-2 aspect-[4/3] sm:aspect-[16/10] lg:col-span-6 lg:row-span-4 lg:aspect-auto",
+  "col-span-2 aspect-[4/3] sm:col-span-1 sm:aspect-[3/4] lg:col-span-3 lg:row-span-2 lg:aspect-auto",
+  "col-span-2 aspect-[4/3] sm:col-span-1 sm:aspect-[3/4] lg:col-span-3 lg:row-span-2 lg:aspect-auto",
+  "col-span-2 aspect-[4/3] sm:aspect-[21/9] lg:col-span-12 lg:row-span-2 lg:aspect-auto",
 ];
 
-const HEIGHTS = "h-[340px] sm:h-[380px] lg:h-[280px] lg:first:h-auto";
+/* First stat is the loud one; the rest stay quiet on ink. */
+const STAT_THEMES = [
+  {
+    card: "bg-accent text-ink",
+    label: "text-ink/70",
+    ring: "border-ink/20",
+  },
+  {
+    card: "bg-ink text-white",
+    label: "text-white/55",
+    ring: "border-white/10",
+  },
+  {
+    card: "bg-ink text-white",
+    label: "text-white/55",
+    ring: "border-white/10",
+  },
+  {
+    card: "bg-ink text-white",
+    label: "text-white/55",
+    ring: "border-white/10",
+  },
+];
 
 export function Facilities() {
   const prefersReducedMotion = useReducedMotion();
@@ -28,77 +58,115 @@ export function Facilities() {
         <SectionHeader data={facilitiesData} />
 
         <motion.div
-          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-12 lg:grid-rows-2"
+          className="grid grid-cols-2 gap-3 lg:grid-cols-12 lg:auto-rows-[128px] lg:gap-4"
           variants={group}
           initial={prefersReducedMotion ? false : "hidden"}
           whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.1 }}
         >
-          {facilitiesData.items.map((item, i) => (
-            <motion.figure
-              key={item.index}
-              variants={imageIn}
-              className={`group relative overflow-hidden rounded-xl ${HEIGHTS} ${SPANS[i]}`}
-            >
-              <Image
-                src={item.image}
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05] motion-reduce:transition-none"
-              />
+          {/* Image tiles A, B, C */}
+          {facilitiesData.items.slice(0, 3).map((item, i) => (
+            <ImageTile key={item.index} item={item} className={ITEM_SPANS[i]} />
+          ))}
 
-              {/* Scrim is bottom-weighted so the caption always has a
-                  floor to sit on, at any image crop. */}
-              <div className="absolute inset-0 bg-linear-to-t from-ink/95 via-ink/55 to-ink/10" />
+          {/* Stat cards: 1 col on mobile (2x2), 3 cols x 1 row on lg */}
+          {facilitiesData.stats.map((stat, i) => {
+            const theme = STAT_THEMES[i] ?? STAT_THEMES[1];
 
-              <figcaption className="absolute inset-x-0 bottom-0 p-5 lg:p-6">
-                <span className="flex items-center gap-2.5 text-[10px] font-semibold tracking-[0.18em] text-accent uppercase tabular-nums">
-                  <span className="h-px w-5 bg-accent transition-all duration-500 ease-out group-hover:w-9 motion-reduce:transition-none" />
-                  {item.index}
+            return (
+              <motion.div
+                key={stat.label}
+                variants={textIn}
+                className={`group relative flex min-h-[140px] flex-col justify-between overflow-hidden rounded-2xl p-5 lg:col-span-3 lg:min-h-0 lg:p-6 ${theme.card}`}
+              >
+                {/* Decorative concentric rings, bottom-right */}
+                <span
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute -right-8 -bottom-8 h-28 w-28 rounded-full border transition-transform duration-700 ease-out group-hover:scale-125 motion-reduce:transition-none ${theme.ring}`}
+                />
+                <span
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute -right-14 -bottom-14 h-44 w-44 rounded-full border transition-transform duration-700 ease-out group-hover:scale-110 motion-reduce:transition-none ${theme.ring}`}
+                />
+
+                <span
+                  className={`relative text-[10px] font-semibold tracking-[0.16em] uppercase sm:text-[11px] ${theme.label}`}
+                >
+                  {stat.label}
                 </span>
 
-                <h3
-                  className="mt-2.5 text-white"
-                  style={{ fontSize: "1.15rem", lineHeight: 1.25 }}
+                <span
+                  className="font-display relative block text-4xl leading-none font-semibold lg:text-5xl"
+                  style={{ letterSpacing: "-0.03em" }}
                 >
-                  {item.title}
-                </h3>
+                  {stat.value}
+                </span>
+              </motion.div>
+            );
+          })}
 
-                <p className="mt-2 max-w-[46ch] text-[13px] leading-relaxed text-white/70">
-                  {item.note}
-                </p>
-              </figcaption>
-            </motion.figure>
+          {/* Wide band D */}
+          {facilitiesData.items.slice(3, 4).map((item) => (
+            <ImageTile
+              key={item.index}
+              item={item}
+              className={ITEM_SPANS[3]}
+            />
           ))}
         </motion.div>
-
-        {/* Ledger strip — the numbers are already claimed elsewhere on the
-            site, so this reads as a summary rather than new claims. */}
-        <motion.div
-          variants={rule}
-          className="mt-10 block h-px w-full origin-left bg-line"
-        />
-
-        <motion.ul
-          variants={group}
-          className="grid grid-cols-2 gap-x-8 gap-y-7 pt-8 lg:grid-cols-4"
-        >
-          {facilitiesData.stats.map((stat) => (
-            <motion.li key={stat.label} variants={textIn}>
-              <span
-                className="font-display block text-3xl font-semibold text-foreground lg:text-4xl"
-                style={{ letterSpacing: "-0.02em" }}
-              >
-                {stat.value}
-              </span>
-              <span className="mt-1.5 block text-[11px] tracking-[0.14em] text-muted uppercase">
-                {stat.label}
-              </span>
-            </motion.li>
-          ))}
-        </motion.ul>
       </div>
     </section>
+  );
+}
+
+type FacilityItem = (typeof facilitiesData.items)[number];
+
+function ImageTile({
+  item,
+  className,
+}: {
+  item: FacilityItem;
+  className: string;
+}) {
+  return (
+    <motion.figure
+      variants={imageIn}
+      className={`group relative overflow-hidden rounded-2xl bg-ink ${className}`}
+    >
+      <Image
+        src={item.image}
+        alt=""
+        fill
+        sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05] motion-reduce:transition-none"
+      />
+
+      {/* Bottom-weighted scrim so the caption always has a floor */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-linear-to-t from-ink/90 via-ink/30 to-transparent"
+      />
+
+      {/* Index chip */}
+      <span
+        aria-hidden="true"
+        className="absolute top-3 left-3 rounded-full border border-white/20 bg-ink/40 px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] text-white tabular-nums backdrop-blur-sm lg:top-4 lg:left-4"
+      >
+        {item.index}
+      </span>
+
+      <figcaption className="absolute inset-x-0 bottom-0 p-4 lg:p-6">
+        <span className="mb-3 block h-px w-6 bg-accent transition-all duration-500 ease-out group-hover:w-12 motion-reduce:transition-none" />
+        <h3
+          className="font-display text-white"
+          style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.4rem)", lineHeight: 1.2 }}
+        >
+          {item.title}
+        </h3>
+        <p className="mt-1.5 max-w-[46ch] text-[12.5px] leading-relaxed text-white/75 lg:text-[13px]">
+          {item.note}
+        </p>
+      </figcaption>
+    </motion.figure>
   );
 }
