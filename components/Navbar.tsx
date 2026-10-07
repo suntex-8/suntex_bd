@@ -10,7 +10,8 @@ import {
   useReducedMotion,
   useScroll,
 } from "motion/react";
-import { ChevronDown, Menu, MessageSquare, Search, X } from "lucide-react";
+import { ChevronDown, Menu, Search, X } from "lucide-react";
+import { Button, IconButton } from "@/components/ui/button";
 import { navbarData } from "@/data/NavbarData";
 
 const EASE: [number, number, number, number] = [0.23, 1, 0.32, 1];
@@ -32,24 +33,23 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const lastY = useRef(0);
-  const lastDir = useRef(1);
 
   useMotionValueEvent(scrollY, "change", (v) => {
     setScrolled(v > 60);
+
+    /* Track position first so the drawer can open/close mid-scroll
+       without the nav thinking the page jumped. */
+    const delta = v - lastY.current;
+    lastY.current = v;
 
     /* Never hide while the drawer is open, or it would vanish out from
        under the user's finger. */
     if (mobileOpen) return;
 
     if (v < HIDE_AFTER) {
-      lastY.current = v;
-      lastDir.current = 1;
       setHidden(false);
       return;
     }
-
-    const delta = v - lastY.current;
-    lastY.current = v;
 
     if (Math.abs(delta) < MIN_DELTA) return;
 
@@ -59,16 +59,14 @@ export function Navbar() {
       window.innerHeight + v > document.documentElement.scrollHeight - 2;
 
     if (atBottom) {
-      lastDir.current = -1;
       setHidden(false);
       return;
     }
 
     const dir = delta > 0 ? 1 : -1;
-    if (dir !== lastDir.current) {
-      lastDir.current = dir;
-      setHidden(dir > 0);
-    }
+    /* Down = slide away, up = slide back. setState bails out when the
+       value is unchanged, so this stays cheap per scroll event. */
+    setHidden(dir > 0);
   });
 
   return (
@@ -89,18 +87,25 @@ export function Navbar() {
           className={`mt-4 flex h-12 items-center justify-between rounded-xl border px-5 transition-all duration-500 sm:h-[60px] sm:px-7 ${
             scrolled
               ? "border-white/10 navbar-glass-scrolled"
-              : "border-white/10 navbar-glass"
+              : "border-transparent"
           }`}
         >
-        {/* Logo — always use actual logo */}
+        {/* Logo — circle mark on desktop, wordmark below lg */}
         <Link href="#home" className="flex shrink-0 items-center">
           <Image
             src={navbarData.logo}
             alt={navbarData.logoAlt}
             width={140}
             height={36}
-            className="h-7 w-auto object-contain sm:h-8"
+            className="h-7 w-auto object-contain sm:h-8 lg:hidden"
             preload
+          />
+          <Image
+            src="/suntex1logo.png"
+            alt={navbarData.logoAlt}
+            width={80}
+            height={80}
+            className="hidden h-10 w-10 rounded-full object-contain lg:block"
           />
         </Link>
 
@@ -115,7 +120,7 @@ export function Navbar() {
             >
               <Link
                 href={item.href}
-                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold tracking-[0.06em] text-white uppercase transition-colors hover:bg-white/10 hover:text-accent"
+                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold tracking-[0.06em] text-white uppercase transition-colors hover:bg-white/10 hover:text-accent"
               >
                 {item.label}
                 {item.children?.length ? (
@@ -151,33 +156,25 @@ export function Navbar() {
         {/* Right side */}
         <div className="flex items-center gap-3">
           {navbarData.showSearch && (
-            <button
-              aria-label="Search"
-              className="hidden items-center justify-center p-2 text-white transition-colors hover:text-accent sm:flex"
-            >
+            <IconButton label="Search" className="hidden sm:inline-flex">
               <Search className="h-5 w-5" />
-            </button>
+            </IconButton>
           )}
-         <Link
+         <Button
   href={navbarData.cta.href}
-  className="btn-brand hidden lg:flex items-center gap-2 rounded-xl px-7 py-2 text-sm font-semibold"
+  className="hidden ring-1 ring-white/15 lg:inline-flex"
 >
-  <span className="relative z-10 inline-flex items-center gap-2">
-    {navbarData.cta.label}
-  </span>
-</Link>
+  {navbarData.cta.label}
+</Button>
 
-          {/* Contact on mobile — the labelled button needs ~180px, which the
-              pill has no room for below md. An icon keeps the conversion
-         
           {/* Hamburger (mobile) */}
-          <button
-            aria-label="Open menu"
+          <IconButton
+            label="Open menu"
             onClick={() => setMobileOpen(true)}
-            className="-mr-1.5 flex shrink-0 items-center justify-center p-2 text-white transition-colors hover:text-accent lg:hidden"
+            className="-mr-1.5 lg:hidden"
           >
             <Menu className="h-6 w-6" aria-hidden="true" />
-          </button>
+          </IconButton>
         </div>
       </div>
       </div>
@@ -208,13 +205,13 @@ export function Navbar() {
                   height={36}
                   className="h-7 w-auto object-contain"
                 />
-                <button
-                  aria-label="Close menu"
+                <IconButton
+                  label="Close menu"
                   onClick={() => setMobileOpen(false)}
-                  className="-mr-2.5 p-2.5 text-white/80 transition-colors hover:text-white"
+                  className="-mr-2.5"
                 >
-                  <X className="h-6 w-6" />
-                </button>
+                  <X className="h-6 w-6" aria-hidden="true" />
+                </IconButton>
               </div>
               {/* All nav items — scrollable list */}
               <nav className="flex-1 overflow-y-auto overscroll-contain px-5 pt-1 pb-6">
@@ -229,12 +226,11 @@ export function Navbar() {
                         {item.label}
                       </Link>
                       {item.children?.length ? (
-                        <button
-                          type="button"
+                        <IconButton
+                          label={`${item.label} submenu`}
                           aria-expanded={openMenu === i}
-                          aria-label={`${item.label} submenu`}
                           onClick={() => setOpenMenu(openMenu === i ? null : i)}
-                          className="ml-1 rounded-lg p-3.5 text-white/80 transition-colors hover:text-accent"
+                          className="ml-1"
                         >
                           <ChevronDown
                             className={`h-4 w-4 transition-transform ${
@@ -242,7 +238,7 @@ export function Navbar() {
                             }`}
                             aria-hidden="true"
                           />
-                        </button>
+                        </IconButton>
                       ) : null}
                     </div>
                     <AnimatePresence>

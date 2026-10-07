@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "motion/react";
 import type { LucideIcon } from "lucide-react";
 import type { QcStage } from "@/data/SiteSectionData";
+import { HEADER_DELAY } from "@/lib/motion";
 
 type QualityStepsMobileProps = {
   stages: QcStage[];
@@ -36,7 +37,7 @@ export function QualityStepsMobile({
               initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: i * 0.06 }}
+              transition={{ duration: 0.5, delay: HEADER_DELAY + i * 0.06 }}
               className="flex items-start gap-4"
             >
               <span

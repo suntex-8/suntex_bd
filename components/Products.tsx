@@ -159,21 +159,7 @@ export function Products() {
           ))}
         </motion.div>
 
-        <motion.div
-          variants={textInSoft}
-          className="mt-14 grid gap-8 border-t border-line pt-8 sm:grid-cols-2 sm:gap-12"
-        >
-          <SupplyTally
-            count={inHouse.length}
-            label="Manufactured in-house"
-            categories={inHouse.map((c) => c.category)}
-          />
-          <SupplyTally
-            count={partner.length}
-            label="Via trusted partners"
-            categories={partner.map((c) => c.category)}
-          />
-        </motion.div>
+       
       </div>
     </motion.section>
   );

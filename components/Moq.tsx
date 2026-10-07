@@ -1,42 +1,37 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { group, textIn } from "@/lib/motion";
 import { moqData } from "@/data/SiteSectionData";
-import { TwistingRibbon } from "@/components/TwistingRibbon";
+import { heroSectionData } from "@/data/HeroSectionData";
 
-const ribbonColors = {
-  face: "#f7c527",
-  foldA: "#fbe87e",
-  foldB: "#fff3bf",
-  foldC: "#e9a112",
-};
+/* The band borrows the hero's opening plate instead of introducing a
+   second photograph. Scrims follow the hero's recipe — a flat seat for
+   contrast plus a left-weighted wash — so the column of type stays
+   legible on any crop while the right side of the frame keeps its
+   detail. */
+const plate = heroSectionData.slides[0].image;
 
 export function Moq() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section className="relative isolate overflow-hidden bg-background pt-28 pb-20 lg:pt-36 lg:pb-28">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[620px] overflow-hidden"
-      >
-        <div className="absolute inset-x-[-4%] top-[-70px] h-[540px] opacity-90 mix-blend-multiply">
-          <TwistingRibbon
-            segments={260}
-            waveSpeed={0.012}
-            waveAmplitude={0.75}
-            twistCycles={5}
-            lightColors={ribbonColors}
-            darkColors={ribbonColors}
-            className="rounded-none"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/70 to-background" />
+    <section className="relative isolate overflow-hidden bg-ink py-16 lg:py-24">
+      <div aria-hidden="true" className="absolute inset-0 -z-10">
+        <Image
+          src={plate}
+          alt=""
+          fill
+          sizes="90vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-ink/65" />
+        <div className="absolute inset-0 bg-linear-to-r from-ink/85 via-ink/60 to-ink/30" />
       </div>
 
       <motion.div
-        className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8"
+        className="relative mx-auto max-w-7xl px-5 lg:px-8"
         variants={group}
         initial={prefersReducedMotion ? false : "hidden"}
         whileInView="show"
@@ -44,7 +39,7 @@ export function Moq() {
       >
         <motion.span
           variants={textIn}
-          className="mb-5 inline-flex items-center gap-3 text-sm font-semibold text-muted"
+          className="mb-5 inline-flex items-center gap-3 text-sm font-semibold text-white/75"
         >
           <span className="h-px w-8 bg-accent" />
           {moqData.subTitle}
@@ -52,27 +47,30 @@ export function Moq() {
 
         <motion.h2
           variants={textIn}
-          className="max-w-3xl text-[32px] leading-[1.08] text-foreground sm:text-4xl lg:text-[44px]"
+          className="max-w-3xl text-[32px] leading-[1.08] text-white sm:text-4xl lg:text-[44px]"
         >
           {moqData.headline}
         </motion.h2>
 
-        <div className="mt-12 grid gap-10 md:grid-cols-12 md:gap-14">
+        <div className="mt-10 grid gap-8 md:grid-cols-12 md:gap-10">
           <motion.p
             variants={textIn}
-            className="max-w-2xl text-[17px] leading-relaxed text-muted md:col-span-7"
+            className="max-w-xl text-[17px] leading-relaxed text-white/70 md:col-span-6"
           >
             {moqData.standard.philosophy}
           </motion.p>
 
           <motion.div
             variants={textIn}
-            className="md:col-span-5 md:border-l md:border-line md:pl-10"
+            className="md:col-span-5 md:col-start-8"
           >
-            <span className="font-display block text-6xl leading-none font-semibold text-foreground lg:text-7xl">
+            <span
+              className="font-display block leading-none font-semibold text-white"
+              style={{ fontSize: "clamp(4.5rem, 8vw, 6.5rem)", letterSpacing: "-0.05em" }}
+            >
               {moqData.standard.value}
             </span>
-            <span className="mt-3 block max-w-[20ch] text-sm leading-snug text-muted">
+            <span className="mt-2 block max-w-[24ch] text-sm leading-snug text-white/60">
               {moqData.standard.scope}
             </span>
           </motion.div>
@@ -80,17 +78,17 @@ export function Moq() {
 
         <motion.div
           variants={textIn}
-          className="mt-14 border-t border-accent pt-8 md:flex md:items-start md:justify-between md:gap-14"
+          className="mt-10 grid gap-5 border-t border-white/15 pt-6 md:grid-cols-12 md:items-start md:gap-10"
         >
-          <div className="md:w-2/5">
+          <div className="md:col-span-4">
             <p className="text-xs font-semibold text-accent">
               {moqData.specialTrack.availability}
             </p>
-            <h3 className="font-display mt-2 text-xl font-semibold text-foreground">
+            <h3 className="font-display mt-1 text-lg font-semibold text-white">
               {moqData.specialTrack.target}
             </h3>
           </div>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted md:mt-0 md:flex-1">
+          <p className="max-w-xl text-sm leading-relaxed text-white/70 md:col-span-6 md:col-start-7">
             {moqData.specialTrack.useCase}
           </p>
         </motion.div>

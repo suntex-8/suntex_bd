@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { processData } from "@/data/SiteSectionData";
+import { HEADER_DELAY } from "@/lib/motion";
 
 export function Process() {
   return (
@@ -15,7 +16,7 @@ export function Process() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.8, delay: HEADER_DELAY }}
               className="flex h-full items-center justify-center"
             >
               {/* //increse the  height and width */}
@@ -35,7 +36,7 @@ export function Process() {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, delay: HEADER_DELAY }}
               className="mb-5 inline-block rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground"
             >
               The process
@@ -45,7 +46,7 @@ export function Process() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, delay: HEADER_DELAY }}
               className="mb-12 text-[36px] leading-tight font-normal text-foreground sm:text-5xl lg:text-[56px]"
             >
               How it works
@@ -62,7 +63,7 @@ export function Process() {
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: i * 0.08 }}
+                    transition={{ duration: 0.4, delay: HEADER_DELAY + i * 0.08 }}
                     className="relative flex gap-5"
                   >
                     {/* Dot */}

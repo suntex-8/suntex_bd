@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { pricingData } from "@/data/SiteSectionData";
+import { HEADER_DELAY } from "@/lib/motion";
 import { SectionHeader } from "./SectionHeader";
 
 export function Pricing() {
@@ -18,7 +20,7 @@ export function Pricing() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.5, delay: HEADER_DELAY + i * 0.1 }}
               className="flex flex-col rounded-xl border border-foreground/10 bg-white p-6"
             >
               {/* Title + tagline */}
@@ -44,9 +46,7 @@ export function Pricing() {
               </div>
 
               {/* CTA button */}
-              <button className="btn-brand mt-5 w-full rounded-full px-6 py-3 text-sm font-bold">
-                <span className="relative z-10">{plan.cta}</span>
-              </button>
+              <Button className="mt-5 w-full">{plan.cta}</Button>
 
               {/* "Best for..." */}
               <p className="mt-5 text-sm font-bold text-foreground">

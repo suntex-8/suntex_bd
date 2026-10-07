@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { group, rule, textIn, textInSoft } from "@/lib/motion";
 import { quoteCtaData } from "@/data/SiteSectionData";
+import { heroSectionData } from "@/data/HeroSectionData";
 
 /* Modelled on the artefact this business actually runs on: a costing
    sheet. The buyer sends three inputs, we return three outputs, so the
@@ -14,7 +15,13 @@ import { quoteCtaData } from "@/data/SiteSectionData";
    oversized headline and three oversized yellow numbers. Those numbers
    repeated 500 pcs / 1 week / 5 stages verbatim from the MOQ, lead-time
    and quality sections, and the eyebrow told the reader nothing they
-   couldn't already infer from the heading. */
+   couldn't already infer from the heading.
+
+   Sits on the second hero plate with the MOQ band's scrim recipe. The
+   wash runs heavier on the right than MOQ's does, because this content
+   spans both columns down to 13px labels and needs an even floor. */
+
+const plate = heroSectionData.slides[1].image;
 
 const COLUMNS = [
   { key: "youSend", label: "You send" },
@@ -26,14 +33,26 @@ export function QuoteCta() {
 
   return (
     <motion.section
-      className="bg-ink py-20 text-white lg:py-28"
+      className="relative isolate overflow-hidden bg-ink py-16 text-white lg:py-24"
       aria-labelledby="quote-cta-title"
       variants={group}
       initial={prefersReducedMotion ? false : "hidden"}
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
     >
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+      <div aria-hidden="true" className="absolute inset-0 -z-10">
+        <Image
+          src={plate}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-ink/70" />
+        <div className="absolute inset-0 bg-linear-to-r from-ink/85 via-ink/70 to-ink/55" />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
           {/* ---- Ask ---- */}
           <div className="lg:col-span-6">
@@ -54,22 +73,14 @@ export function QuoteCta() {
             </motion.p>
 
             <motion.div variants={textInSoft} className="mt-9">
-              <Link
+              <Button
                 href={quoteCtaData.cta.href}
-                className="group inline-flex min-h-12 items-center gap-4 rounded-xl bg-accent py-3.5 pr-3.5 pl-7 text-sm font-semibold text-foreground transition duration-300 hover:bg-yellow active:translate-y-px"
+                className="ring-1 ring-white/20"
               >
                 {quoteCtaData.cta.label}
-                {/* The arrow is a separate element that swaps to ink on
-                    hover rather than a glyph appended to the label. */}
-                <span
-                  className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-foreground/10 transition-colors duration-300 group-hover:bg-foreground group-hover:text-accent"
-                  aria-hidden="true"
-                >
-                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none motion-reduce:transition-none" />
-                </span>
-              </Link>
+              </Button>
 
-              <p className="mt-5 text-[13px] text-white/45">
+              <p className="mt-5 text-[13px] text-white/60">
                 {quoteCtaData.assurance}
               </p>
             </motion.div>
@@ -88,7 +99,7 @@ export function QuoteCta() {
                   key={column.key}
                   className={ci === 1 ? "border-l border-white/10 pl-5 sm:pl-8" : "pr-5 sm:pr-8"}
                 >
-                  <p className="py-4 text-[13px] font-semibold text-white/45">
+                  <p className="py-4 text-[13px] font-semibold text-white/60">
                     {column.label}
                   </p>
 

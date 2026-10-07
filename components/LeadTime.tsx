@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { Clock, Rocket } from "lucide-react";
 import { leadTimeData } from "@/data/SiteSectionData";
+import { HEADER_DELAY } from "@/lib/motion";
 
 export function LeadTime() {
   return (
@@ -13,6 +14,7 @@ export function LeadTime() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ delay: HEADER_DELAY }}
             className="mb-4 inline-flex items-center gap-2 rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/70"
           >
             <span className="inline-block h-2 w-2 rounded-full bg-accent" />
@@ -22,6 +24,7 @@ export function LeadTime() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ delay: HEADER_DELAY }}
             className="text-[32px] leading-[1.15] text-foreground sm:text-4xl lg:text-[44px]"
           >
             {leadTimeData.headline}
@@ -34,7 +37,7 @@ export function LeadTime() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
+              transition={{ delay: HEADER_DELAY + i * 0.15 }}
               className="flex items-start gap-5 rounded-xl border border-foreground/10 bg-[#f6f6f3] p-8"
             >
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent text-foreground">

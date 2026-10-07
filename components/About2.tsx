@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { aboutData } from "@/data/SiteSectionData";
 import { Reveal } from "@/app/v2/components/Reveal";
 
@@ -57,16 +57,13 @@ export function About2() {
                     </div>
                   );
                 })}
-              </div> <button
+              </div>{" "}
+              <Button
+                className="mt-12 text-xs font-bold uppercase tracking-[.16em]"
                 onClick={() => goTo("services")}
-                className="group mt-12 inline-flex items-center gap-3 border-b border-[#1b2130] pb-2 text-xs font-bold uppercase tracking-[.16em] text-[#1b2130]"
               >
-                See how we work{" "}
-                <ArrowRight
-                  size={16}
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </button>
+                See how we work
+              </Button>
             </div>
           </Reveal>
 

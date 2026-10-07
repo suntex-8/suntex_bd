@@ -6,6 +6,7 @@ import { Mail, Phone, Send } from "lucide-react";
 import { footerData } from "@/data/SiteSectionData";
 import { navbarData } from "@/data/NavbarData";
 import { SocialIcon } from "@/components/SocialIcon";
+import { IconButton } from "@/components/ui/button";
 
 export function Footer() {
   return (
@@ -88,12 +89,9 @@ export function Footer() {
                   placeholder="Your Email"
                   className="w-40 bg-transparent text-sm text-white outline-none placeholder:text-white/40"
                 />
-                <button
-                  aria-label="Subscribe"
-                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-foreground transition-colors hover:bg-white hover:text-foreground"
-                >
+                <IconButton label="Subscribe" className="h-8 w-8">
                   <Send className="h-3.5 w-3.5" />
-                </button>
+                </IconButton>
               </div>
             </div>
           </div>

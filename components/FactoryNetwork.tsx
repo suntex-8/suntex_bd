@@ -12,6 +12,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { factoryNetworkData } from "@/data/SiteSectionData";
+import { HEADER_DELAY } from "@/lib/motion";
 
 const MAP_W = 936;
 const MAP_H = 1250;
@@ -150,6 +151,7 @@ export function FactoryNetwork() {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              transition={{ delay: HEADER_DELAY }}
               className="mb-4 inline-flex items-center gap-3 text-sm font-semibold text-white/70"
             >
               <span className="h-px w-8 bg-accent" />
@@ -160,6 +162,7 @@ export function FactoryNetwork() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              transition={{ delay: HEADER_DELAY }}
               className="max-w-xl text-[32px] leading-[1.08] text-white sm:text-4xl lg:text-[44px]"
             >
               {factoryNetworkData.headline}
@@ -169,7 +172,7 @@ export function FactoryNetwork() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.15 }}
+              transition={{ delay: HEADER_DELAY + 0.15 }}
               className="mt-4 max-w-xl text-sm leading-relaxed text-white/65"
             >
               {factoryNetworkData.paragraph}
@@ -192,7 +195,7 @@ export function FactoryNetwork() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{
-                      delay: prefersReducedMotion ? 0 : 0.1 + i * 0.07,
+                      delay: prefersReducedMotion ? 0 : HEADER_DELAY + 0.1 + i * 0.07,
                       duration: prefersReducedMotion ? 0 : 0.5,
                     }}
                     onMouseEnter={() => setActive(loc)}
