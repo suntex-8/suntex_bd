@@ -14,17 +14,17 @@ const WORDMARK_SIZE = "clamp(4.5rem, 24.5vw, 24rem)";
 export function Footer() {
   const address =
     footerData.contact.find(
-      (c) => c.type === "address" || c.icon === "MapPin"
+      (c) => c.label.toLowerCase() === "address"
     ) || footerData.contact[0];
 
   const email =
     footerData.contact.find(
-      (c) => c.type === "email" || c.icon === "Mail"
+      (c) => c.label.toLowerCase() === "email"
     ) || footerData.contact[1];
 
   const phone =
     footerData.contact.find(
-      (c) => c.type === "phone" || c.icon === "Phone"
+      (c) => c.label.toLowerCase() === "phone"
     ) || footerData.contact[2];
 
   return (
