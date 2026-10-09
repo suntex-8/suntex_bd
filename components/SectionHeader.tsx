@@ -24,7 +24,7 @@ export function SectionHeader({ data }: { data: TitleBlock }) {
         <span className="h-px w-8 bg-accent" />
         {data.subTitle}
       </motion.span>
-      <p className="text-[32px] leading-[1.08] sm:text-4xl lg:text-5xl font-semibold text-foreground">
+      <p className="max-w-[18ch] text-[clamp(2rem,4.5vw,3.5rem)] font-normal leading-[1.02] tracking-[-0.045em] text-foreground">
         <RevealText text={data.headline} delay={HEADER_DELAY + 0.05} />
       </p>
     </div>

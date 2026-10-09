@@ -4,7 +4,7 @@ export default function Chart() {
       <div className="w-[min(1180px,calc(100%-80px))] mx-auto grid grid-cols-[0.8fr_1.2fr] gap-[100px] items-end">
         <div>
           <div className="font-mono text-[10px] tracking-[0.07em] uppercase leading-[1.5] text-gold">Built for scale</div>
-          <h2 className="font-medium tracking-tightest leading-[0.98] text-[clamp(42px,5.1vw,71px)] my-5 mb-7">
+          <h2 className="font-normal tracking-[-0.045em] leading-[0.98] text-[clamp(42px,5.1vw,71px)] my-5 mb-7">
             From first sample<br />to <em className="font-serif font-medium">full collection.</em>
           </h2>
           <p className="max-w-[410px] text-[15px] leading-[1.7] text-muted-dark">

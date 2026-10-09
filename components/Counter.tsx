@@ -35,7 +35,7 @@ export function Counter() {
   return (
     <section id="innovation" className="w-full py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <h2 className="max-w-5xl text-xl font-medium leading-snug tracking-tight text-foreground sm:text-2xl lg:text-[2.75rem] lg:leading-[1.08]">
+        <h2 className="max-w-5xl text-xl font-normal leading-snug tracking-[-0.03em] text-foreground sm:text-2xl lg:text-[2.75rem] lg:leading-[1.08]">
           Production built to scale with your brand.{" "}
           <span className="text-muted">
             From a 500-piece starting order to 5M+ knit pieces a month, SUNTEX

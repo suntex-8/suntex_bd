@@ -65,7 +65,7 @@ export function QualityAssurance() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: HEADER_DELAY }}
-          className="mx-auto max-w-4xl text-center text-[36px] leading-[1.04] font-semibold text-foreground sm:text-5xl lg:text-[56px]"
+          className="mx-auto max-w-4xl text-center text-[36px] leading-[1.02] font-normal tracking-[-0.045em] text-foreground sm:text-5xl lg:text-[56px]"
         >
           {qualityData.headline}
         </motion.h2>

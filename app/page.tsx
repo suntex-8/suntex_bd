@@ -40,7 +40,7 @@ export default function Home() {
         {/* <Counter /> */}
         {/* <About2/> */}
         {/* <Chart/> */}
-        
+        <Advantage />
         <Ticker />
         
         <Products />
@@ -64,7 +64,7 @@ export default function Home() {
 
          {/* <Trust />
         <TrustVideo />
-        <Advantage />
+        
         
        
         
