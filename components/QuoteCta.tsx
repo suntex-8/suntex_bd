@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
+import { ArrowLeftRight, FileText, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { group, rule, textIn, textInSoft } from "@/lib/motion";
 import { quoteCtaData } from "@/data/SiteSectionData";
@@ -23,9 +24,21 @@ import { heroSectionData } from "@/data/HeroSectionData";
 
 const plate = heroSectionData.slides[1].image;
 
-const COLUMNS = [
-  { key: "youSend", label: "You send" },
-  { key: "weReturn", label: "We return" },
+const EXCHANGE = [
+  {
+    key: "youSend",
+    label: "You send",
+    icon: FileText,
+    accent: "text-sky-300",
+    chip: "bg-sky-400/10 border-sky-400/20",
+  },
+  {
+    key: "weReturn",
+    label: "We return",
+    icon: Package,
+    accent: "text-amber-300",
+    chip: "bg-amber-400/10 border-amber-400/20",
+  },
 ] as const;
 
 export function QuoteCta() {
@@ -93,28 +106,51 @@ export function QuoteCta() {
               className="block h-px w-full origin-left bg-white/15"
             />
 
-            <div className="grid grid-cols-2">
-              {COLUMNS.map((column, ci) => (
-                <div
-                  key={column.key}
-                  className={ci === 1 ? "border-l border-white/10 pl-5 sm:pl-8" : "pr-5 sm:pr-8"}
-                >
-                  <p className="py-4 text-[13px] font-semibold text-white/60">
-                    {column.label}
-                  </p>
+            <div className="relative mt-2 grid gap-4 sm:grid-cols-2 sm:gap-5">
+              {EXCHANGE.map((col, ci) => {
+                const Icon = col.icon;
+                return (
+                  <motion.div
+                    key={col.key}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: ci * 0.12, duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+                    className={`relative rounded-2xl border p-5 sm:p-6 ${col.chip}`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className={`flex h-9 w-9 items-center justify-center rounded-xl border ${col.chip}`}>
+                        <Icon className={`h-4 w-4 ${col.accent}`} />
+                      </span>
+                      <span className="text-[13px] font-semibold tracking-wide text-white/70 uppercase">
+                        {col.label}
+                      </span>
+                    </div>
 
-                  <ul>
-                    {quoteCtaData[column.key].map((row) => (
-                      <li
-                        key={row}
-                        className="border-t border-white/10 py-3.5 text-[15px] leading-snug text-white/85"
-                      >
-                        {row}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+                    <ul className="mt-4 space-y-3">
+                      {quoteCtaData[col.key].map((row, ri) => (
+                        <li key={row} className="flex items-start gap-2.5 text-[14px] leading-snug text-white/85">
+                          <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${ci === 0 ? "bg-sky-400/60" : "bg-amber-400/60"}`} />
+                          {row}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                );
+              })}
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.6 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                className="absolute top-1/2 left-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 sm:flex"
+                aria-hidden="true"
+              >
+                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-ink shadow-lg shadow-black/40">
+                  <ArrowLeftRight className="h-4 w-4 text-white/70" />
+                </span>
+              </motion.div>
             </div>
           </motion.div>
         </div>

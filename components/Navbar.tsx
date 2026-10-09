@@ -160,12 +160,12 @@ export function Navbar() {
               <Search className="h-5 w-5" />
             </IconButton>
           )}
-         <Button
-  href={navbarData.cta.href}
-  className="hidden ring-1 ring-white/15 lg:inline-flex"
->
-  {navbarData.cta.label}
-</Button>
+          <Button
+            href={navbarData.cta.href}
+            className="hidden scale-[0.82] origin-right ring-1 ring-white/15 lg:inline-flex"
+          >
+            {navbarData.cta.label}
+          </Button>
 
           {/* Hamburger (mobile) */}
           <IconButton

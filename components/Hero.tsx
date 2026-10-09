@@ -6,6 +6,7 @@ import { AnimatePresence, motion, type Variants } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { heroSectionData } from "@/data/HeroSectionData";
 import { SocialIcon } from "@/components/SocialIcon";
+import { MiniQuoteForm } from "@/components/MiniQuoteForm";
 
 const EASE: [number, number, number, number] = [0.23, 1, 0.32, 1];
 
@@ -212,6 +213,11 @@ export function Hero() {
         <span className="text-[10px] tracking-[0.18em] text-white/50 uppercase">
           {heroSectionData.followLabel}
         </span>
+      </div>
+
+      {/* Mini quote form — bottom right */}
+      <div className="absolute right-5 bottom-24 z-10 hidden md:block lg:right-10 lg:bottom-28">
+        <MiniQuoteForm />
       </div>
 
       {/* Slider dots */}

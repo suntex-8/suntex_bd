@@ -92,7 +92,7 @@ export function Services() {
 
         <motion.h2
           variants={textIn}
-          className="max-w-3xl text-[32px] leading-[1.05] font-semibold text-foreground sm:text-4xl lg:text-[44px]"
+          className="max-w-3xl text-[32px] leading-[1.02] font-normal tracking-[-0.04em] text-foreground sm:text-4xl lg:text-[44px]"
         >
           One Partner, Two Ways We Deliver
         </motion.h2>
