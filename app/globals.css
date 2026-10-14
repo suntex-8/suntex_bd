@@ -57,6 +57,7 @@ body {
   100% { transform: translateX(-50%); }
 }
 
+
 /* --- Typography ---
    Display scale is set in sentence case with tight tracking — the
    page structure carries the hierarchy, not ornamentation. */
@@ -236,6 +237,11 @@ a.btn-ghost:hover {
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
+.product-card {
+  border: 0;
+  box-shadow: none;
+}
+
 .product-card-image {
   transform: scale(1);
   transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
@@ -272,47 +278,41 @@ a.btn-ghost:hover {
 }
 
 .product-card-mask {
-  clip-path: circle(150% at 88% 12%);
-  background-color: rgba(14, 16, 19, 0.93);
+  clip-path: inset(0 round 1rem);
+  background-color: #fff;
+  transition:
+    background-color 240ms cubic-bezier(0.23, 1, 0.32, 1),
+    color 240ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.product-card-mask::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(
-    circle,
-    var(--accent) 1.3px,
-    transparent 1.4px
-  );
-  background-size: 12px 12px;
-  opacity: 0.9;
-  -webkit-mask-image: linear-gradient(
-    to top right,
-    transparent 0%,
-    rgba(0, 0, 0, 0.12) 45%,
-    rgba(0, 0, 0, 0.75) 100%
-  );
-  mask-image: linear-gradient(
-    to top right,
-    transparent 0%,
-    rgba(0, 0, 0, 0.12) 45%,
-    rgba(0, 0, 0, 0.75) 100%
-  );
-  pointer-events: none;
+.product-card-base-content {
+  transition: opacity 180ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 @media (hover: hover) and (pointer: fine) and (min-width: 768px) {
-  /* Resting state is the written panel; the picture is what you get for
-     hovering. Keyboard focus keeps the text, so the description stays
-     reachable, and the ring replaces the mask as the focus cue. */
+  /* The photo takes over on intent while the copy remains legible above it. */
   .product-card-mask {
-    clip-path: circle(150% at 88% 12%);
-    transition: clip-path 420ms cubic-bezier(0.23, 1, 0.32, 1);
+    clip-path: inset(0 round 1rem);
   }
 
-  .product-card:hover .product-card-mask {
-    clip-path: circle(0% at 88% 12%);
+  .product-card:hover .product-card-mask,
+  .product-card:focus-visible .product-card-mask {
+    background-color: transparent;
+  }
+
+  .product-card:hover .product-card-base-content,
+  .product-card:focus-visible .product-card-base-content {
+    opacity: 0;
+  }
+
+  .product-card:hover .product-card-copy,
+  .product-card:focus-visible .product-card-copy {
+    color: rgba(255, 255, 255, 0.96);
+  }
+
+  .product-card:hover .product-card-note,
+  .product-card:focus-visible .product-card-note {
+    color: rgba(255, 255, 255, 0.96);
   }
 
   .product-card:hover .product-card-image {

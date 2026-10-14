@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { heroSectionData } from "@/data/HeroSectionData";
-import { SocialIcon } from "@/components/SocialIcon";
 import { MiniQuoteForm } from "@/components/MiniQuoteForm";
 
 const EASE: [number, number, number, number] = [0.23, 1, 0.32, 1];
@@ -62,7 +61,6 @@ export function Hero() {
   }, [index, paused, slides.length]);
 
   const slide = slides[index];
-  const current = String(index + 1).padStart(2, "0");
 
   return (
     <section
@@ -89,16 +87,17 @@ export function Hero() {
             sizes="100vw"
             className="object-cover"
           />
-          {/* Two scrims: a vertical one to seat the type, a horizontal one
-              that keeps the right half readable for the social rail. */}
-          <div className="absolute inset-0 bg-linear-to-b from-ink/70 via-ink/45 to-ink/80" />
-          <div className="absolute inset-0 bg-linear-to-r from-ink/90 via-ink/45 to-ink/20" />
+          {/* The image stays luminous on the right; the darker left field gives
+              the copy and quote panel a deliberate place to land. */}
+          <div className="absolute inset-0 bg-linear-to-b from-ink/65 via-ink/30 to-ink/90" />
+          <div className="absolute inset-0 bg-linear-to-r from-ink/95 via-ink/55 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(247,197,39,0.14),transparent_24%)]" />
         </motion.div>
       </AnimatePresence>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex h-full max-w-[1400px] items-center px-5 lg:px-10 mt-10">
-        <div className="w-full max-w-3xl">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1400px] items-center px-5 pt-12 lg:px-10 lg:pt-16">
+        <div className="w-full max-w-3xl pb-28 md:pb-24">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
@@ -110,7 +109,7 @@ export function Hero() {
               <motion.span
                 variants={copy}
                 custom={0}
-                className="inline-flex items-center gap-3 text-sm font-semibold tracking-[0.02em] text-white/85"
+                className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.02em] text-white/80 sm:text-sm"
               >
                 <span className="h-px w-10 bg-accent" />
                 {slide.subTitle}
@@ -121,8 +120,8 @@ export function Hero() {
                 custom={1}
                 className="text-white"
                 style={{
-                  fontSize: "clamp(2.05rem, 4.6vw, 3.5rem)",
-                  lineHeight: 1.06,
+                  fontSize: "clamp(2.7rem, 6.4vw, 5.75rem)",
+                  lineHeight: 0.98,
                   textWrap: "balance",
                 }}
               >
@@ -137,7 +136,7 @@ export function Hero() {
               <motion.p
                 variants={copy}
                 custom={2}
-                className="max-w-xl text-sm leading-relaxed text-white/70 sm:text-[15px]"
+                className="max-w-lg text-sm leading-relaxed text-white/70 sm:text-[15px]"
               >
                 {slide.paragraph}
               </motion.p>
@@ -185,56 +184,9 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Slide counter, bottom left */}
-      <div className="absolute bottom-9 left-5 z-10 flex items-baseline gap-2 lg:left-10">
-        <span className="font-display text-2xl leading-none text-accent tabular-nums">
-          {current}
-        </span>
-        <span className="text-xs text-white/40 tabular-nums">
-          / {String(slides.length).padStart(2, "0")}
-        </span>
-      </div>
-
-      {/* Right vertical social rail */}
-      <div className="absolute right-10 top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center gap-4 xl:flex">
-        <span className="h-20 w-px bg-white/30" />
-        <div className="flex flex-col gap-3">
-          {heroSectionData.social.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              aria-label={s.label}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/20 text-white/80 transition-colors hover:border-accent hover:text-accent"
-            >
-              <SocialIcon name={s.icon} className="h-4 w-4" />
-            </a>
-          ))}
-        </div>
-        <span className="text-[10px] tracking-[0.18em] text-white/50 uppercase">
-          {heroSectionData.followLabel}
-        </span>
-      </div>
-
-      {/* Mini quote form — bottom right */}
-      <div className="absolute right-5 bottom-24 z-10 hidden md:block lg:right-10 lg:bottom-28">
+      {/* Mini quote form — grounded at the exact lower-right tracker position */}
+      <div className="absolute right-5 bottom-9 left-auto z-10 w-[calc(100%-2.5rem)] md:w-auto lg:right-10">
         <MiniQuoteForm />
-      </div>
-
-      {/* Slider dots */}
-      <div className="absolute right-5 bottom-9 z-10 flex items-center gap-2 lg:right-10">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            aria-label={`Slide ${i + 1}`}
-            aria-current={i === index}
-            onClick={() => setIndex(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === index
-                ? "w-8 bg-black ring-1 ring-white"
-                : "w-3 bg-black ring-1 ring-white/40 hover:ring-white/80"
-            }`}
-          />
-        ))}
       </div>
     </section>
   );

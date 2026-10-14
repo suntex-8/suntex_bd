@@ -8,6 +8,7 @@ import { HEADER_DELAY } from "@/lib/motion";
 
 export function Contact() {
   const fields = contactData.form.fields;
+  const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
   return (
     <section id="contact" className="bg-background py-20 lg:py-28">
@@ -114,6 +115,29 @@ export function Contact() {
                   />
                 </div>
               ))}
+
+              <div>
+                <label htmlFor="reference-file" className="mb-2 block text-xs font-semibold text-muted">
+                  Tech pack or reference file <span className="font-normal">(optional)</span>
+                </label>
+                <input
+                  id="reference-file"
+                  name="reference-file"
+                  type="file"
+                  accept=".pdf,.jpg,.jpeg,.png,.zip"
+                  className="block w-full cursor-pointer border-b border-line py-3 text-xs text-muted file:mr-3 file:rounded-md file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-ink"
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                    if (file && file.size > MAX_FILE_SIZE) {
+                      event.target.value = "";
+                      window.alert("Please choose a file smaller than 10 MB.");
+                    }
+                  }}
+                />
+                <p className="mt-2 text-[11px] leading-relaxed text-muted">
+                  PDF, JPG, PNG, or ZIP up to 10 MB.
+                </p>
+              </div>
 
               <p className="max-w-md text-xs leading-relaxed text-muted">
                 SUNTEX Apparel Group — Garment Manufacturing & Sourcing, Bangladesh. Your trusted partner from concept to delivery.

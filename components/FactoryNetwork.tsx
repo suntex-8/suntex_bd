@@ -140,8 +140,16 @@ export function FactoryNetwork() {
   };
 
   return (
-    <section id="network" className="bg-black py-12 lg:py-16">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+    <section id="network" className="relative isolate overflow-hidden bg-ink py-20 lg:py-28">
+      <Image
+        src="/3d_logo.png"
+        alt=""
+        width={520}
+        height={520}
+        aria-hidden="true"
+        className="pointer-events-none absolute top-1/2 -right-36 z-0 hidden w-[460px] -translate-y-1/2 opacity-[0.08] mix-blend-screen lg:block"
+      />
+      <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:gap-20">
           {/* Map — first on desktop, below the copy on mobile */}
           <motion.figure
@@ -149,7 +157,7 @@ export function FactoryNetwork() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.7 }}
-            className="mx-auto w-full max-w-[320px] lg:order-first lg:mx-0 lg:max-w-none"
+            className="mx-auto w-full max-w-[360px] rounded-[2rem] border border-white/10 bg-white/[0.04] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.22)] lg:order-first lg:mx-0 lg:max-w-none lg:p-5"
           >
             <div
               className="relative overflow-hidden"
@@ -329,7 +337,7 @@ export function FactoryNetwork() {
               </div>
             </div>
 
-            <figcaption className="mt-3">
+            <figcaption className="mt-4 border-t border-white/10 pt-3">
               <ul className="flex items-center justify-end gap-4 text-[10px] font-semibold tracking-[0.14em] text-white/40 uppercase">
                 <li className="flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-accent" />
@@ -343,8 +351,8 @@ export function FactoryNetwork() {
             </figcaption>
           </motion.figure>
 
-          {/* Copy — eyebrow, headline, numbered advantages */}
-          <div>
+          {/* Copy — eyebrow, headline, and network advantages */}
+          <div className="lg:pl-4">
             <motion.span
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -366,24 +374,30 @@ export function FactoryNetwork() {
               {factoryNetworkData.headline}
             </motion.h2>
 
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: HEADER_DELAY + 0.08 }}
+              className="mt-5 max-w-xl text-[15px] leading-relaxed text-white/60"
+            >
+              {factoryNetworkData.paragraph}
+            </motion.p>
+
             <ul className="mt-8 max-w-lg border-b border-white/10">
-              {factoryNetworkData.advantages.map((a, i) => (
+              {factoryNetworkData.advantages.map((a) => (
                 <motion.li
                   key={a}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{
-                    delay: prefersReducedMotion
-                      ? 0
-                      : HEADER_DELAY + 0.15 + i * 0.07,
+                    delay: prefersReducedMotion ? 0 : HEADER_DELAY + 0.15,
                     duration: prefersReducedMotion ? 0 : 0.5,
                   }}
-                  className="flex items-baseline gap-5 border-t border-white/10 py-4"
+                  className="flex items-baseline gap-4 border-t border-white/10 py-4"
                 >
-                  <span className="text-[11px] font-semibold tracking-[0.16em] text-accent tabular-nums">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                   <span className="text-sm text-white/75">{a}</span>
                 </motion.li>
               ))}

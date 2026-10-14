@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { hanken, archivo } from "./fonts";
 import { Providers } from "./providers";
 import { Loader } from "@/components/Loader";
+import { FloatingContactBar } from "@/components/FloatingContactBar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Providers>
           <Loader />
           {children}
+          <FloatingContactBar />
         </Providers>
       </body>
     </html>
