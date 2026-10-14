@@ -1,19 +1,15 @@
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
+import StatsBand from './ui/stats-band';
 
-const metrics = [
-  { value: '200', suffix: '+', label: 'Partner factories<br />worldwide' },
-  { value: '500', suffix: 'k', label: 'Units delivered<br />every year' },
-  { value: '24', suffix: 'h', label: 'Average response<br />time' },
-  { value: '16', suffix: '', label: 'Markets served<br />across the globe' },
-];
+import { stats } from "@/components/ui/stats-band-data";
 
 export default function Intro() {
   return (
     <section className="mx-auto w-full max-w-full px-5 sm:px-8   lg:px-0 " id="approach">
       <div className="overflow-hidden rounded-3xl border border-line bg-white py-8">
         {/* Top block: label column | headline column */}
-        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr]">
+        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] ">
           {/* Left column */}
           <div className="border-b border-line p-6 sm:p-8 lg:border-b-0 lg:border-r">
             <div className="text-[14px] font-bold uppercase leading-[1.5] tracking-[0.12em] text-accent">
@@ -69,28 +65,10 @@ export default function Intro() {
             </a>
           </div>
         </div>
-
-        {/* Metrics row */}
-        <div className="grid grid-cols-2 gap-3 border-t border-line p-4 sm:p-5 lg:grid-cols-4">
-          {metrics.map((m, i) => (
-            <div
-              key={i}
-              className="flex flex-col justify-between gap-6 rounded-2xl border border-line bg-white p-5 sm:p-6"
-            >
-              <strong
-                className="font-medium text-ink"
-                style={{ fontSize: 'clamp(2rem, 3.4vw, 3rem)', letterSpacing: '-0.04em', lineHeight: 1 }}
-              >
-                {m.value}
-                <span className="text-accent">{m.suffix}</span>
-              </strong>
-              <small
-                className="text-[12px] italic leading-[1.4] text-muted"
-                dangerouslySetInnerHTML={{ __html: m.label }}
-              />
-            </div>
-          ))}
-        </div>
+<StatsBand
+  stats={stats}
+/>
+       
       </div>
     </section>
   );

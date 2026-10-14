@@ -29,6 +29,8 @@ import { QuoteCta } from "@/components/QuoteCta";
 import { SlimCta } from "@/components/SlimCta";
 import Chart from "@/components/chart";
 import Intro from "@/components/intro";
+import { CollectionCta } from "@/components/CollectionCta";
+
 
 export default function Home() {
   return (
@@ -37,6 +39,7 @@ export default function Home() {
       <main>
         <Hero />
         <Intro/>
+        
         {/* <Counter /> */}
         {/* <About2/> */}
         {/* <Chart/> */}
@@ -46,8 +49,10 @@ export default function Home() {
         <Products />
         <SlimCta />
         <Moq /> 
+        <LeadTime />
 
         <QualityAssurance />
+        <CollectionCta />
         <Services />
         <FactoryNetwork /> 
         <Facilities /> 

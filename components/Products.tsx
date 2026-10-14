@@ -34,40 +34,56 @@ function ProductCard({ item }: { item: ProductCardData }) {
   return (
     <article
       tabIndex={0}
-      className="product-card group relative isolate h-[210px] overflow-hidden rounded-[20px] border border-white/12 bg-ink outline-none sm:h-[228px] lg:h-[240px]"
+      className="group relative isolate h-[210px] overflow-hidden rounded-2xl bg-ink outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 sm:h-[228px] lg:h-[240px]"
     >
       <Image
         src={item.image}
         alt={item.imageAlt}
         fill
         sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-        className="product-card-image object-cover"
+        className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.05] group-focus-visible:scale-[1.05] motion-reduce:transition-none"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-ink/5" />
 
-      <div className="absolute inset-x-5 bottom-4 z-10">
-        <span className="mb-2 block h-px w-8 bg-accent" />
-        <h3 className="font-display text-xl leading-tight font-semibold text-white">
+      {/* Resting scrim: just enough for the title to read */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-linear-to-t from-ink/75 via-ink/10 to-transparent"
+      />
+
+      {/* Reveal scrim: fades in on top, deeper and taller */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-linear-to-t from-ink via-ink/85 to-ink/20 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+      />
+
+      {/* Caption: the title stays, details unfold beneath it */}
+      <div className="absolute inset-x-5 bottom-5 z-10">
+        <span className="mb-2.5 block h-px w-6 bg-accent transition-all duration-500 ease-out group-hover:w-12 group-focus-visible:w-12 motion-reduce:transition-none" />
+
+        <h3 className="font-display text-lg leading-tight font-medium tracking-[-0.01em] text-white">
           {item.category}
         </h3>
-      </div>
 
-      <div className="product-card-mask absolute inset-x-0 top-[36%] bottom-0 z-20 flex flex-col justify-end p-5 md:inset-0">
-        <div className="relative z-10">
-          <span className="text-[11px] font-medium text-accent">
-            {item.note}
-          </span>
-          <h3 className="mt-1.5 font-display text-xl leading-tight font-semibold text-white">
-            {item.category}
-          </h3>
-          <p className="mt-2 line-clamp-3 max-w-[34ch] text-[13px] leading-snug text-white/70">
-            {item.description}
-          </p>
+        <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:grid-rows-[1fr] group-focus-visible:grid-rows-[1fr] motion-reduce:transition-none">
+          <div className="overflow-hidden">
+            <div className="translate-y-2 pt-2.5 opacity-0 transition-all delay-100 duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 motion-reduce:transition-none">
+              <span className="text-[10px] font-medium tracking-[0.16em] text-accent uppercase">
+                {item.note}
+              </span>
+              <p className="mt-1.5 line-clamp-3 max-w-[36ch] text-[12px] leading-[1.55] font-light text-white/75">
+                {item.description}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <span className="absolute top-4 right-4 z-30 flex h-9 w-9 items-center justify-center rounded-xl border border-white/20 bg-accent text-ink">
-        <ProductIcon className="h-4 w-4" aria-hidden="true" />
+      {/* Icon badge: quiet glass at rest, accent when active */}
+      <span
+        aria-hidden="true"
+        className="absolute top-4 right-4 z-30 flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-ink/35 text-white backdrop-blur-sm transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-ink group-focus-visible:border-accent group-focus-visible:bg-accent group-focus-visible:text-ink motion-reduce:transition-none"
+      >
+        <ProductIcon className="h-3.5 w-3.5" />
       </span>
     </article>
   );

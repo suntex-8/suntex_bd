@@ -55,7 +55,13 @@ export function Facilities() {
   return (
     <section id="facilities" className="bg-background py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <SectionHeader data={facilitiesData} />
+        <div className="mb-12 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(260px,360px)] lg:items-end lg:gap-16">
+          <SectionHeader data={facilitiesData} />
+          <p className="max-w-sm text-[15px] leading-relaxed text-muted lg:mb-1">
+            A close look at the people, systems, and spaces that keep every
+            order moving with control.
+          </p>
+        </div>
 
         <motion.div
           className="grid grid-cols-2 gap-3 lg:grid-cols-12 lg:auto-rows-[128px] lg:gap-4"
@@ -146,14 +152,6 @@ function ImageTile({
         aria-hidden="true"
         className="absolute inset-0 bg-linear-to-t from-ink/90 via-ink/30 to-transparent"
       />
-
-      {/* Index chip */}
-      <span
-        aria-hidden="true"
-        className="absolute top-3 left-3 rounded-full border border-white/20 bg-ink/40 px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] text-white tabular-nums backdrop-blur-sm lg:top-4 lg:left-4"
-      >
-        {item.index}
-      </span>
 
       <figcaption className="absolute inset-x-0 bottom-0 p-4 lg:p-6">
         <span className="mb-3 block h-px w-6 bg-accent transition-all duration-500 ease-out group-hover:w-12 motion-reduce:transition-none" />
