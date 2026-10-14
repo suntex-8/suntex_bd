@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
-import StatsBand from './ui/stats-band';
+import { StatsBand } from './ui/stats-band';
 
 import { stats } from "@/components/ui/stats-band-data";
 
