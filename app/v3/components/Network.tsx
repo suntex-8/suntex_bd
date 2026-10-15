@@ -19,7 +19,7 @@ const MAP_H = 1250;
    Dhaka -> Chattogram corridor fills the frame. */
 const CROP = { x: 300, y: 390, w: 636, h: 850 };
 
-/* Linear lon/lat projection, fitted to public/dotted-bd-map-transparent.png so
+/* Linear lon/lat projection, fitted to public/dotted-bd-map.png so
    the markers land where the dots actually are. */
 const PROJECT = { tx: 87.7821, ty: 26.80114, sx: 181.142, sy: 192.559 };
 
@@ -160,12 +160,12 @@ export default function Network() {
                   }}
                 >
                   <Image
-                    src="/dotted-bd-map-transparent.png"
+                    src="/dotted-bd-map.png"
                     alt="Dotted map of Bangladesh, zoomed onto the Dhaka-Chattogram corridor, marking Gazipur, Dhaka, Narayanganj and Chattogram"
                     width={MAP_W}
                     height={MAP_H}
                     sizes="(min-width: 1024px) 800px, (min-width: 640px) 680px, 140vw"
-                    className="block h-full w-full object-contain"
+                    className="block h-full w-full object-contain mix-blend-screen"
                   />
 
                   <div className="pointer-events-none absolute inset-0">
