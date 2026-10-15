@@ -149,7 +149,7 @@ export function FactoryNetwork() {
         aria-hidden="true"
         className="pointer-events-none absolute top-1/2 -right-36 z-0 hidden w-[460px] -translate-y-1/2 opacity-[0.08] mix-blend-screen lg:block"
       />
-      <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-5">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:gap-20">
           {/* Map — first on desktop, below the copy on mobile */}
           <motion.figure
@@ -174,10 +174,10 @@ export function FactoryNetwork() {
 
               <div
                 className="absolute inset-0"
-                style={{
-                  WebkitMaskImage: FADE_NORTH,
-                  maskImage: FADE_NORTH,
-                }}
+                // style={{
+                //   WebkitMaskImage: FADE_NORTH,
+                //   maskImage: FADE_NORTH,
+                // }}
               >
                 <div
                   className="absolute inset-0"
@@ -196,12 +196,12 @@ export function FactoryNetwork() {
                     }}
                   >
                     <Image
-                      src="/dotted-bd-map-transparent.png"
+                      src="/dotted-bd-map.png"
                       alt="Dotted map of Bangladesh, zoomed onto the Dhaka–Chattogram corridor, marking Gazipur, Dhaka, Narayanganj and Chattogram"
                       width={MAP_W}
                       height={MAP_H}
                       sizes="(min-width: 1024px) 800px, (min-width: 640px) 680px, 140vw"
-                      className="block h-full w-full"
+                      className="block h-full w-full mix-blend-screen"
                     />
 
                     <motion.div
@@ -352,7 +352,7 @@ export function FactoryNetwork() {
           </motion.figure>
 
           {/* Copy — eyebrow, headline, and network advantages */}
-          <div className="lg:pl-4">
+          <div>
             <motion.span
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -369,7 +369,7 @@ export function FactoryNetwork() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: HEADER_DELAY }}
-              className="max-w-xl text-[30px] leading-[1.1] text-white sm:text-4xl lg:text-[40px]"
+              className="max-w-[18ch] text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.02] tracking-[-0.045em] text-white"
             >
               {factoryNetworkData.headline}
             </motion.h2>
