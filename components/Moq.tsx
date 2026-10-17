@@ -3,8 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import {
-  ArrowUpRight,
-  Clock,
+  ArrowRight,
   ClipboardList,
   Factory,
   Handshake,
@@ -13,11 +12,12 @@ import {
   Truck,
   type LucideIcon,
 } from "lucide-react";
-import { group, rule, textIn, textInSoft } from "@/lib/motion";
+import { group, textIn, textInSoft } from "@/lib/motion";
 import { moqData, processData } from "@/data/SiteSectionData";
 import { heroSectionData } from "@/data/HeroSectionData";
+import { Button } from "@/components/ui/button";
 
-/* Borrowed from the hero so the page doesn't introduce a second photo. */
+/* Reused from the hero for the card image, so no new photo is introduced. */
 const plate = heroSectionData.slides[0].image;
 
 const processIcons: LucideIcon[] = [
@@ -32,156 +32,161 @@ const processIcons: LucideIcon[] = [
 export function Moq() {
   const prefersReducedMotion = useReducedMotion();
 
+  /* The last word of the headline gets the accent, as in the reference. */
+  const words = moqData.headline.split(" ");
+  const lastWord = words.pop();
+
   return (
     <section
       id="moq"
-      className="relative isolate overflow-hidden bg-ink py-20 text-white lg:py-28"
+      className="relative isolate overflow-hidden bg-background py-12 text-foreground sm:py-14 lg:flex lg:min-h-[100svh] lg:items-center lg:py-16"
     >
-      {/* Backdrop: a quiet texture, not a feature */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <Image
-          src={plate}
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover object-center opacity-50"
-        />
-        <div className="absolute inset-0 bg-ink/80" />
-        <div className="absolute inset-0 bg-linear-to-r from-ink via-ink/85 to-ink/50" />
-      </div>
-
       <motion.div
-        className="mx-auto max-w-7xl px-5 lg:px-8"
+        className="mx-auto w-full max-w-7xl px-5 lg:px-8"
         variants={group}
         initial={prefersReducedMotion ? false : "hidden"}
         whileInView="show"
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 0.12 }}
       >
-        {/* Tier 1: label + headline + the MOQ number */}
-        <div className="grid items-end gap-12 lg:grid-cols-12 lg:gap-16">
+        {/* Top: headline block + MOQ number */}
+        <div className="grid items-center gap-7 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-7">
             <motion.span
               variants={textInSoft}
-              className="inline-flex items-center gap-3 text-[13px] text-white/60"
+              className="inline-flex items-center gap-3 text-[11px] font-medium tracking-[0.22em] text-muted uppercase sm:text-xs"
             >
-              <span className="h-px w-8 bg-accent" />
+              <span className="h-px w-8 bg-accent sm:w-10" />
               {moqData.subTitle}
             </motion.span>
 
             <motion.h2
               variants={textIn}
-              className="mt-6 max-w-2xl font-light text-white"
+              className="mt-4 max-w-2xl font-light text-foreground"
               style={{
-                fontSize: "clamp(1.9rem, 4.2vw, 3.25rem)",
-                lineHeight: 1.08,
+                fontSize: "clamp(2rem, 4vw, 3rem)",
+                lineHeight: 1.06,
                 letterSpacing: "-0.03em",
                 textWrap: "balance",
               }}
             >
-              {moqData.headline}
+              {words.join(" ")} <span className="text-accent">{lastWord}</span>
             </motion.h2>
 
             <motion.p
               variants={textInSoft}
-              className="mt-6 max-w-lg text-[15px] leading-[1.7] font-light text-white/60"
+              className="mt-4 max-w-lg text-[14px] leading-[1.6] font-light text-muted sm:text-[15px]"
             >
               {moqData.standard.philosophy}
             </motion.p>
+
+            <motion.div variants={textInSoft} className="mt-6">
+              <Button
+                href="#contact"
+                className="bg-ink text-white hover:bg-ink/90"
+              >
+                Let&apos;s Build Together
+              </Button>
+            </motion.div>
           </div>
 
-          {/* The loudest element on the page */}
+          {/* MOQ number with corner brackets */}
           <motion.div
             variants={textIn}
-            className="lg:col-span-5 lg:border-l lg:border-white/10 lg:pl-12"
+            className="lg:col-span-5 lg:justify-self-end"
           >
-            <span
-              className="font-display block font-extralight text-white"
-              style={{
-                fontSize: "clamp(5rem, 13vw, 9.5rem)",
-                lineHeight: 0.85,
-                letterSpacing: "-0.06em",
-              }}
-            >
-              {moqData.standard.value}
-            </span>
-            <span className="mt-5 block max-w-[28ch] text-sm leading-relaxed text-white/60">
-              {moqData.standard.scope}
-            </span>
+            <div className="relative px-6 py-5 sm:px-8 sm:py-7">
+              <span
+                aria-hidden="true"
+                className="absolute top-0 left-0 h-8 w-4 border-t border-l border-accent"
+              />
+              <span
+                aria-hidden="true"
+                className="absolute bottom-0 left-0 h-8 w-4 border-b border-l border-accent"
+              />
+              <span
+                className="font-display block font-normal text-foreground"
+                style={{
+                  fontSize: "clamp(4rem, 9vw, 6.5rem)",
+                  lineHeight: 0.9,
+                  letterSpacing: "-0.05em",
+                }}
+              >
+                {moqData.standard.value}
+              </span>
+              <span className="mt-3 block max-w-[28ch] text-[14px] leading-snug text-muted sm:text-[15px]">
+                {moqData.standard.scope}
+              </span>
+            </div>
           </motion.div>
         </div>
 
-        <motion.span
-          variants={rule}
-          className="mt-16 block h-px w-full origin-left bg-white/10 lg:mt-20"
-        />
+       
+        
 
-        {/* Tier 2: process. Title-only steps, so they read at a glance. */}
-        <motion.ol
-          variants={group}
-          className="relative mt-12 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-6 lg:gap-x-4"
-        >
-          <div
-            aria-hidden="true"
-            className="absolute top-6 right-[8%] left-[8%] hidden h-px bg-white/15 lg:block"
-          />
-          {processData.steps.map((step, index) => {
-            const Icon = processIcons[index];
-
-            return (
-              <motion.li
-                key={step.title}
-                variants={textInSoft}
-                className="relative flex flex-col items-start gap-4 lg:items-center lg:text-center"
-              >
-                <span className="relative z-10 grid h-12 w-12 place-items-center rounded-full border border-white/15 bg-ink text-accent">
-                  <Icon className="h-[18px] w-[18px]" strokeWidth={1.5} aria-hidden="true" />
-                </span>
-                <div>
-                  <span className="block text-[10px] font-medium tracking-[0.2em] text-white/35 tabular-nums">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-1.5 max-w-[16ch] text-[14px] leading-snug font-normal text-white">
-                    {step.title}
-                  </h3>
-                </div>
-              </motion.li>
-            );
-          })}
-        </motion.ol>
-
-        {/* Lead time: a small, calm footnote to the process */}
-        <motion.p
-          variants={textInSoft}
-          className="mt-12 flex items-center gap-2.5 text-[13px] font-light text-white/55 lg:justify-center"
-        >
-          <Clock className="h-3.5 w-3.5 text-accent" strokeWidth={1.75} aria-hidden="true" />
-          Lead time: from 1 week to 1 month, depending on the order.
-        </motion.p>
-
-        {/* Tier 3: special track, a single quiet card */}
+        {/* Special track card */}
         <motion.div
           variants={textIn}
-          className="mt-14 grid gap-6 rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:grid-cols-12 md:items-center md:gap-12 md:p-8 lg:mt-20"
+          className="mt-10 grid gap-4 rounded-2xl border border-line bg-surface p-4 sm:p-5 lg:mt-12 lg:grid-cols-12 lg:items-center lg:gap-5 lg:p-6"
         >
-          <div className="md:col-span-5">
-            <p className="inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.16em] text-accent uppercase">
-              <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={2} aria-hidden="true" />
+          <div className="lg:col-span-5">
+            <p className="text-[10px] font-medium tracking-[0.22em] text-muted uppercase">
               {moqData.specialTrack.availability}
             </p>
-            <h3
-              className="font-display mt-3 font-light text-white"
+            <p
+              className="font-display mt-2 font-normal text-foreground"
               style={{
-                fontSize: "clamp(1.35rem, 2.4vw, 1.85rem)",
-                lineHeight: 1.15,
+                fontSize: "clamp(1.5rem, 1.7vw, 2.15rem)",
+                lineHeight: 1.12,
                 letterSpacing: "-0.02em",
               }}
             >
               {moqData.specialTrack.target}
-            </h3>
+            </p>
+            <p className="mt-2 max-w-md text-[13px] leading-[1.55] font-light text-muted">
+              {moqData.specialTrack.useCase}
+            </p>
+            <a
+              href="#contact"
+              className="group mt-3 inline-flex items-center gap-2.5 text-sm font-medium text-foreground focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+            >
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none"
+                aria-hidden="true"
+              />
+              Explore More
+            </a>
           </div>
-          <p className="max-w-xl text-[13px] leading-[1.7] font-light text-white/60 md:col-span-6 md:col-start-7">
-            {moqData.specialTrack.useCase}
-          </p>
+
+          <div className="relative aspect-[16/6] overflow-hidden rounded-xl ring-1 ring-foreground/10 lg:col-span-5 lg:aspect-[16/7]">
+            <Image
+              src={plate}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="object-cover"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-ink/35"
+            />
+          </div>
+
+          {/* Lead time, set as a quiet side column */}
+          <div className="border-t border-line pt-4 lg:col-span-2 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-5">
+            <p className="text-[10px] font-medium tracking-[0.22em] text-muted uppercase">
+              Lead time
+            </p>
+            <span className="mt-2 block h-px w-6 bg-accent" />
+            <p
+              className="font-display mt-2 font-light text-foreground"
+              style={{ fontSize: "1.25rem", lineHeight: 1.2 }}
+            >
+              1 week to 1 month
+            </p>
+            <p className="mt-1.5 text-[11px] leading-relaxed font-light text-muted">
+              Depending on the order.
+            </p>
+          </div>
         </motion.div>
       </motion.div>
     </section>

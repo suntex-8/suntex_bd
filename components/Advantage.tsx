@@ -469,7 +469,7 @@ export function Advantage() {
         </motion.div>
 
         {/* Closing line + benefits */}
-        <motion.div
+        {/* <motion.div
           variants={group}
           initial={initial}
           whileInView="show"
@@ -484,8 +484,8 @@ export function Advantage() {
           >
             Download our capability profile (PDF)
             <Download className="h-4 w-4" strokeWidth={1.7} />
-          </motion.a>
-          <motion.div variants={rise} className="flex items-center gap-6">
+          </motion.a> */}
+          {/* <motion.div variants={rise} className="flex items-center gap-6">
             <span className="hidden h-px flex-1 bg-line sm:block" />
             <p
               className="font-display mx-auto text-center font-light text-foreground sm:mx-0"
@@ -522,8 +522,8 @@ export function Advantage() {
                 </div>
               </motion.li>
             ))}
-          </ul>
-        </motion.div>
+          </ul> */}
+        {/* </motion.div> */}
       </div>
     </section>
   );

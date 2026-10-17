@@ -96,7 +96,7 @@ export function Hero() {
       </AnimatePresence>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex h-full max-w-[1400px] items-center px-5 pt-12 lg:px-10 lg:pt-16">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1400px] items-center px-5 pt-12 lg:px-10 lg:pt-28">
         <div className="w-full max-w-3xl pb-28 md:pb-24">
           <AnimatePresence mode="wait">
             <motion.div
@@ -115,12 +115,12 @@ export function Hero() {
                 {slide.subTitle}
               </motion.span>
 
-              <motion.h1
+              <motion.h2
                 variants={copy}
                 custom={1}
-                className="text-white"
+                className="text-white "
                 style={{
-                  fontSize: "clamp(2.7rem, 6.4vw, 5.75rem)",
+                  fontSize: "clamp(2.5rem, 4.8vw, 4.25rem)",
                   lineHeight: 0.98,
                   textWrap: "balance",
                 }}
@@ -131,7 +131,7 @@ export function Hero() {
                     {i < arr.length - 1 && <br className="hidden sm:block" />}
                   </span>
                 ))}
-              </motion.h1>
+              </motion.h2>
 
               <motion.p
                 variants={copy}

@@ -1,13 +1,35 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Mail, MessageCircle } from "lucide-react";
 
 const DEMO_WHATSAPP = "15551234567";
 const DEMO_EMAIL = "hello@suntexbd.com";
 
 export function FloatingContactBar() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const hero = document.getElementById("home");
+
+    if (!hero) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
+      aria-hidden={!isVisible}
+      hidden={!isVisible}
       className="fixed right-4 bottom-4 z-[100] flex items-center gap-1.5 rounded-full border border-white/15 bg-ink/95 p-1.5 text-white shadow-[0_10px_30px_rgba(0,0,0,0.2)] backdrop-blur-md sm:right-6 sm:bottom-6"
       aria-label="Contact SUNTEX"
     >

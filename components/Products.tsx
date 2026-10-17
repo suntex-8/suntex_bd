@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import {
   BedDouble,
@@ -34,7 +36,7 @@ function ProductCard({ item }: { item: ProductCardData }) {
   return (
     <article
       tabIndex={0}
-      className="group relative isolate h-[210px] overflow-hidden rounded-2xl bg-ink outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 sm:h-[228px] lg:h-[240px]"
+      className="group relative isolate h-[280px] overflow-hidden rounded-2xl bg-ink outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 sm:h-[300px] lg:h-[320px]"
     >
       <Image
         src={item.image}
@@ -115,8 +117,39 @@ function SupplyTally({
 
 export function Products() {
   const prefersReducedMotion = useReducedMotion();
-  const inHouse = productCards.filter((c) => c.supply === "in-house");
-  const partner = productCards.filter((c) => c.supply === "partner");
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollPrevious, setCanScrollPrevious] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(true);
+
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    const updateControls = () => {
+      const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+      setCanScrollPrevious(carousel.scrollLeft > 2);
+      setCanScrollNext(carousel.scrollLeft < maxScroll - 2);
+    };
+
+    updateControls();
+    carousel.addEventListener("scroll", updateControls, { passive: true });
+    window.addEventListener("resize", updateControls);
+    const resizeObserver = new ResizeObserver(updateControls);
+    resizeObserver.observe(carousel);
+
+    return () => {
+      carousel.removeEventListener("scroll", updateControls);
+      window.removeEventListener("resize", updateControls);
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  const scrollProducts = (direction: "previous" | "next") => {
+    carouselRef.current?.scrollBy({
+      left: (direction === "next" ? 1 : -1) * carouselRef.current.clientWidth,
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
+  };
 
   return (
     <motion.section
@@ -154,10 +187,33 @@ export function Products() {
             </motion.h2>
           </div>
 
-          <motion.div variants={textInSoft} className="lg:col-span-5">
+          <motion.div
+            variants={textInSoft}
+            className="flex items-end justify-between gap-6 lg:col-span-5"
+          >
             <p className="max-w-md text-[15px] leading-relaxed text-muted">
               {productsData.caption}
             </p>
+            <div className="flex shrink-0 gap-2">
+              <button
+                type="button"
+                aria-label="Previous products"
+                onClick={() => scrollProducts("previous")}
+                disabled={!canScrollPrevious}
+                className="grid h-10 w-10 place-items-center rounded-full border border-foreground/25 bg-background text-foreground transition-colors hover:border-foreground hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-30 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+              >
+                <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                aria-label="Next products"
+                onClick={() => scrollProducts("next")}
+                disabled={!canScrollNext}
+                className="grid h-10 w-10 place-items-center rounded-full border border-accent bg-accent text-ink transition-colors hover:border-ink hover:bg-ink hover:text-white disabled:pointer-events-none disabled:opacity-30 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+              >
+                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </div>
           </motion.div>
         </div>
 
@@ -168,10 +224,19 @@ export function Products() {
 
         <motion.div
           variants={textIn}
-          className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          ref={carouselRef}
+          role="region"
+          aria-label="Product categories"
+          tabIndex={0}
+          className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 outline-none scrollbar-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
         >
           {productCards.map((item) => (
-            <ProductCard key={item.category} item={item} />
+            <div
+              key={item.category}
+              className="w-[calc(100%-2rem)] shrink-0 snap-start sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)]"
+            >
+              <ProductCard item={item} />
+            </div>
           ))}
         </motion.div>
 

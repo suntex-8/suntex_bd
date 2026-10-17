@@ -39,20 +39,19 @@ export default function Home() {
       <main>
         <Hero />
         <Intro/>
-        
-        {/* <Counter /> */}
-        {/* <About2/> */}
-        {/* <Chart/> */}
         <Advantage />
-        <Ticker />
+        {/* <Ticker /> */}
         
         <Products />
-        <SlimCta />
+        
+        <Process /><SlimCta />
         <Moq /> 
         <LeadTime />
+<CollectionCta />
+
 
         <QualityAssurance />
-        <CollectionCta />
+        
         <Services />
         <FactoryNetwork /> 
         <Facilities /> 
@@ -64,6 +63,7 @@ export default function Home() {
         <Faq />
         <QuoteCta />
         <Contact />
+        {/* <Pricing /> */}
 
 
 
@@ -78,11 +78,11 @@ export default function Home() {
         
         <LeadTime />
         <Projects />
-        <Process />
+        
      
         
         <Testimonials />
-        <Pricing />
+        
         
         <Blog /> */}
       </main>
