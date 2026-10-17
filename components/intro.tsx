@@ -6,25 +6,25 @@ import { stats } from "@/components/ui/stats-band-data";
 
 export default function Intro() {
   return (
-    <section className="mx-auto w-full max-w-full px-5 sm:px-8   lg:px-0 " id="approach">
+    <section className="mx-auto w-full max-w-full px-5 sm:px-8  lg:px-0 " id="approach">
       <div className="overflow-hidden rounded-3xl border border-line bg-white py-8">
         {/* Top block: label column | headline column */}
         <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] ">
           {/* Left column */}
           <div className="border-b border-line p-6 sm:p-8 lg:border-b-0 lg:border-r">
-            <div className="text-[14px] font-bold uppercase leading-[1.5] tracking-[0.12em] text-accent">
+            <div className="text-[14px] font-bold uppercase leading-[1.5] tracking-[0.12em] text-black">
               A better way to make
             </div>
-            <figure className="mt-26">
-              <div className="relative aspect-4/3 overflow-hidden rounded-xl">
+            <figure className="mt-4">
+              <div className="relative aspect-square  rounded-xl">
                 <Image
-                  src="/suntex-bg-1.webp"
+                  src="/3d_logo.png"
                   alt=""
                   fill
-                  sizes="(min-width: 1024px) 236px, (min-width: 640px) 60vw, 100vw"
+                  sizes="(min-width: 1024px) 250px, (min-width: 640px) 60vw, 100vw"
                   className="object-cover object-bottom "
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-transparent from-40% via-background/30 to-background" />
+                
               </div>
             </figure>
           </div>

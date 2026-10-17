@@ -157,20 +157,20 @@ export function FactoryNetwork() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.7 }}
-            className="mx-auto w-full max-w-[360px] rounded-[2rem] border border-white/10 bg-white/[0.04] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.22)] lg:order-first lg:mx-0 lg:max-w-none lg:p-5"
+            className="mx-auto w-full max-w-[360px] rounded-[2rem] border border-white/10  p-4 shadow-[0_20px_60px_rgba(0,0,0,0.22)] lg:order-first lg:mx-0 lg:max-w-none lg:p-5"
           >
             <div
               className="relative overflow-hidden"
               style={{ aspectRatio: `${CROP.w} / ${CROP.h}` }}
             >
-              <div
+              {/* <div
                 className="absolute h-[50%] w-[60%] rounded-full bg-accent/10 blur-[70px]"
                 style={{
                   left: "55%",
                   top: "45%",
                   transform: "translate(-50%, -50%)",
                 }}
-              />
+              /> */}
 
               <div
                 className="absolute inset-0"
