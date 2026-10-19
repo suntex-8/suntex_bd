@@ -397,6 +397,101 @@ function Hub() {
   );
 }
 
+function MobileFlowCard({
+  label,
+  note,
+  steps,
+  suntex = false,
+}: {
+  label: string;
+  note: string;
+  steps: Step[];
+  suntex?: boolean;
+}) {
+  return (
+    <article
+      className={`rounded-[1.5rem] border p-5 ${
+        suntex
+          ? "border-accent/40 bg-accent/[0.08]"
+          : "border-line bg-surface/70"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="flex items-center gap-2 text-[10px] font-semibold tracking-[0.16em] text-muted uppercase">
+            {suntex && (
+              <Image
+                src="/suntex1logo.png"
+                alt=""
+                width={22}
+                height={22}
+                className="h-5 w-5 object-contain"
+              />
+            )}
+            {label}
+          </p>
+          <p className="mt-1 text-xs text-muted/70">{note}</p>
+        </div>
+        <span
+          className={`rounded-full px-2.5 py-1 text-[10px] font-medium ${
+            suntex ? "bg-accent text-ink" : "bg-foreground/10 text-muted"
+          }`}
+        >
+          {suntex ? "One partner" : "Many handoffs"}
+        </span>
+      </div>
+
+      <ol className="mt-5 space-y-3">
+        {steps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <li key={step.label} className="flex items-center gap-3">
+              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-background text-[10px] font-medium text-muted ring-1 ring-line">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span
+                className={`grid h-8 w-8 shrink-0 place-items-center rounded-full ${TONES[step.tone]}`}
+              >
+                <Icon className="h-4 w-4" strokeWidth={1.8} />
+              </span>
+              <span className="text-sm font-medium text-foreground">
+                {step.label}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+    </article>
+  );
+}
+
+function MobileAdvantageComparison() {
+  return (
+    <div className="mt-10 space-y-3 lg:hidden">
+      <MobileFlowCard
+        label="Traditional sourcing"
+        note="More handoffs between your idea and delivery."
+        steps={CHAIN}
+      />
+
+      <div className="flex items-center justify-center gap-3 py-1" aria-hidden="true">
+        <span className="h-px flex-1 bg-line" />
+        <span className="grid h-8 w-8 place-items-center rounded-full bg-accent text-ink">
+          <Link2 className="h-4 w-4" />
+        </span>
+        <span className="h-px flex-1 bg-accent/60" />
+      </div>
+
+      <MobileFlowCard
+        label="SUNTEX sourcing"
+        note="All things are handled by SUNTEX, from development to delivery."
+        steps={STEPS}
+        suntex
+      />
+    </div>
+  );
+}
+
 /* ---------- Section ---------- */
 
 export function Advantage() {
@@ -448,13 +543,15 @@ export function Advantage() {
           </motion.p>
         </motion.div>
 
-        {/* Comparison */}
+        <MobileAdvantageComparison />
+
+        {/* Desktop comparison */}
         <motion.div
           variants={group}
           initial={initial}
           whileInView="show"
           viewport={viewport}
-          className="mt-14 grid grid-cols-1 lg:mt-20 lg:grid-cols-[minmax(0,1fr)_200px_minmax(0,1fr)]"
+          className="mt-14 hidden grid-cols-1 lg:mt-20 lg:grid lg:grid-cols-[minmax(0,1fr)_200px_minmax(0,1fr)]"
         >
           <ChainPanel />
 

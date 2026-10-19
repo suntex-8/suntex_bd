@@ -25,6 +25,14 @@ const processIcons: LucideIcon[] = [
   Truck,
   PackageCheck,
 ];
+const processIconStyles = [
+  "border-accent/40 bg-accent/15 text-ink",
+  "border-foreground/15 bg-surface text-yellow-900",
+  "border-foreground/15 bg-foreground text-white",
+  "border-accent/30 bg-accent/10 text-foreground",
+  "border-foreground/15 bg-surface text-muted",
+  "border-accent/40 bg-accent text-ink",
+];
 // const group: Variants = {
 //   hidden: {},
 //   show: { transition: { staggerChildren: 0.08, delayChildren: HEADER_DELAY } },
@@ -94,7 +102,7 @@ export function Process() {
                        className="min-w-0"
                      >
                        <div className="flex items-center gap-3">
-                         <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-foreground/10 bg-surface text-foreground sm:h-12 sm:w-12">
+                         <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border sm:h-12 sm:w-12 ${processIconStyles[index]}`}>
                            <Icon
                              className="h-[18px] w-[18px] sm:h-5 sm:w-5"
                              strokeWidth={1.5}
@@ -112,22 +120,22 @@ export function Process() {
                        <span className="mt-3 block text-[10px] font-medium tracking-[0.22em] text-muted tabular-nums sm:text-[11px]">
                          {String(index + 1).padStart(2, "0")}
                        </span>
-                       <p className="mt-1.5 text-[13px] leading-snug font-medium text-foreground sm:text-sm">
+                       <p className="mt-1.5 text-[13px] leading-snug font-medium text-foreground sm:text-base">
                          {step.title}
                        </p>
                        {description && (
-                         <p className="mt-2 text-[12px] leading-relaxed font-light text-muted">
+                         <p className="mt-2 text-[12px] leading-relaxed font-light text-muted hidden sm:block">
                            {description}
                          </p>
                        )}
                        {index === 0 && (
                          <motion.a
                            href="#contact"
-                           className="group mt-4 inline-flex items-center gap-2 border-b border-accent pb-1 text-sm font-medium text-foreground focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                           className="group mt-5 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-accent hover:text-ink focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:outline-none"
                          >
                            Start now
                            <ArrowRight
-                             className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+                             className="h-4 w-4 text-accent transition-[color,transform] duration-300 group-hover:translate-x-1 group-hover:text-ink motion-reduce:transition-none"
                              aria-hidden="true"
                            />
                          </motion.a>

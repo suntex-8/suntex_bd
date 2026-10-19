@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import { ArrowRight, ArrowUpRight, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Send, X } from "lucide-react";
 
 const CATEGORIES = ["Knit", "Woven", "Sweater", "Home Textiles", "Socks", "Shoes & Leather"];
 
@@ -49,7 +50,7 @@ export function MiniQuoteForm() {
         onSubmit={handleSubmit}
         aria-label="Request a quote"
         aria-hidden={!isOpen}
-        className={`absolute right-0 bottom-0 w-[min(280px,calc(100vw-2.5rem))] rounded-2xl border border-white/15 bg-ink/85 p-3 shadow-2xl shadow-black/40 backdrop-blur-xl transition-[opacity,transform,visibility] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+        className={`absolute right-0 bottom-0 w-[min(250px,calc(100vw-2.5rem))] rounded-2xl border border-white/15 bg-ink/85 p-2.5 shadow-2xl shadow-black/40 backdrop-blur-xl transition-[opacity,transform,visibility] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:w-[min(280px,calc(100vw-2.5rem))] sm:p-3 motion-reduce:transition-none ${
           isOpen
             ? "visible translate-y-0 opacity-100"
             : "pointer-events-none invisible translate-y-6 opacity-0"
@@ -64,16 +65,25 @@ export function MiniQuoteForm() {
           <X className="h-3.5 w-3.5" aria-hidden="true" />
         </button>
 
-        <h4 className="pt-2 text-sm font-semibold tracking-tight text-white">
-          Request a quote
-        </h4>
+        <div className="flex items-center gap-2 pt-1.5 sm:pt-2">
+          <h4 className="text-[13px] font-semibold tracking-tight text-white sm:text-sm">
+            Request a quote
+          </h4>
+          <Image
+            src="/suntex1logo.png"
+            alt="SUNTEX"
+            width={16}
+            height={16}
+            className="h-4 w-4 rounded-full object-contain"
+          />
+        </div>
 
-        <div className="grid grid-cols-2 gap-2 pt-5">
+        <div className="grid grid-cols-2 gap-1.5 pt-4 sm:gap-2 sm:pt-5">
           <select
             aria-label="Product Category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className={`${inputCls} col-span-2 cursor-pointer`}
+            className={`${inputCls} col-span-2 cursor-pointer max-sm:h-7 max-sm:px-2`}
           >
             <option value="" disabled className="bg-ink text-white/50">
               Category
@@ -91,7 +101,7 @@ export function MiniQuoteForm() {
             placeholder="Qty"
             value={qty}
             onChange={(e) => setQty(e.target.value)}
-            className={inputCls}
+            className={`${inputCls} max-sm:h-7 max-sm:px-2`}
           />
 
           <input
@@ -99,7 +109,7 @@ export function MiniQuoteForm() {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className={`${inputCls} scheme-dark`}
+            className={`${inputCls} scheme-dark max-sm:h-7 max-sm:px-2`}
           />
 
           <div className="col-span-2 flex items-center gap-2">
@@ -109,17 +119,18 @@ export function MiniQuoteForm() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={inputCls}
+              className={`${inputCls} max-sm:h-7 max-sm:px-2`}
               required
             />
             <button
               type="submit"
               aria-label="Get a quote"
-              className="group inline-flex h-8 shrink-0 items-center gap-1.5 rounded-lg bg-white px-3 text-[11px] font-medium text-ink transition-colors hover:bg-white/85"
+              className="group inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white text-[11px] font-medium text-ink transition-colors hover:bg-white/85 sm:h-8 sm:w-auto sm:gap-1.5 sm:px-3"
             >
-              Send
+              <span className="hidden sm:inline">Send</span>
+              <Send className="h-3.5 w-3.5 sm:hidden" aria-hidden="true" />
               <ArrowRight
-                className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+                className="hidden h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5 sm:inline motion-reduce:transition-none"
                 aria-hidden="true"
               />
             </button>
