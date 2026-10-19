@@ -15,7 +15,7 @@ export default function Intro() {
             <div className="text-[14px] font-bold uppercase leading-[1.5] tracking-[0.12em] text-black">
               A better way to make
             </div>
-            <figure className="mt-4">
+            <figure className="mt-4 hidden lg:block">
               <div className="relative aspect-square  rounded-xl">
                 <Image
                   src="/3d_logo.png"
