@@ -50,7 +50,7 @@ export function MiniQuoteForm() {
         onSubmit={handleSubmit}
         aria-label="Request a quote"
         aria-hidden={!isOpen}
-        className={`absolute right-0 bottom-0 w-[min(250px,calc(100vw-2.5rem))] rounded-2xl border border-white/15 bg-ink/85 p-2.5 shadow-2xl shadow-black/40 backdrop-blur-xl transition-[opacity,transform,visibility] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:w-[min(280px,calc(100vw-2.5rem))] sm:p-3 motion-reduce:transition-none ${
+        className={`absolute right-0 bottom-0 w-[min(250px,calc(100vw-2.5rem))] rounded-2xl border border-white/20 bg-[#0F1C3F]/80 p-2.5 shadow-2xl shadow-black/50 backdrop-blur-xl transition-[opacity,transform,visibility] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:w-[min(280px,calc(100vw-2.5rem))] sm:p-3 motion-reduce:transition-none ${
           isOpen
             ? "visible translate-y-0 opacity-100"
             : "pointer-events-none invisible translate-y-6 opacity-0"
@@ -85,11 +85,11 @@ export function MiniQuoteForm() {
             onChange={(e) => setCategory(e.target.value)}
             className={`${inputCls} col-span-2 cursor-pointer max-sm:h-7 max-sm:px-2`}
           >
-            <option value="" disabled className="bg-ink text-white/50">
+            <option value="" disabled className="bg-[#0F1C3F] text-white/50">
               Category
             </option>
             {CATEGORIES.map((c) => (
-              <option key={c} value={c} className="bg-ink text-white">
+              <option key={c} value={c} className="bg-[#0F1C3F] text-white">
                 {c}
               </option>
             ))}
@@ -125,7 +125,7 @@ export function MiniQuoteForm() {
             <button
               type="submit"
               aria-label="Get a quote"
-              className="group inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white text-[11px] font-medium text-ink transition-colors hover:bg-white/85 sm:h-8 sm:w-auto sm:gap-1.5 sm:px-3"
+              className="group inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-yellow text-[11px] font-semibold text-ink transition-colors hover:bg-accent sm:h-8 sm:w-auto sm:gap-1.5 sm:px-3"
             >
               <span className="hidden sm:inline">Send</span>
               <Send className="h-3.5 w-3.5 sm:hidden" aria-hidden="true" />

@@ -28,7 +28,7 @@ export function Footer() {
     ) || footerData.contact[2];
 
   return (
-    <footer className="relative overflow-hidden bg-ink pt-16 text-white lg:pt-24">
+    <footer className="relative overflow-hidden bg-gradient-to-br from-[#070D1D] via-[#0F1C3F] to-[#1E3A8A] pt-16 text-white lg:pt-24">
       {/* Background glow effect */}
       <div
         aria-hidden="true"

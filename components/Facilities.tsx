@@ -76,7 +76,7 @@ export function Facilities() {
             <motion.li
               key={item.index}
               variants={imageIn}
-              className="group relative h-[190px] overflow-hidden rounded-2xl bg-ink sm:h-[220px] lg:h-[260px]"
+              className="group relative h-[190px] overflow-hidden rounded-2xl bg-gradient-to-br from-[#070D1D] via-[#0F1C3F] to-[#1E3A8A] sm:h-[220px] lg:h-[260px]"
             >
               <Image
                 src={item.image}
@@ -87,7 +87,7 @@ export function Facilities() {
               />
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-linear-to-t from-ink/90 via-ink/30 to-transparent"
+                className="absolute inset-0 bg-linear-to-t from-[#070D1D]/90 via-[#0F1C3F]/30 to-transparent"
               />
 
               <span

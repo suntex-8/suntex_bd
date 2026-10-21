@@ -38,9 +38,9 @@ const ROWS = [
 ] as const;
 
 const BAR: Record<(typeof ROWS)[number]["tone"], string> = {
-  fast: "bg-accent",
-  mid: "bg-ink/25",
-  long: "bg-ink",
+  fast: "bg-blue-600",
+  mid: "bg-blue-800/30",
+  long: "bg-gradient-to-r from-[#070D1D] to-[#1E3A8A]",
 };
 
 export function LeadTime() {
@@ -142,12 +142,12 @@ export function LeadTime() {
                 {/* Track with week ticks */}
                 <div
                   aria-hidden="true"
-                  className="relative mt-3 h-[6px] rounded-full bg-line/70"
+                  className="relative mt-3 h-[6px] rounded-full bg-blue-700/15"
                 >
                   {TICKS.slice(1, -1).map((t) => (
                     <span
                       key={t.label}
-                      className="absolute top-1/2 h-3 w-px -translate-y-1/2 bg-foreground/15"
+                      className="absolute top-1/2 h-3 w-px -translate-y-1/2 bg-blue-700/20"
                       style={{ left: `${t.at}%` }}
                     />
                   ))}

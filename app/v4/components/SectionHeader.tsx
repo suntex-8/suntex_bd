@@ -1,0 +1,32 @@
+"use client";
+
+import { motion } from "motion/react";
+import type { TitleBlock } from "../data/SiteSectionData";
+import { HEADER_DELAY } from "../lib/motion";
+import { RevealText } from "./RevealText";
+
+export function SectionHeader({ data }: { data: TitleBlock }) {
+  return (
+    <div
+      className={`mb-12 max-w-3xl ${
+        data.centered ? "mx-auto text-center" : "text-left"
+      }`}
+    >
+      <motion.span
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.5, delay: HEADER_DELAY }}
+        className={`mb-4 inline-flex items-center gap-3 text-sm font-semibold text-muted ${
+          data.centered ? "justify-center" : ""
+        }`}
+      >
+        <span className="h-px w-8 bg-accent" />
+        {data.subTitle}
+      </motion.span>
+      <p className="max-w-[18ch] text-[clamp(2rem,4.5vw,3.5rem)] font-normal leading-[1.02] tracking-[-0.045em] text-foreground">
+        <RevealText text={data.headline} delay={HEADER_DELAY + 0.05} />
+      </p>
+    </div>
+  );
+}

@@ -82,7 +82,7 @@ export function Moq() {
             <motion.div variants={textInSoft} className="mt-6">
               <Button
                 href="#contact"
-                className="bg-ink text-white hover:bg-ink/90"
+                className="bg-gradient-to-r from-[#070D1D] to-[#1E3A8A] text-white hover:shadow-lg hover:shadow-blue-900/25"
               >
                 Let&apos;s Build Together
               </Button>
@@ -126,7 +126,7 @@ export function Moq() {
         {/* Special track card */}
         <motion.div
           variants={textIn}
-          className="mt-10 grid gap-4 rounded-2xl border border-line bg-surface p-4 sm:p-5 lg:mt-12 lg:grid-cols-12 lg:items-center lg:gap-5 lg:p-6"
+          className="mt-10 grid gap-4 rounded-2xl border border-blue-700/15 bg-gradient-to-br from-blue-900/[0.04] to-blue-700/[0.02] p-4 sm:p-5 lg:mt-12 lg:grid-cols-12 lg:items-center lg:gap-5 lg:p-6"
         >
           <div className="lg:col-span-5">
             <p className="text-[10px] font-medium tracking-[0.22em] text-muted uppercase">
@@ -167,7 +167,7 @@ export function Moq() {
             />
             <div
               aria-hidden="true"
-              className="absolute inset-0 bg-ink/35"
+              className="absolute inset-0 bg-gradient-to-br from-[#070D1D]/45 to-[#1E3A8A]/35"
             />
           </div>
 

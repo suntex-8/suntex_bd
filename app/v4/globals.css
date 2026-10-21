@@ -1,0 +1,361 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #070D1D;
+  --ink: #070D1D;
+  --muted: #54585f;
+  --line: rgba(7, 13, 29, 0.12);
+  --surface: #F8FAFC;
+  --yellow: #FACC15;
+  --accent: #EAB308;
+  --blue-900: #070D1D;
+  --blue-800: #0F1C3F;
+  --blue-700: #273992;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-yellow: var(--yellow);
+  --color-accent: var(--accent);
+  --color-blue-900: var(--blue-900);
+  --color-blue-800: var(--blue-800);
+  --color-blue-700: var(--blue-700);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), "Hanken Grotesk", Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+
+/* --- Typography ---
+   Display scale is set in sentence case with tight tracking — the
+   page structure carries the hierarchy, not ornamentation. */
+h1,
+h2 {
+  font-family: var(--font-display), "Archivo", sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+h3,
+h4,
+h5,
+h6,
+.font-display {
+  font-family: var(--font-display), "Archivo", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.028em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+h2 {
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+}
+h3 {
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+}
+h4 {
+  font-size: 1.2rem;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* --- Selection --- */
+::selection {
+  background: var(--yellow);
+  color: var(--foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* --- Custom yellow circle cursor --- */
+@media (pointer: fine) {
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 9999px;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: normal;
+  }
+  .cursor-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--yellow);
+  }
+  .cursor-ring {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--accent);
+    transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  }
+  .cursor-up .cursor-ring {
+    width: 70px;
+    height: 70px;
+    opacity: 0.6;
+  }
+  body {
+    cursor: none;
+  }
+  a,
+  button,
+  [role="button"],
+  .cursor-target {
+    cursor: none;
+  }
+}
+
+/* --- Buttons ---
+   Vibrant yellow fill with dark text for primary CTAs. */
+.btn-brand,
+a.btn-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--yellow);
+  color: var(--ink);
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 9px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-brand:hover,
+a.btn-brand:hover {
+  background: #EAB308;
+}
+.btn-brand:active,
+a.btn-brand:active {
+  transform: translateY(1px);
+}
+
+/* Ghost variant — same yellow fill, pill radius. */
+.btn-ghost,
+a.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--yellow);
+  border: 1px solid var(--yellow);
+  color: var(--ink);
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 9999px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.btn-ghost:hover,
+a.btn-ghost:hover {
+  background: #EAB308;
+  border-color: #EAB308;
+}
+
+/* --- Deep Shiny Blue Gradient section ---
+   Rich navy-to-cobalt gradient for contrast bands (footer,
+   factory network, mission, quote CTA). */
+.dark-gradient-bg {
+  background: linear-gradient(135deg, #070D1D 0%, #0F1C3F 50%, #1E3A8A 100%);
+  color: #fff;
+  position: relative;
+}
+.dark-gradient-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 80% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 55%);
+  pointer-events: none;
+}
+.dark-gradient-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Testimonials variant keeps the same blue gradient surface */
+.testimonial-bg {
+  background: linear-gradient(135deg, #070D1D 0%, #0F1C3F 50%, #1E3A8A 100%);
+  color: #fff;
+}
+
+/* --- Navbar ---
+    Transparent over the hero — no fill, no border, so it blends with the
+    image — and a flat solid dark bar once the page scrolls. Text stays
+    light so the logo and links stay legible. */
+.navbar-glass-scrolled {
+  background: rgba(7, 13, 29, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.product-card {
+  border: 0;
+  box-shadow: none;
+}
+
+.product-card-image {
+  transform: scale(1);
+  transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.feral-gradient-export > div[aria-hidden="true"] {
+  mix-blend-mode: normal !important;
+}
+
+.mv-aurora-glow {
+  background-image:
+    radial-gradient(120% 85% at 16% -10%, rgba(247, 197, 39, 0.2), transparent 58%),
+    radial-gradient(85% 70% at 88% 108%, rgba(251, 232, 126, 0.16), transparent 60%);
+}
+
+.mv-stripes {
+  background-image: repeating-linear-gradient(
+    102deg,
+    rgba(251, 232, 126, 0.5) 0px,
+    rgba(247, 197, 39, 0.22) 34px,
+    transparent 34px,
+    transparent 92px
+  );
+  -webkit-mask-image: radial-gradient(78% 62% at 26% 16%, #000 0%, transparent 76%);
+  mask-image: radial-gradient(78% 62% at 26% 16%, #000 0%, transparent 76%);
+}
+
+.mv-panel {
+  background-image: linear-gradient(
+    180deg,
+    rgba(20, 22, 26, 0.86),
+    rgba(14, 16, 19, 0.94)
+  );
+}
+
+.product-card-mask {
+  clip-path: inset(0 round 1rem);
+  background-color: #fff;
+  transition:
+    background-color 240ms cubic-bezier(0.23, 1, 0.32, 1),
+    color 240ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.product-card-base-content {
+  transition: opacity 180ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+  /* The photo takes over on intent while the copy remains legible above it. */
+  .product-card-mask {
+    clip-path: inset(0 round 1rem);
+  }
+
+  .product-card:hover .product-card-mask,
+  .product-card:focus-visible .product-card-mask {
+    background-color: transparent;
+  }
+
+  .product-card:hover .product-card-base-content,
+  .product-card:focus-visible .product-card-base-content {
+    opacity: 0;
+  }
+
+  .product-card:hover .product-card-copy,
+  .product-card:focus-visible .product-card-copy {
+    color: rgba(255, 255, 255, 0.96);
+  }
+
+  .product-card:hover .product-card-note,
+  .product-card:focus-visible .product-card-note {
+    color: rgba(255, 255, 255, 0.96);
+  }
+
+  .product-card:hover .product-card-image {
+    transform: scale(1.04);
+  }
+
+  .product-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+.capability-image {
+  transition: transform 700ms ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  .capability-panel {
+    transition: flex-grow 500ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .capability-panel:hover,
+  .capability-panel:focus-visible {
+    flex-grow: 1.7;
+  }
+
+  .capability-panel:hover .capability-image,
+  .capability-panel:focus-visible .capability-image {
+    transform: scale(1.05);
+  }
+
+  .capability-panel:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-card-image,
+  .product-card-mask,
+  .capability-panel,
+  .capability-image {
+    transition: none;
+  }
+}

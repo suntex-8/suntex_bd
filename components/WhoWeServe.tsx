@@ -57,9 +57,9 @@ export function WhoWeServe() {
             {/* Anchored to the foot of the rail so it closes the gap the
                 taller ledger on the right leaves behind. */}
             <motion.figure variants={imageIn} className="mt-10 lg:mt-auto lg:pt-12">
-              <div className="relative aspect-4/3 overflow-hidden rounded-xl">
+              <div className="relative aspect-4/3 overflow-hidden hidden lg:block rounded-xl">
                 <Image
-                  src="/suntex-bg-1.webp"
+                  src="/suntex-bg-2.png"
                   alt=""
                   fill
                   sizes="(min-width: 1024px) 380px, (min-width: 640px) 60vw, 100vw"

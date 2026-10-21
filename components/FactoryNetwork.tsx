@@ -140,7 +140,7 @@ export function FactoryNetwork() {
   };
 
   return (
-    <section id="network" className="relative isolate overflow-hidden bg-ink py-20 lg:py-28">
+    <section id="network" className="relative isolate overflow-hidden bg-gradient-to-br from-[#070D1D] via-[#0F1C3F] to-[#1E3A8A] py-20 lg:py-28">
       <Image
         src="/3d_logo.png"
         alt=""

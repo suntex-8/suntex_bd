@@ -36,7 +36,7 @@ function ProductCard({ item }: { item: ProductCardData }) {
   return (
     <article
       tabIndex={0}
-      className="group relative isolate h-[280px] overflow-hidden rounded-2xl bg-ink outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 sm:h-[300px] lg:h-[320px]"
+      className="group relative isolate h-[280px] overflow-hidden rounded-2xl bg-gradient-to-br from-[#070D1D] via-[#0F1C3F] to-[#1E3A8A] outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 sm:h-[300px] lg:h-[320px]"
     >
       <Image
         src={item.image}
@@ -49,13 +49,13 @@ function ProductCard({ item }: { item: ProductCardData }) {
       {/* Resting scrim: just enough for the title to read */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-linear-to-t from-ink/75 via-ink/10 to-transparent"
+        className="absolute inset-0 bg-linear-to-t from-[#070D1D]/75 via-[#0F1C3F]/10 to-transparent"
       />
 
       {/* Reveal scrim: fades in on top, deeper and taller */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-linear-to-t from-ink via-ink/85 to-ink/20 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+        className="absolute inset-0 bg-linear-to-t from-[#070D1D] via-[#0F1C3F]/85 to-[#1E3A8A]/20 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
       />
 
       {/* Caption: the title stays, details unfold beneath it */}
@@ -165,7 +165,7 @@ export function Products() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
       >
-        <div className="absolute top-[-28%] right-[-8%] h-[620px] w-[620px] rounded-[50%] bg-accent/12 blur-[130px] lg:h-[760px] lg:w-[760px]" />
+        <div         className="absolute top-[-28%] right-[-8%] h-[620px] w-[620px] rounded-[50%] bg-blue-600/10 blur-[130px] lg:h-[760px] lg:w-[760px]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-8">

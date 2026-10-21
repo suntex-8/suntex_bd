@@ -30,7 +30,7 @@ export function About() {
   return (
     <motion.section
       id="about"
-      className="relative isolate overflow-hidden bg-ink py-20 text-white lg:py-28"
+      className="relative isolate overflow-hidden bg-gradient-to-br from-[#070D1D] via-[#0F1C3F] to-[#1E3A8A] py-20 text-white lg:py-28"
       variants={group}
       initial={prefersReducedMotion ? false : "hidden"}
       whileInView="show"

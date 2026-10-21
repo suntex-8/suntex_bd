@@ -87,11 +87,10 @@ export function Hero() {
             sizes="100vw"
             className="object-cover"
           />
-          {/* The image stays luminous on the right; the darker left field gives
-              the copy and quote panel a deliberate place to land. */}
-          <div className="absolute inset-0 bg-linear-to-b from-ink/65 via-ink/30 to-ink/90" />
-          <div className="absolute inset-0 bg-linear-to-r from-ink/95 via-ink/55 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(247,197,39,0.14),transparent_24%)]" />
+          {/* Blue gradient overlay — deep navy to cobalt */}
+          <div className="absolute inset-0 bg-linear-to-b from-[#070D1D]/70 via-[#0F1C3F]/40 to-[#070D1D]/90" />
+          <div className="absolute inset-0 bg-linear-to-r from-[#070D1D]/95 via-[#0F1C3F]/55 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(250,204,21,0.12),transparent_24%)]" />
         </motion.div>
       </AnimatePresence>
 
@@ -142,7 +141,7 @@ export function Hero() {
               </motion.p>
 
               <motion.div variants={copy} custom={3} className="pt-1">
-                <Button href={slide.ctaHref} variant="inverted" className="ring-1 ring-ink bg-white text-ink hover:bg-white/90">
+                <Button href="/about" variant="inverted" className="ring-1 ring-white/30 bg-yellow text-ink hover:bg-accent">
                   {slide.cta}
                 </Button>
               </motion.div>
