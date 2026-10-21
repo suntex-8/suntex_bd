@@ -55,7 +55,7 @@ export default function Intro() {
             </h4>
 
             <a
-              href="#about"
+              href="/about"
               className="mt-7 inline-flex min-h-11 items-center gap-3 rounded-full bg-ink py-1 pl-5 pr-1 text-[12px] font-medium text-white"
             >
               Our story

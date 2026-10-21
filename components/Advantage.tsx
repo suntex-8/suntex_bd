@@ -153,7 +153,7 @@ function PanelShell({
   return (
     <motion.div
       variants={panelIn}
-      className="relative h-[430px] overflow-hidden rounded-[2rem] border border-white/70 bg-white/45 shadow-[0_18px_50px_rgba(14,16,19,0.06)] backdrop-blur-xl sm:h-[460px] [--dx:37%] [--sx:40%] lg:[--dx:24%] lg:[--sx:27%]"
+      className="relative h-[430px] overflow-hidden rounded-[2rem] border border-blue-700/15 bg-gradient-to-br from-blue-900/[0.06] to-blue-700/[0.03] shadow-[0_18px_50px_rgba(30,58,138,0.08)] backdrop-blur-xl sm:h-[460px] [--dx:37%] [--sx:40%] lg:[--dx:24%] lg:[--sx:27%]"
     >
       <div className="absolute inset-x-0 top-0 z-20 px-5 pt-5 sm:px-7 sm:pt-6">
         <div className="flex flex-col gap-1 text-[10px] font-semibold tracking-[0.16em] text-muted uppercase">
@@ -284,7 +284,7 @@ function SuntexPanel() {
       {/* Compact hub (mobile only; desktop uses the one between panels) */}
       <At x={13} y={HUB_Y} z={8}>
         <motion.div variants={pop} className="relative lg:hidden">
-          <span className="absolute -inset-2.5 rounded-full border border-accent/30 bg-accent/10" />
+          <span className="absolute -inset-2.5 rounded-full border border-blue-600/25 bg-blue-600/10" />
           <span className="relative flex flex-col items-center gap-1">
             <Image
               src="/suntex1logo.png"
@@ -308,7 +308,7 @@ function SuntexPanel() {
             className="absolute z-[6] -translate-x-1/2 -translate-y-1/2"
             style={{ left: "var(--dx)", top: `${s.y}%` }}
           >
-            <motion.span variants={pop} className="block h-1.5 w-1.5 rounded-full bg-accent" />
+            <motion.span variants={pop} className="block h-1.5 w-1.5 rounded-full bg-blue-600" />
           </div>
           <div
             className="absolute z-10 -translate-y-1/2"
@@ -361,22 +361,22 @@ function Hub() {
         style={{ top: `${HUB_Y}%`, width: lineW }}
       />
       <span
-        className="absolute right-0 h-px bg-accent"
+        className="absolute right-0 h-px bg-blue-600"
         style={{ top: `${HUB_Y}%`, width: lineW }}
       />
       {[-nodeRadius, nodeRadius].map((dx) => (
         <span
           key={dx}
-          className="absolute z-[6] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent"
+          className="absolute z-[6] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600"
           style={{ left: `calc(50% + ${dx}px)`, top: `${HUB_Y}%` }}
         />
       ))}
 
       <At x={50} y={HUB_Y}>
         <motion.div variants={pop} className="relative">
-          <span className="absolute -inset-5 rounded-[2rem] border border-accent/15 bg-accent/[0.04]" />
-          <span className="absolute -inset-2 rounded-[1.75rem] border border-accent/25 bg-accent/[0.08]" />
-          <span className="relative flex h-[104px] w-[104px] flex-col items-center justify-center gap-1.5 rounded-[1.5rem] border border-white/80 bg-white/70 shadow-[0_14px_30px_rgba(14,16,19,0.1)] backdrop-blur-md">
+          <span className="absolute -inset-5 rounded-[2rem] border border-blue-600/20 bg-blue-600/[0.06]" />
+          <span className="absolute -inset-2 rounded-[1.75rem] border border-blue-600/30 bg-blue-600/[0.1]" />
+          <span className="relative flex h-[104px] w-[104px] flex-col items-center justify-center gap-1.5 rounded-[1.5rem] border border-blue-700/20 bg-white/80 shadow-[0_14px_30px_rgba(30,58,138,0.15)] backdrop-blur-md">
             <Image
               src="/suntex1logo.png"
               alt="SUNTEX"

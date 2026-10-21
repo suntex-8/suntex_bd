@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
    than p-1 + ps/pe: tailwind-merge treats p-* as conflicting with ps/pe
    and drops the p-* class outright, taking the block padding with it. */
 const PILL =
-  "group relative inline-flex h-12 w-fit items-center cursor-pointer overflow-hidden rounded-full bg-ink py-1 ps-6 pe-14 text-sm font-medium text-white transition-all duration-500 hover:ps-14 hover:pe-6 disabled:pointer-events-none disabled:opacity-60";
+  "group relative inline-flex h-12 w-fit items-center cursor-pointer overflow-hidden rounded-full bg-yellow py-1 ps-6 pe-14 text-sm font-medium text-ink transition-all duration-500 hover:ps-14 hover:pe-6 disabled:pointer-events-none disabled:opacity-60";
 
 /* calc() needs whitespace around the minus or the declaration is dropped
    and the chip never moves — hence the underscores. 100% - 44px lands
@@ -30,7 +30,7 @@ const PILL =
    flex row is the content edge — the chip would ride the top of the
    pill. 4px + 40px + 4px is the 48px pill, so it lands centred. */
 const CHIP =
-  "absolute top-1 right-1 flex h-10 w-10 items-center justify-center rounded-full bg-ink text-white transition-all duration-500 group-hover:right-[calc(100%_-_44px)] group-hover:rotate-45";
+  "absolute top-1 right-1 flex h-10 w-10 items-center justify-center rounded-full bg-ink text-yellow transition-all duration-500 group-hover:right-[calc(100%_-_44px)] group-hover:rotate-45";
 
 export interface ButtonProps {
   children: ReactNode;
@@ -73,7 +73,7 @@ export function Button({
           "absolute top-1 right-1 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-500 group-hover:right-[calc(100%_-_44px)] group-hover:rotate-45",
           variant === "inverted"
             ? "bg-ink text-white"
-            : "bg-white text-ink",
+            : "bg-yellow text-ink",
           chipClassName
         )}
         aria-hidden="true"
@@ -109,7 +109,7 @@ export function Button({
    no label to give the chip's slide to, so it stays a circle and inverts
    on hover — the same black/white pair as the pill, one step quieter. */
 const ICON_BUTTON =
-  "inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-ink text-white transition-colors duration-300 hover:bg-white hover:text-ink disabled:pointer-events-none disabled:opacity-60";
+  "inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-white/10 text-white backdrop-blur-sm transition-colors duration-300 hover:bg-yellow hover:text-ink disabled:pointer-events-none disabled:opacity-60";
 
 export interface IconButtonProps {
   children: ReactNode;

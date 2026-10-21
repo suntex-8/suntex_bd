@@ -39,7 +39,7 @@ export function Loader() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: EASE }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-ink"
+            className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#070D1D] via-[#0F1C3F] to-[#1E3A8A]"
             aria-hidden="true"
           >
             <div className="relative z-10 flex items-center justify-center gap-5 px-6 sm:gap-8">

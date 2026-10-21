@@ -30,7 +30,7 @@ export function FloatingContactBar() {
     <div
       aria-hidden={!isVisible}
       hidden={!isVisible}
-      className="fixed right-4 bottom-4 z-[100] flex items-center gap-1.5 rounded-full border border-white/15 bg-ink/95 p-1.5 text-white shadow-[0_10px_30px_rgba(0,0,0,0.2)] backdrop-blur-md sm:right-6 sm:bottom-6"
+      className="fixed right-4 bottom-4 z-[100] flex items-center gap-1.5 rounded-full border border-white/15 bg-[#070D1D]/90 p-1.5 text-white shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md sm:right-6 sm:bottom-6"
       aria-label="Contact SUNTEX"
     >
       <a

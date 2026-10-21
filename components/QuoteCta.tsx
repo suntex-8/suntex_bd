@@ -46,7 +46,7 @@ export function QuoteCta() {
 
   return (
     <motion.section
-      className="relative isolate overflow-hidden bg-ink py-16 text-white lg:py-24"
+      className="relative isolate overflow-hidden bg-gradient-to-br from-[#070D1D] via-[#0F1C3F] to-[#1E3A8A] py-16 text-white lg:py-24"
       aria-labelledby="quote-cta-title"
       variants={group}
       initial={prefersReducedMotion ? false : "hidden"}
@@ -61,8 +61,8 @@ export function QuoteCta() {
           sizes="100vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-ink/70" />
-        <div className="absolute inset-0 bg-linear-to-r from-ink/85 via-ink/70 to-ink/55" />
+        <div className="absolute inset-0 bg-[#070D1D]/70" />
+        <div className="absolute inset-0 bg-linear-to-r from-[#070D1D]/85 via-[#0F1C3F]/70 to-[#1E3A8A]/55" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">

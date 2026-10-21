@@ -2,13 +2,16 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #14161a;
-  --ink: #0e1013;
+  --foreground: #070D1D;
+  --ink: #070D1D;
   --muted: #54585f;
-  --line: rgba(20, 22, 26, 0.12);
-  --surface: #f4f4f2;
-  --yellow: #fbe87e;
-  --accent: #f7c527;
+  --line: rgba(7, 13, 29, 0.12);
+  --surface: #F8FAFC;
+  --yellow: #FACC15;
+  --accent: #EAB308;
+  --blue-900: #070D1D;
+  --blue-800: #0F1C3F;
+  --blue-700: #273992;
 }
 
 @theme inline {
@@ -20,6 +23,9 @@
   --color-surface: var(--surface);
   --color-yellow: var(--yellow);
   --color-accent: var(--accent);
+  --color-blue-900: var(--blue-900);
+  --color-blue-800: var(--blue-800);
+  --color-blue-700: var(--blue-700);
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
 }
@@ -151,18 +157,15 @@ p {
 }
 
 /* --- Buttons ---
-   One flat black fill with a white label. Hover lifts the black a step
-   rather than swapping in the yellow — the accent stays for the small
-   marks (rules, icon chips, counters) so the buttons read as a single
-   quiet surface instead of competing with the highlights. */
+   Vibrant yellow fill with dark text for primary CTAs. */
 .btn-brand,
 a.btn-brand {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: var(--ink);
-  color: #fff;
+  background: var(--yellow);
+  color: var(--ink);
   font-weight: 600;
   white-space: nowrap;
   border-radius: 9px;
@@ -170,25 +173,23 @@ a.btn-brand {
 }
 .btn-brand:hover,
 a.btn-brand:hover {
-  background: #24272d;
+  background: #EAB308;
 }
 .btn-brand:active,
 a.btn-brand:active {
   transform: translateY(1px);
 }
 
-/* Same fill as .btn-brand — the ghost variant is kept only for the
-   different geometry (pill radius) and the pair no longer diverge in
-   colour. */
+/* Ghost variant — same yellow fill, pill radius. */
 .btn-ghost,
 a.btn-ghost {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: var(--ink);
-  border: 1px solid var(--ink);
-  color: #fff;
+  background: var(--yellow);
+  border: 1px solid var(--yellow);
+  color: var(--ink);
   font-weight: 600;
   white-space: nowrap;
   border-radius: 9999px;
@@ -196,16 +197,15 @@ a.btn-ghost {
 }
 .btn-ghost:hover,
 a.btn-ghost:hover {
-  background: #24272d;
-  border-color: #24272d;
+  background: #EAB308;
+  border-color: #EAB308;
 }
 
-/* --- Flat dark section ---
-   One quiet near-black surface for contrast bands (footer,
-   factory network, mission). No glow, no noise — whitespace does
-   the work. Subtle top light keeps cards from feeling heavy. */
+/* --- Deep Shiny Blue Gradient section ---
+   Rich navy-to-cobalt gradient for contrast bands (footer,
+   factory network, mission, quote CTA). */
 .dark-gradient-bg {
-  background-color: var(--ink);
+  background: linear-gradient(135deg, #070D1D 0%, #0F1C3F 50%, #1E3A8A 100%);
   color: #fff;
   position: relative;
 }
@@ -213,7 +213,7 @@ a.btn-ghost:hover {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(120% 80% at 50% 0%, rgba(255, 255, 255, 0.05), transparent 55%);
+  background: radial-gradient(120% 80% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 55%);
   pointer-events: none;
 }
 .dark-gradient-bg > * {
@@ -221,9 +221,9 @@ a.btn-ghost:hover {
   z-index: 1;
 }
 
-/* Testimonials variant keeps the same quiet dark surface */
+/* Testimonials variant keeps the same blue gradient surface */
 .testimonial-bg {
-  background: var(--ink);
+  background: linear-gradient(135deg, #070D1D 0%, #0F1C3F 50%, #1E3A8A 100%);
   color: #fff;
 }
 
@@ -232,7 +232,7 @@ a.btn-ghost:hover {
     image — and a flat solid dark bar once the page scrolls. Text stays
     light so the logo and links stay legible. */
 .navbar-glass-scrolled {
-  background: rgba(14, 16, 19, 0.82);
+  background: rgba(7, 13, 29, 0.85);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
