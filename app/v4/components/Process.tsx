@@ -102,9 +102,9 @@ export function Process() {
                         className="group min-w-0 cursor-pointer"
                       >
                         <div className="flex items-center gap-3">
-                          <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border sm:h-12 sm:w-12 transition-all duration-300 ease-out group-hover:scale-110 group-hover:-translate-y-1 group-hover:shadow-lg group-hover:shadow-blue-900/20 motion-reduce:transition-none ${processIconStyles[index]}`}>
+                          <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border sm:h-12 sm:w-12 transition-[transform,box-shadow] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.15] group-hover:-translate-y-1 group-hover:shadow-lg group-hover:shadow-blue-900/20 motion-reduce:transition-none motion-reduce:group-hover:scale-100 ${processIconStyles[index]}`}>
                             <Icon
-                              className="h-[18px] w-[18px] transition-transform duration-300 ease-out group-hover:scale-110 sm:h-5 sm:w-5 motion-reduce:transition-none"
+                              className="h-[18px] w-[18px] transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.3] sm:h-5 sm:w-5 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                               strokeWidth={1.5}
                               aria-hidden="true"
                             />
